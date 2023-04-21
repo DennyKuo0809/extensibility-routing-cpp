@@ -22,7 +22,7 @@
 * `get_neighbor(int index)` 
   * 回傳 node `index` 的所有 neighbor (`vector<int>`)
 * `get_capacity(int src, int dst)`
-  * 回傳 edge `src $\to$ dst的 capacity (`double`)
+  * 回傳 edge `src` $\to$ `dst` 的 capacity (`double`)
 * `get_graph()`
   * 回傳 adjancency list (`vector<vector<int> >`)
 * `get_type_1()`
