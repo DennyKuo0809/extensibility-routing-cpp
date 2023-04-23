@@ -1,5 +1,4 @@
 # Data structure and API
-[TOC]
 
 ## Scenario
 #### Data structure
