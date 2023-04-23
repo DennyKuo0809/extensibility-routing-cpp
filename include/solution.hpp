@@ -10,23 +10,33 @@ class Solution{
 private:
     Scenario scenario;
 
+    std::vector<std::vector<int> > type1_path;
+    bool type1_solved;
+    std::string type1_method;
+
+    std::vector<std::vector<int> > type2_path;
+    bool type2_solved;
+
+
 public:
     /* Constructor */
     Solution() = delete;
-    Solution(Scenario S): scenario{S} {}
+    Solution(Scenario S): 
+        scenario{S}, type1_solved{false}, type2_solved{false}, type1_method{""} {}
 
     /* API */
-    // void avaiable_method();
+    /* API: getter */
+    std::vector<std::vector<int> > get_type1_path() const;
 
     /* API: caller */
-    std::vector<std::vector<int> > type1_solver(std::string method);
-    std::vector<std::vector<int> > type2_solver();
+    void solve_type1(std::string method);
+    void solve_type2();
 
-    /* Member Function: solver */
-    std::vector<std::vector<int> > shortest_path();
-    std::vector<std::vector<int> > least_used_capacity_percentage();
-    std::vector<std::vector<int> > min_max_percentage();
-    std::vector<std::vector<int> > least_conflict_value();
+    /* Member Function: type-1 solver */
+    void shortest_path();
+    void least_used_capacity_percentage();
+    void min_max_percentage();
+    void least_conflict_value();
 };
 
 #endif
