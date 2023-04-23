@@ -1,6 +1,9 @@
 #ifndef SCENARIO_CPP
 #define SCENARIO_CPP
-#include "scenario.hpp"
+#include <queue>
+#include <stack>
+#include <algorithm>
+#include "../include/scenario.hpp"
 
 void Scenario::psuh_adj_list(){
     adj_list.push_back(std::vector<int>());
@@ -127,6 +130,79 @@ std::ostream& operator<< (std::ostream& os, Scenario& S){
         os << "[Type-2] from " << t2[i].src << " to " << t2[i].dst << "(data rate = " << t2[i].data_rate << ", lambda = " << t2[i].Lambda << ")" << std::endl;
     }
     return os;
+}
+
+
+/* Member Function: About graph */
+/* BFS to find shortest path in the network */
+std::vector<int> Scenario::shortest_path(int src, int dst, int data_rate){
+    std::vector<int> path;
+
+    /* BFS */
+    std::queue<int> q;
+    std::vector<int> prev(vertex_num, -1);
+    std::vector<bool> visited(vertex_num, false);
+
+    q.push(src);
+    visited[src] = true;
+
+    bool found = false;
+    while(!found && !q.empty()){
+        int node = q.front();
+        q.pop();
+        for(int j = 0 ; j < adj_list[node].size() ; j ++){
+            if(!visited[adj_list[node][j]] && capacity[node][adj_list[node][j]] > data_rate){
+                visited[adj_list[node][j]] = true;
+                q.push(adj_list[node][j]);
+                prev[adj_list[node][j]] = node;
+
+                if(adj_list[node][j] == dst){ 
+                    found = true;
+                    break;
+                }
+            }
+        }
+    }
+
+    /* Construct Shortest Path */
+    int node = dst;
+    while(node >= 0){
+        path.push_back(node);
+        node = prev[node];
+    }
+    std::reverse(path.begin(), path.end());
+
+    return (src == path[0])? path : std::vector<int>();
+}
+
+/* DFS to find all path from src to dst in the network */
+void Scenario::dfs(int current, int dst, int data_rate, int dist, int* cur_path, bool* visited, std::vector<std::vector<int> >& path){
+    if(current == dst){
+        cur_path[dist] = dst;
+        path.push_back(std::vector<int>());
+        int id = path.size() - 1;
+        for(int i = 0 ; i < dist ; i ++){
+            path[id].push_back(cur_path[i]);
+        }
+        return;
+    }
+    for(int i = 0 ; i < adj_list[current].size() ; i ++){
+        if(!visited[adj_list[current][i]] && capacity[current][adj_list[current][i]] > data_rate){
+            visited[adj_list[current][i]] = true;
+            cur_path[dist] = adj_list[current][i];
+            dfs(adj_list[current][i], dst, data_rate, dist+1, cur_path, visited, path);
+            visited[adj_list[current][i]] = false;
+        }
+    }
+}
+void Scenario::all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path){
+    int* cur_path = new int[vertex_num];
+    bool* visited = new bool[vertex_num];
+    cur_path[0] = src;
+    visited[src] = true;
+    dfs(src, dst, data_rate, 1, cur_path, visited, path);
+    delete cur_path;
+    delete visited;
 }
 
 #endif
