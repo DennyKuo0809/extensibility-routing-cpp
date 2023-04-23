@@ -86,6 +86,11 @@ std::vector<std::vector<int> > Solution::least_conflict_value(){
     /* Find shortest path for type-2 */
     for(int i = 0 ; i < Type_2.size() ; i ++){
         std::vector<int> path = scenario.shortest_path(Type_2[i].src, Type_2[i].dst, Type_2[i].data_rate);
+        if(path.size() == 0){
+            /* Fail to solve type-2 streams */
+            std::cerr << "[Info] The type-2 streams is un-solvable" << std::endl;
+            return std::vector<std::vector<int> >();
+        }
         for(int j = 0 ; j < path.size()-1 ; j ++){
             occupy[path[j]][path[j+1]] += Type_2[i].data_rate;
         }
