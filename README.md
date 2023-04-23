@@ -2,7 +2,8 @@
 
 
 ## Scenario
-
+#### Data structure and API
+* [detail](https://github.com/DennyKuo0809/extensibility-routing-cpp/tree/main/include#readme)
 #### Simple demo
 * Use the testcase file `input/demo.in`
 * Create demo.cpp
