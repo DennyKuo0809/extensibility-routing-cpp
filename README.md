@@ -50,5 +50,5 @@ g++ demo.cpp src/scenario.cpp -o scenario_demo
 ```
 * run
 ```sh=
-./scenario < input/demo.in
+./scenario_ < input/demo.in
 ```
