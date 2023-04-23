@@ -33,12 +33,12 @@ g++ demo.cpp src/scenario.cpp -o scenario_demo
 * Create main.cpp
 ```cpp=
 #include <iostream>
-#include
 #include "include/scenario.hpp"
 #include "include/solution.hpp"
 
 int main(){
   Scenario S;
+  std::cin >> S;
   Solution solver(S);
   
   solver.solve_type1("shortest_path");
