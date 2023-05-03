@@ -2,6 +2,7 @@
 #include <string>
 #include <queue>
 #include <algorithm>
+#include <set>
 #include "../include/solution.hpp"
 
 
@@ -138,4 +139,109 @@ void Solution::least_conflict_value(){
         }
         type1_path.push_back(all_path[least_id]);
     }
+}
+
+
+void Solution::solve_type2(){
+    /* Remove the capacity which occupy by type-1 streams */
+
+    
+    /* Construct cycle pool */
+    Circuit_finding Cf(scenario.graph);
+    Cf.johnson();
+    cycle_pool = Cf.get_cycle_pool();
+
+    /* Cycle Merge */
+    for(int i = 0 ; i < cycle_pool.size() ; i ++){
+        cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
+    }
+
+    for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
+        full_set.insert(i);
+    }
+
+    for(int start = 0 ; start < cycle_pool.size() ; start ++){
+        greedy_merge(start);
+    }
+    
+    /* Cycle Seclection */
+    cycle_selection();
+
+}
+
+
+void Solution::greedy_merge(int start){
+    std::vector<int> curr = cycle_pool[start]; /* Current cycle being merged */
+    std::set<int> curr_set = cycle_set[start]; /* nodes have been covered */
+    std::set<int> uncover; /* nodes have not been covered */
+
+    std::set_difference(full_set.begin(), full_set.end(),
+                        cycle_set[start].begin(), cycle_set[start].end(),
+                        std::inserter(uncover, uncover.begin()));
+
+    while(uncover.size()){
+        /* select the cycle that contains the most uncover nodes */
+        int max_uncover_num = 0;
+        int repeat_node_num = -1;
+        int repeat_node_id = -1;
+        int max_uncover_id = start;
+        
+        for(int i = start + 1 ; i < cycle_pool.size() ; i ++){
+            /* Check whether the cycle contains uncovered nodes */
+            std::set<int> has_uncover;
+            std::set_intersection(uncover.begin(), uncover.end(), cycle_set[i].begin(), cycle_set[i].end(), std::inserter(has_uncover, has_uncover.begin()));
+            if(!has_uncover.size()) continue;
+
+            /* Check whether the cycle contains coverd nodes (for orbit transition) */
+            std::set<int> has_intersect;
+            std::set_intersection(curr_set.begin(), curr_set.end(), cycle_set[i].begin(), cycle_set[i].end(), std::inserter(has_intersect, has_intersect.begin()));
+            if(!has_intersect.size()) continue;
+
+            /* Select the cycle which contains more uncovered nodes and less covered nodes */
+            if(int(has_uncover.size()) > max_uncover_num || (int(has_uncover.size()) == max_uncover_num && has_intersect.size() < repeat_node_num)){
+                max_uncover_num = has_uncover.size();
+                repeat_node_num = has_intersect.size();
+                repeat_node_id = *(has_intersect.begin());
+                max_uncover_id = i;
+            }
+        }
+        
+        if(max_uncover_num > 0){
+            std::set_union(curr_set.begin(), curr_set.end(), cycle_set[max_uncover_id].begin(), cycle_set[max_uncover_id].end(), std::inserter(curr_set, curr_set.begin()));
+            std::set<int> uncover_tmp;
+            std::set_difference(uncover.begin(), uncover.end(), cycle_set[max_uncover_id].begin(), cycle_set[max_uncover_id].end(), std::inserter(uncover_tmp, uncover_tmp.begin())); 
+            uncover = uncover_tmp;
+
+            
+            curr.push_back(max_uncover_id);
+            for(int i = 0 ; i < curr.size() - 1 ; i ++){
+
+            }
+        }
+        else{
+            break;
+        }
+    }
+
+    if(!uncover.size()) { /* Cover all nodes */
+        result.push_back(curr);
+    }
+}
+
+void Solution::cycle_selection(){
+    /******************************************************************
+     * To minimize:
+     *  1. Total/Average number of orbit transition of type-2 streams
+     *  2. Total/Average length of routing path of type-2 streams
+     ******************************************************************/
+
+    // for(int i = 0 ; i < result.size() ; i ++){
+    //     int total_transition = 0;
+    //     int total_length = 0;
+    //     /* Route every type-2 streams */
+    //     for(auto stream: scenario.Type_2){
+    //         stream.src;
+    //         stream.dst;
+    //     }
+    // }
 }
