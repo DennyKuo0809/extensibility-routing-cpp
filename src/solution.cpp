@@ -5,12 +5,29 @@
 #include <set>
 #include "../include/solution.hpp"
 
-
+/* API */
+/* API: getter */
 std::vector<std::vector<int> > Solution::get_type1_path() const{
     return type1_path;
 }
 
+std::vector<std::vector<int> > Solution::get_type2_path() const{
+    return type2_path;
+}
 
+std::vector<std::vector<int> > Solution::get_cycle_pool() const{
+    return cycle_pool;
+}
+
+/* API: setter */
+void Solution::set_type1_path(std::vector<std::vector<int> > t1_path){
+    if(!type1_solved && type2_solved){
+        type1_path = t1_path;
+        type1_solved = true;
+    }
+}
+
+/* API: caller */
 void Solution::solve_type1(std::string method){
     if(method == "shortest_path"){
         shortest_path();
@@ -31,7 +48,34 @@ void Solution::solve_type1(std::string method){
         type1_solved = true;
     }
 }
+void Solution::solve_type2(){
+    /* Remove the capacity which occupy by type-1 streams */
 
+    
+    /* Construct cycle pool */
+    Circuit_finding Cf(scenario.graph);
+    Cf.johnson();
+    cycle_pool = Cf.get_cycle_pool();
+
+    /* Cycle Merge */
+    for(int i = 0 ; i < cycle_pool.size() ; i ++){
+        cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
+    }
+
+    for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
+        full_set.insert(i);
+    }
+
+    for(int start = 0 ; start < cycle_pool.size() ; start ++){
+        greedy_merge(start);
+    }
+    
+    /* Cycle Seclection */
+    cycle_selection();
+
+}
+
+/* Member Function: type-1 solver */
 void Solution::shortest_path(){
     type1_path = std::vector<std::vector<int> >();
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
@@ -142,34 +186,7 @@ void Solution::least_conflict_value(){
 }
 
 
-void Solution::solve_type2(){
-    /* Remove the capacity which occupy by type-1 streams */
-
-    
-    /* Construct cycle pool */
-    Circuit_finding Cf(scenario.graph);
-    Cf.johnson();
-    cycle_pool = Cf.get_cycle_pool();
-
-    /* Cycle Merge */
-    for(int i = 0 ; i < cycle_pool.size() ; i ++){
-        cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
-    }
-
-    for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
-        full_set.insert(i);
-    }
-
-    for(int start = 0 ; start < cycle_pool.size() ; start ++){
-        greedy_merge(start);
-    }
-    
-    /* Cycle Seclection */
-    cycle_selection();
-
-}
-
-
+/* Member Function: type-2 utilization */
 void Solution::greedy_merge(int start){
     std::vector<int> curr = cycle_pool[start]; /* Current cycle being merged */
     std::set<int> curr_set = cycle_set[start]; /* nodes have been covered */
@@ -234,14 +251,26 @@ void Solution::cycle_selection(){
      *  1. Total/Average number of orbit transition of type-2 streams
      *  2. Total/Average length of routing path of type-2 streams
      ******************************************************************/
+    int vertex_num = scenario.graph.get_vertex_num();
 
-    // for(int i = 0 ; i < result.size() ; i ++){
-    //     int total_transition = 0;
-    //     int total_length = 0;
-    //     /* Route every type-2 streams */
-    //     for(auto stream: scenario.Type_2){
-    //         stream.src;
-    //         stream.dst;
-    //     }
-    // }
+    for(int i = 0 ; i < result.size() ; i ++){
+        /***********************************************************************
+        * Construct a new graph.
+        *   1. Duplicate the nodes that occur in multiple cycle.
+        *   2. Capacity of edges between the duplicated node set to ?(maybe 10)
+        *   3. Capacity of edges between the 
+        ************************************************************************/
+        
+        Graph g = Graph();
+        g.set_vertex_num(vertex_num);
+        std::vector<int> frequency(vertex_num, 0);
+
+        for(int cid: result[i]){
+            for(int nid = 0 ; nid < cycle_pool[cid].size() ; nid ++){
+                
+            }
+        }
+
+        /* Shortest Path Routing */
+    }
 }

@@ -123,6 +123,6 @@ void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<in
     cur_path[0] = src;
     visited[src] = true;
     dfs(src, dst, data_rate, 1, cur_path, visited, path);
-    delete cur_path;
-    delete visited;
+    delete[] cur_path;
+    delete[] visited;
 }

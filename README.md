@@ -19,7 +19,7 @@ int main(){
 ```
 * compile
 ```sh=
-g++ demo.cpp src/scenario.cpp -o scenario_demo
+g++ -std=c++11 demo.cpp src/scenario.cpp -o scenario_demo
 ```
 * run
 ```sh=
@@ -48,7 +48,7 @@ int main(){
 ```
 * compile
 ```sh=
-g++ main.cpp src/scenario.cpp src/solution.cpp -o solver
+g++ -std=c++11 main.cpp src/scenario.cpp src/solution.cpp -o solver
 ```
 * run
 ```sh=

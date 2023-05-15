@@ -34,8 +34,11 @@ public:
     /* API */
     /* API: getter */
     std::vector<std::vector<int> > get_type1_path() const;
+    std::vector<std::vector<int> > get_type2_path() const;
     std::vector<std::vector<int> > get_cycle_pool() const;
     
+    /* API: setter */
+    void set_type1_path(std::vector<std::vector<int> > t1_path);
 
     /* API: caller */
     void solve_type1(std::string method);
