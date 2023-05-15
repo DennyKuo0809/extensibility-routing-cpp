@@ -4,6 +4,23 @@
 #include <algorithm>
 #include <set>
 #include "../include/solution.hpp"
+void printvec(std::vector<int> vec){
+    for(int i = 0 ; i < vec.size() ; i ++){
+        std::cout << vec[i] << " ";
+    }
+    std::cout << "\n";
+}
+
+void print2dvec(std::string name, std::vector<std::vector<int> > vec){
+    std::cout << name << "-----------------------------------\n";
+    for(int i = 0 ; i < vec.size() ; i ++){
+        for(int j = 0 ; j < vec[i].size() ; j ++){
+            std::cout << vec[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "-----------------------------\n";
+}
 
 /* API */
 /* API: getter */
@@ -50,7 +67,12 @@ void Solution::solve_type1(std::string method){
 }
 void Solution::solve_type2(){
     /* Remove the capacity which occupy by type-1 streams */
-
+    for(int i = 0 ; i < type1_path.size() ; i ++){
+        for(int j = 0 ; j < type1_path[i].size() - 1 ; j ++){
+            double new_cap = scenario.graph.get_capacity(type1_path[i][j], type1_path[i][j+1]) - scenario.Type_1[i].data_rate;
+            scenario.graph.set_capacity(type1_path[i][j], type1_path[i][j+1], new_cap);
+        }
+    }
     
     /* Construct cycle pool */
     Circuit_finding Cf(scenario.graph);
@@ -188,10 +210,11 @@ void Solution::least_conflict_value(){
 
 /* Member Function: type-2 utilization */
 void Solution::greedy_merge(int start){
-    std::vector<int> curr = cycle_pool[start]; /* Current cycle being merged */
+    std::vector<int> curr; /* Current cycle being merged */
     std::set<int> curr_set = cycle_set[start]; /* nodes have been covered */
     std::set<int> uncover; /* nodes have not been covered */
 
+    curr.push_back(start);
     std::set_difference(full_set.begin(), full_set.end(),
                         cycle_set[start].begin(), cycle_set[start].end(),
                         std::inserter(uncover, uncover.begin()));
@@ -231,9 +254,6 @@ void Solution::greedy_merge(int start){
 
             
             curr.push_back(max_uncover_id);
-            for(int i = 0 ; i < curr.size() - 1 ; i ++){
-
-            }
         }
         else{
             break;
@@ -245,6 +265,7 @@ void Solution::greedy_merge(int start){
     }
 }
 
+
 void Solution::cycle_selection(){
     /******************************************************************
      * To minimize:
@@ -252,7 +273,11 @@ void Solution::cycle_selection(){
      *  2. Total/Average length of routing path of type-2 streams
      ******************************************************************/
     int vertex_num = scenario.graph.get_vertex_num();
-
+    std::vector<int> reverse_map_(vertex_num, 0);
+    for(int i = 0 ; i < vertex_num ; i ++) reverse_map_[i] = i;
+    
+    print2dvec("cycle_pool", cycle_pool);
+    print2dvec("result", result);
     for(int i = 0 ; i < result.size() ; i ++){
         /***********************************************************************
         * Construct a new graph.
@@ -260,17 +285,67 @@ void Solution::cycle_selection(){
         *   2. Capacity of edges between the duplicated node set to ?(maybe 10)
         *   3. Capacity of edges between the 
         ************************************************************************/
-        
-        Graph g = Graph();
-        g.set_vertex_num(vertex_num);
-        std::vector<int> frequency(vertex_num, 0);
 
-        for(int cid: result[i]){
-            for(int nid = 0 ; nid < cycle_pool[cid].size() ; nid ++){
-                
+        /* Copy the cycles */
+        std::vector<std::vector<int> > CP;
+        for(int j = 0 ; j < result[i].size() ; j ++) CP.push_back(cycle_pool[result[i][j]]);
+        std::cout << "CP.size() "  << CP.size() << "\n";
+        print2dvec("CP", CP);
+        
+        /* New graph */
+        Graph g = Graph();
+
+        /* Calculate the number of duplicate nodes */
+        std::vector<int> freq(vertex_num, 0);
+        std::vector<int> reverse_map = reverse_map_;
+        std::vector< std::vector<int> > dup(vertex_num, std::vector<int>());
+        int total_vertex_num = vertex_num;
+
+        for(int j = 0 ; j < CP.size() ; j ++){
+            for(int nid = 0 ; nid < CP[j].size() ; nid ++){
+                int node = CP[j][nid];
+                freq[node] ++;
+                if(freq[node] > 1){
+                    dup[node].push_back(total_vertex_num); 
+                    reverse_map.push_back(total_vertex_num);
+                    CP[j][nid] = total_vertex_num;
+                    total_vertex_num ++;
+                }
+                else{
+                    dup[node].push_back(node);
+                }
+            }
+        }
+        print2dvec("dup", dup);
+        /* Set new graph */
+        g.set_vertex_num(total_vertex_num);
+
+        /* Duplicated nodes formed complete graph */
+        for(int node = 0 ; node < vertex_num ; node ++){
+            for(int i = 0 ; i < dup[node].size() ; i ++){
+                for(int j = i+1 ; j < dup[node].size() ; j ++){
+                    g.set_neighbor(dup[node][i], dup[node][j], 100);
+                }
             }
         }
 
-        /* Shortest Path Routing */
+        /* The edge in cycles */
+        for(int j = 0 ; j < CP.size() ; j ++){
+            for(int nid = 0 ; nid < CP[j].size() - 1 ; nid ++){
+                g.set_neighbor(CP[j][nid], CP[j][nid+1], 1);
+            }
+            g.set_neighbor(CP[j][CP[j].size() - 1], CP[j][0], 1);
+        }
+
+        /***********************************************************************
+         *  Shortest Path Routing
+         *      Using Dijkstra
+         ***********************************************************************/
+        
+        // for(auto stream: scenario.Type_2){
+        //     g.clear_neighbor(total_vertex_num);
+        //     for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0);
+        //     g.dijk(total_vertex_num);
+        // }
     }
 }

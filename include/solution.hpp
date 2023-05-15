@@ -2,6 +2,7 @@
 #define SOLUTION_HPP
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include <string>
 #include <set>
 #include "scenario.hpp"

@@ -22,6 +22,7 @@ public:
     /* API: setter */
     void set_vertex_num(int num);
     void set_neighbor(int src, int dst, double data_rate);
+    void clear_neighbor(int src);
     void set_capacity(int src, int dst, double data_rate);
 
     /* API: getter */
@@ -37,6 +38,9 @@ public:
     /* DFS to find all path from src to dst in the network */
     void dfs(int current, int dst, int dist, int data_rate, int* cur_path, bool* visited, std::vector<std::vector<int> >& path);
     void all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path);
+
+    /* Dijkstra Algorithm */
+    std::vector<int> dijk(int src, std::vector<int> dst);
 
     friend class SCC;
     friend class Circuit_finding;

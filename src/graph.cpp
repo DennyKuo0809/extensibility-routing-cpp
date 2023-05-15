@@ -37,6 +37,10 @@ void Graph::set_neighbor(int src, int dst, double data_rate){
     adj_list[src].push_back(dst);
     capacity[src][dst] = data_rate;
 }
+void Graph::clear_neighbor(int src){
+    for(int neighbor: adj_list[src]) capacity[src][neighbor] = 0;
+    adj_list[src] = std::vector<int>();
+}
 void Graph::set_capacity(int src, int dst, double data_rate){
     capacity[src][dst] = data_rate;
 }
@@ -125,4 +129,9 @@ void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<in
     dfs(src, dst, data_rate, 1, cur_path, visited, path);
     delete[] cur_path;
     delete[] visited;
+}
+
+/* Dijkstra Algorithm */
+std::vector<int> Graph::dijk(int src, std::vector<int> dst){
+    
 }
