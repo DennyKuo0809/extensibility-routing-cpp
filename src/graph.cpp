@@ -133,5 +133,50 @@ void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<in
 
 /* Dijkstra Algorithm */
 std::vector<int> Graph::dijk(int src, std::vector<int> dst){
-    
+    int INF = 2146483647;
+    std::vector<int> dis(vertex_num, INF);
+    std::vector<bool> included(vertex_num, false);
+    std::vector<int> prev(vertex_num, -1);
+
+    for(auto neighbor: adj_list[src]){
+        dis[neighbor] = capacity[src][neighbor];
+    }
+
+    included[src] = true;
+    for(int cnt = 1 ; cnt < vertex_num ; cnt ++){
+        int min_dis = INF;
+        int min_dis_node = -1;
+        for(int node = 0 ; node < vertex_num - 1 ; node ++){
+            if(!included[node] && dis[node] < min_dis){
+                min_dis = dis[node];
+                min_dis_node = node;
+            }
+        }
+        if(min_dis_node < 0) break;
+        included[min_dis_node] = true;
+
+        for(int neighbor: adj_list[min_dis_node]){
+            if(dis[neighbor] > dis[min_dis_node] + capacity[min_dis_node][neighbor]){
+                prev[neighbor] = min_dis_node;
+                dis[neighbor] = dis[min_dis_node] + capacity[min_dis_node][neighbor];
+            }
+        }
+    }
+    int min_dis = INF;
+    int min_dis_dst = -1;
+    for(int d: dst){
+        if(dis[d] < INF){
+            min_dis = dis[d];
+            min_dis_dst = d;
+        }
+    }
+
+    std::vector<int> sol_path;
+    int node = min_dis_dst;
+    while(node != -1) {
+        sol_path.push_back(node);
+        node = prev[node];
+    }
+    std::reverse(sol_path.begin(), sol_path.end());
+    return sol_path;
 }

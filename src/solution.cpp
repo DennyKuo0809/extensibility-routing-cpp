@@ -12,14 +12,14 @@ void printvec(std::vector<int> vec){
 }
 
 void print2dvec(std::string name, std::vector<std::vector<int> > vec){
-    std::cout << name << "-----------------------------------\n";
-    for(int i = 0 ; i < vec.size() ; i ++){
-        for(int j = 0 ; j < vec[i].size() ; j ++){
-            std::cout << vec[i][j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "-----------------------------\n";
+    // std::cout << name << "-----------------------------------\n";
+    // for(int i = 0 ; i < vec.size() ; i ++){
+    //     for(int j = 0 ; j < vec[i].size() ; j ++){
+    //         std::cout << vec[i][j] << " ";
+    //     }
+    //     std::cout << "\n";
+    // }
+    // std::cout << "-----------------------------\n";
 }
 
 /* API */
@@ -318,7 +318,7 @@ void Solution::cycle_selection(){
         }
         print2dvec("dup", dup);
         /* Set new graph */
-        g.set_vertex_num(total_vertex_num);
+        g.set_vertex_num(total_vertex_num+1);
 
         /* Duplicated nodes formed complete graph */
         for(int node = 0 ; node < vertex_num ; node ++){
@@ -342,10 +342,11 @@ void Solution::cycle_selection(){
          *      Using Dijkstra
          ***********************************************************************/
         
-        // for(auto stream: scenario.Type_2){
-        //     g.clear_neighbor(total_vertex_num);
-        //     for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0);
-        //     g.dijk(total_vertex_num);
-        // }
+        for(auto stream: scenario.Type_2){
+            g.clear_neighbor(total_vertex_num);
+            for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0.01);
+            std::vector<int> sol_path = g.dijk(total_vertex_num, dup[stream.dst]);
+            printvec(sol_path);
+        }
     }
 }

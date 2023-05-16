@@ -1,6 +1,7 @@
 #ifndef GRAPH_HPP
 #define GRAPH_HPP
 #include <vector>
+#include <algorithm>
 
 class SCC;
 class Circuit_finding;
