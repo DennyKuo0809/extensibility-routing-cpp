@@ -278,6 +278,8 @@ void Solution::cycle_selection(){
     
     print2dvec("cycle_pool", cycle_pool);
     print2dvec("result", result);
+    int min_cost = 2147483647;
+    int min_cost_result = 0;
     for(int i = 0 ; i < result.size() ; i ++){
         /***********************************************************************
         * Construct a new graph.
@@ -341,12 +343,23 @@ void Solution::cycle_selection(){
          *  Shortest Path Routing
          *      Using Dijkstra
          ***********************************************************************/
-        
+        int cost = 0;
+        std::vector<std::vector<int> > sol_path;
         for(auto stream: scenario.Type_2){
             g.clear_neighbor(total_vertex_num);
             for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0.01);
-            std::vector<int> sol_path = g.dijk(total_vertex_num, dup[stream.dst]);
-            printvec(sol_path);
+            std::vector<int> tmp = g.dijk(total_vertex_num, dup[stream.dst], &cost);
+            for(int e = 0 ; e < tmp.size() ; e ++){
+                if(tmp[e] >= total_vertex_num) tmp[e] = reverse_map[tmp[e]];
+            }
+            sol_path.push_back(tmp);
+            printvec(tmp);
+        }
+        if(cost < min_cost){
+            min_cost = cost;
+            min_cost_result = i;
+            type2_path = sol_path;
         }
     }
+    print2dvec("Type2 routing path", type2_path);
 }

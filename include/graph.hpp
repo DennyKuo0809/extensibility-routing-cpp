@@ -41,7 +41,7 @@ public:
     void all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path);
 
     /* Dijkstra Algorithm */
-    std::vector<int> dijk(int src, std::vector<int> dst);
+    std::vector<int> dijk(int src, std::vector<int> dst, int* cost);
 
     friend class SCC;
     friend class Circuit_finding;
