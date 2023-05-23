@@ -1,4 +1,4 @@
 demo:
-	g++ -std=c++11 demo.cpp src/*.cpp -o demo
+	g++ -std=c++11 src/*.cpp -o extensibility_routing
 clean:
-	rm -f extensibility_routing.a demo
+	rm -f extensibility_routing

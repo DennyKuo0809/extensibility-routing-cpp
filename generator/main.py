@@ -12,15 +12,9 @@ def parse_args() -> Namespace:
         help="Path to input data."
     )
     parser.add_argument(
-        "--type1_route",
+        "--routing_path",
         type=str,
-        help="Path to the pickle file which stores the route of type1 streams",
-        default=0.0
-    )
-    parser.add_argument(
-        "--type2_route",
-        type=str,
-        help="Path to the pickle file which stores the route of type2 streams",
+        help="Path to the routing path of type1+2 streams",
         default=0.0
     )
     parser.add_argument(
@@ -43,10 +37,10 @@ def main(args):
     T.fromFile(args.scenario)
     T.genNed(args.ned_output)
     R = ini_generator.Route(T)
-    R.parseRouting(args.type1_route, args.type2_route)
-    # print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
+    R.fromFile(args.routing_path)
+    print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
-    R.genINI(args.ini_output)
+    R.genINI(args.ini_output, "output/map.out")
 
 if __name__ == "__main__":
     args = parse_args()

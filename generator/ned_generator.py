@@ -1,4 +1,3 @@
-
 ned_header = "package inet.tutorials.demo_test;\n"
 ned_header += "import inet.networks.base.TsnNetworkBase;\n"
 ned_header += "import inet.node.ethernet.EthernetLink;\n"
@@ -77,7 +76,7 @@ class Topology():
 
     def genNed(self, file_name):
         # if file_name were not specified, output the result to stdout
-        with open(file_name, "w") as out_f:
+        with open(file_name, "w+") as out_f:
             # header
             print(ned_header, file=out_f)
 

@@ -4,23 +4,23 @@
 #include <algorithm>
 #include <set>
 #include "../include/solution.hpp"
-void printvec(std::vector<int> vec){
-    for(int i = 0 ; i < vec.size() ; i ++){
-        std::cout << vec[i] << " ";
-    }
-    std::cout << "\n";
-}
+// void printvec(std::vector<int> vec){
+//     // for(int i = 0 ; i < vec.size() ; i ++){
+//     //     std::cout << vec[i] << " ";
+//     // }
+//     // std::cout << "\n";
+// }
 
-void print2dvec(std::string name, std::vector<std::vector<int> > vec){
-    // std::cout << name << "-----------------------------------\n";
-    // for(int i = 0 ; i < vec.size() ; i ++){
-    //     for(int j = 0 ; j < vec[i].size() ; j ++){
-    //         std::cout << vec[i][j] << " ";
-    //     }
-    //     std::cout << "\n";
-    // }
-    // std::cout << "-----------------------------\n";
-}
+// void print2dvec(std::string name, std::vector<std::vector<int> > vec){
+//     std::cout << name << "\n";
+//     for(int i = 0 ; i < vec.size() ; i ++){
+//         for(int j = 0 ; j < vec[i].size() ; j ++){
+//             std::cout << vec[i][j] << " ";
+//         }
+//         std::cout << "\n";
+//     }
+//     std::cout << "-----------------------------\n";
+// }
 
 /* API */
 /* API: getter */
@@ -276,8 +276,8 @@ void Solution::cycle_selection(){
     std::vector<int> reverse_map_(vertex_num, 0);
     for(int i = 0 ; i < vertex_num ; i ++) reverse_map_[i] = i;
     
-    print2dvec("cycle_pool", cycle_pool);
-    print2dvec("result", result);
+    // print2dvec("cycle_pool", cycle_pool);
+    // print2dvec("result", result);
     int min_cost = 2147483647;
     int min_cost_result = 0;
     for(int i = 0 ; i < result.size() ; i ++){
@@ -291,8 +291,8 @@ void Solution::cycle_selection(){
         /* Copy the cycles */
         std::vector<std::vector<int> > CP;
         for(int j = 0 ; j < result[i].size() ; j ++) CP.push_back(cycle_pool[result[i][j]]);
-        std::cout << "CP.size() "  << CP.size() << "\n";
-        print2dvec("CP", CP);
+        // std::cout << "CP.size() "  << CP.size() << "\n";
+        // print2dvec("CP", CP);
         
         /* New graph */
         Graph g = Graph();
@@ -309,7 +309,7 @@ void Solution::cycle_selection(){
                 freq[node] ++;
                 if(freq[node] > 1){
                     dup[node].push_back(total_vertex_num); 
-                    reverse_map.push_back(total_vertex_num);
+                    reverse_map.push_back(node);
                     CP[j][nid] = total_vertex_num;
                     total_vertex_num ++;
                 }
@@ -318,7 +318,7 @@ void Solution::cycle_selection(){
                 }
             }
         }
-        print2dvec("dup", dup);
+        // print2dvec("dup", dup);
         /* Set new graph */
         g.set_vertex_num(total_vertex_num+1);
 
@@ -353,13 +353,45 @@ void Solution::cycle_selection(){
                 if(tmp[e] >= total_vertex_num) tmp[e] = reverse_map[tmp[e]];
             }
             sol_path.push_back(tmp);
-            printvec(tmp);
+            // printvec(tmp);
         }
         if(cost < min_cost){
             min_cost = cost;
             min_cost_result = i;
-            type2_path = sol_path;
+            type2_path = std::vector<std::vector<int> >();
+            for(int ns = 0 ; ns < sol_path.size() ; ns ++){
+                type2_path.push_back(std::vector<int> ());
+                for(int nn = 0 ; nn < sol_path[ns].size() ; nn ++){
+                    int no = sol_path[ns][nn];
+                    if(no >= vertex_num) no = reverse_map[no];
+                    if(nn == 0 || no != type2_path[ns][nn-1]){
+                        type2_path[ns].push_back(no);
+                    }
+                }
+            }
         }
     }
-    print2dvec("Type2 routing path", type2_path);
+
+
+    // print2dvec("Type2 routing path", type2_path);
+}
+
+std::ostream& operator<< (std::ostream& os, Solution& sol){
+    if(/*sol.type1_path.size() && sol.type2_path.size()*/ true){
+        os << sol.type1_path.size() << "\n";
+        for(int i = 0 ; i < sol.type1_path.size() ; i ++){
+            for(int j = 0 ; j < sol.type1_path[i].size() ; j ++){
+                os << sol.type1_path[i][j] << " ";
+            }
+            os << "\n";
+        }
+        os << sol.type2_path.size() << "\n";
+        for(int i = 0 ; i < sol.type2_path.size() ; i ++){
+            for(int j = 0 ; j < sol.type2_path[i].size() ; j ++){
+                os << sol.type2_path[i][j] << " ";
+            }
+            os << "\n";
+        }
+    }
+    return os;
 }

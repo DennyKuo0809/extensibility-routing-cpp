@@ -154,6 +154,21 @@ class Route():
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
 
+    def fromFile(self, file_name):
+        with open(file_name, 'r') as in_f:
+            num_type1 = int(in_f.readline().strip())
+            for _ in range(num_type1):
+                p = in_f.readline().split()
+                p = [int(e) for e in p]
+                self.type1_route.append(p)
+
+            num_type2 = int(in_f.readline().strip())
+            for _ in range(num_type2):
+                p = in_f.readline().split()
+                p = [int(e) for e in p]
+                self.type2_route.append(p)
+            
+
     def parseRouting(self, type1_route, type2_cycle):
         self.type1_route = [r[0] for r in type1_route]
         
@@ -184,7 +199,7 @@ class Route():
         return 
     def genINI(self, outFile, mapping_file):
         mapping_buf = ""
-        with open(outFile, "w") as out_f:
+        with open(outFile, "w+") as out_f:
             #############
             #   Header  #
             #############

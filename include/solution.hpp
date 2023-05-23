@@ -54,6 +54,9 @@ public:
     /* Member Function: type-2 utilization */
     void greedy_merge(int start);
     void cycle_selection();
+
+    /* IO */
+    friend std::ostream& operator<< (std::ostream& os, Solution& sol);
 };
 
 #endif
