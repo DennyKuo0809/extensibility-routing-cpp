@@ -11,16 +11,16 @@
 //     // std::cout << "\n";
 // }
 
-// void print2dvec(std::string name, std::vector<std::vector<int> > vec){
-//     std::cout << name << "\n";
-//     for(int i = 0 ; i < vec.size() ; i ++){
-//         for(int j = 0 ; j < vec[i].size() ; j ++){
-//             std::cout << vec[i][j] << " ";
-//         }
-//         std::cout << "\n";
-//     }
-//     std::cout << "-----------------------------\n";
-// }
+void print2dvec(std::string name, std::vector<std::vector<int> > vec){
+    std::cout << name << "\n";
+    for(int i = 0 ; i < vec.size() ; i ++){
+        for(int j = 0 ; j < vec[i].size() ; j ++){
+            std::cout << vec[i][j] << " ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "-----------------------------\n";
+}
 
 /* API */
 /* API: getter */
@@ -78,6 +78,7 @@ void Solution::solve_type2(){
     Circuit_finding Cf(scenario.graph);
     Cf.johnson();
     cycle_pool = Cf.get_cycle_pool();
+    print2dvec("cycle_pool", cycle_pool);
 
     /* Cycle Merge */
     for(int i = 0 ; i < cycle_pool.size() ; i ++){

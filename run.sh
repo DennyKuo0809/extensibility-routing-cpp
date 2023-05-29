@@ -1,6 +1,6 @@
 ### Command Line Arguments
 # $1: path to scenario
-# $2: type1 mathod
+# $2: type1 method
 # $3: path to ned
 # $4: path to ini
 
