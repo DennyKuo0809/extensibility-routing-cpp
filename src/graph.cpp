@@ -133,7 +133,7 @@ void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<in
 
 /* Dijkstra Algorithm */
 std::vector<int> Graph::dijk(int src, std::vector<int> dst, int* cost){
-    int INF = 2146483647;
+    int INF = 2147483647;
     std::vector<int> dis(vertex_num, INF);
     std::vector<bool> included(vertex_num, false);
     std::vector<int> prev(vertex_num, -1);

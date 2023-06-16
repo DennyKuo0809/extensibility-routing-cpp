@@ -2,56 +2,10 @@
 # import ned_generator
 # import sys
 import pickle
-
-header = "[General]\n"
-header += "network = TSN_multipath\n"
-header += "sim-time-limit = 2ms\n"
-#############################################################
-#   disable automatic MAC forwarding table configuration    #
-#############################################################
-header += "\n"
-header += "# disable automatic MAC forwarding table configuration\n"
-header += "*.macForwardingTableConfigurator.typename = \"\"\n"
-
-#################################################
-#   enable frame replication and elimination    #
-#################################################
-header += "\n"
-header += "# enable frame replication and elimination\n"
-header += "*.*.hasStreamRedundancy = true\n"
-
-#########################################
-#   enable stream policing in layer 2   #
-#########################################
-header += "\n"
-header += "# enable stream policing in layer 2\n"
-header += "*.*.bridging.streamRelay.typename = \"StreamRelayLayer\"\n"
-header += "*.*.bridging.streamCoder.typename = \"StreamCoderLayer\"\n"
-
-#####################################################
-#   enable automatic stream redundancy configurator #
-#####################################################
-header += "\n"
-header += "# enable automatic stream redundancy configurator\n"
-header += "*.streamRedundancyConfigurator.typename = \"StreamRedundancyConfigurator\"\n"
-
-#################
-#   visualizer  #
-#################
-header += "\n"
-header += "# visualizer\n"
-header += "*.visualizer.streamRedundancyConfigurationVisualizer.displayTrees = true\n"
-header += "*.visualizer.streamRedundancyConfigurationVisualizer.lineColor = \"black\"\n"
-
-#####################################
-#   bitrate  of network interface   #
-#####################################
-header += "\n"
-# header += "*.*.eth[*].bitrate = 100Mbps\n"
-
 import math
 from enum import Enum
 import random
+import pprint
 
 class Stream_switch():
     def __init__(self, Lambda=0.5, period=100):
@@ -197,97 +151,145 @@ class Route():
                 self.type2_route.append(type2_cycle[s_idx:] + type2_cycle[1: d_idx+1])
 
         return 
-    def genINI(self, outFile, mapping_file):
-        mapping_buf = ""
-        with open(outFile, "w+") as out_f:
-            #############
-            #   Header  #
-            #############
-            print(header, end="", file=out_f)
 
-            ###############
-            #   Bit rate  #
-            ###############
-            # *.*.eth[*].bitrate = 100Mbps\n
+    def genINI(self, outFile, info_file):
+        stream_mapping = {}
+
+        with open(outFile, "w+") as f:
+            ### Basic configuration and setting
+            content = '''
+[General]
+network = TSN_multipath
+sim-time-limit = 2ms
+
+# disable automatic MAC forwarding table configuration
+*.macForwardingTableConfigurator.typename = ""
+
+# enable frame replication and elimination
+*.*.hasStreamRedundancy = true
+
+# enable stream policing in layer 2
+*.*.bridging.streamRelay.typename = "StreamRelayLayer"
+*.*.bridging.streamCoder.typename = "StreamCoderLayer"
+
+# enable automatic stream redundancy configurator
+*.streamRedundancyConfigurator.typename = "StreamRedundancyConfigurator"
+
+'''
+            f.write(content)
+
+            ### Bit rate of edges
+            content = ''
             for device in self.topology.hosts:
                 for i, br in enumerate(device.host_gates_bitrate):
-                    print(f"*.{device.name}.eth[{i}].bitrate = {int(10 * br)}Mbps", file=out_f)
+                    content += f"*.{device.name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
                 for i, br in enumerate(device.switch_gates_bitrate):
-                    print(f"*.{device.switch_name}.eth[{i}].bitrate = {int(10 * br)}Mbps", file=out_f)
-            #####################################
-            #   Source App  & Destination App   #
-            #####################################
-            print("# apps", end="", file=out_f)
+                    content += f"*.{device.switch_name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
+            f.write(content)
+
+            ### Apps
+            content = '''
+# apps
+            '''
             for i in range(self.topology.host_num):
                 name = self.topology.hosts[i].name
                 num = len(self.app[i])
-                print(f"\n*.{name}.numApps = {num}\n", end="", file=out_f)
+                content += f"\n*.{name}.numApps = {num}\n"
 
                 for j, app in enumerate(self.app[i]):
-                    buf = "\n"
                     if app['role'] == "send":
                         if app['type'] == 1:
-                            buf += f"*.{name}.app[{j}].typename = \"UdpSourceApp\"\n"
-                            buf += f"*.{name}.app[{j}].io.destAddress = \"{app['dst']}\"\n"
-                            buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
-                            buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
-                            buf += f"*.{name}.app[{j}].source.packetLength = {int(500*app['util'])}B\n"
-                            buf += f"*.{name}.app[{j}].source.productionInterval = 100us\n"
-                            buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
-                            buf += f"*.{name}.app[{j}].io.destPort = {app['destport']}\n"
+                            content += f'''
+*.{name}.app[{j}].typename = "UdpSourceApp"
+*.{name}.app[{j}].io.destAddress = "{app['dst']}"
+*.{name}.app[{j}].source.packetNameFormat = "%M-%m-%c"
+*.{name}.app[{j}].source.displayStringTextFormat = "sent %p pk (%l)"
+*.{name}.app[{j}].source.packetLength = {int(500*app['util'])}B
+*.{name}.app[{j}].source.productionInterval = 100us
+*.{name}.app[{j}].display-name = "type{app['type']}_{app['flow-id']}"
+*.{name}.app[{j}].io.destPort = {app['destport']}
+                            '''
                         elif app['type'] == 2:
-                            buf += f"*.{name}.app[{j}].typename = \"UdpBasicApp\"\n"
-                            buf += f"*.{name}.app[{j}].destAddresses = \"{app['dst']}\"\n"
-                            buf += f"*.{name}.app[{j}].source.packetNameFormat = \"%M-%m-%c\"\n"
-                            buf += f"*.{name}.app[{j}].source.displayStringTextFormat = \"sent %p pk (%l)\"\n"
-                            buf += f"*.{name}.app[{j}].messageLength = {int(500*app['util'])}B\n"
-                            buf += f"*.{name}.app[{j}].sendInterval = 100us\n"
-                            buf += f"*.{name}.app[{j}].startTime = {app['start']}us\n"
-                            buf += f"*.{name}.app[{j}].stopTime = {app['stop']}us\n"
-                            buf += f"*.{name}.app[{j}].display-name = \"type{app['type']}_{app['flow-id']}\"\n"
-                            buf += f"*.{name}.app[{j}].destPort = {app['destport']}\n"
+                            content += f'''
+*.{name}.app[{j}].typename = "UdpBasicApp"
+*.{name}.app[{j}].destAddresses = "{app['dst']}"
+*.{name}.app[{j}].source.packetNameFormat = "%M-%m-%c"
+*.{name}.app[{j}].source.displayStringTextFormat = "sent %p pk (%l)"
+*.{name}.app[{j}].messageLength = {int(500*app['util'])}B
+*.{name}.app[{j}].sendInterval = 100us
+*.{name}.app[{j}].startTime = {app['start']}us
+*.{name}.app[{j}].stopTime = {app['stop']}us
+*.{name}.app[{j}].display-name = "type{app['type']}_{app['flow-id']}"
+*.{name}.app[{j}].destPort = {app['destport']}
+                            '''
                     else:
-                        buf += f"*.{name}.app[{j}].typename = \"UdpSinkApp\"\n"
-                        buf += f"*.{name}.app[{j}].io.localPort = {app['localport']}\n"
+                        content += f'''
+*.{name}.app[{j}].typename = "UdpSinkApp"
+*.{name}.app[{j}].io.localPort = {app['localport']}
+                        '''
 
-                        mapping_buf += f"\'{name}.app[{j}]\' : \'type{app['type']}-flow{app['flow-id']}\',\n"
-                    print(buf, end="", file=out_f)
+                        ### Mapping destination module --> type + flow ID
+                        stream_mapping[f'{i}-{j}'] = {
+                            'stream-type': app['type'],
+                            'stream-id': app['flow-id'],
+                        }
+            f.write(content)
 
-            #####################
-            #   Routing Path    #
-            #####################
-
-            print("\n# seamless stream redundancy configuration", file=out_f)
-            print("*.streamRedundancyConfigurator.configuration = [\n", end="", file=out_f)
+            ### Routing
+            content = '''
+# seamless stream redundancy configuration
+*.streamRedundancyConfigurator.configuration = ['''
             for i, p in enumerate(self.type1_route):
-                buf = "\t{"
-                buf += f"name: \"S1-{i}\", packetFilter: \"*-type1_{i}-*\", source: \"{self.topology.hosts[p[0]].name}\", destination: \"{self.topology.hosts[p[-1]].name}\","
-                buf += f"trees: [[[\"{self.topology.hosts[p[0]].name}\", \"{self.topology.hosts[p[0]].switch_name}\""
-                for j in p[1:-1]:
-                    buf += f", \"{self.topology.hosts[j].switch_name}\""
-                buf += f", \"{self.topology.hosts[p[-1]].switch_name}\", \"{self.topology.hosts[p[-1]].name}\"]]]"
-                buf += "},"
-                print(buf, file=out_f)
-            for i, p in enumerate(self.type2_route):
-                buf = "\t{"
-                buf += f"name: \"S2-{i}\", packetFilter: \"*-type2_{i}-*\", source: \"{self.topology.hosts[p[0]].name}\", destination: \"{self.topology.hosts[p[-1]].name}\","
-                buf += f"trees: [[[\"{self.topology.hosts[p[0]].name}\", \"{self.topology.hosts[p[0]].switch_name}\""
-                for j in p[1:-1]:
-                    buf += f", \"{self.topology.hosts[j].switch_name}\""
-                buf += f",\"{self.topology.hosts[p[-1]].switch_name}\" ,\"{self.topology.hosts[p[-1]].name}\"]]]"
-                if i == len(self.type2_route)-1:
-                    buf += "}]"
-                else:
-                    buf += "},"
-                print(buf, file=out_f)
+                src_ = self.topology.hosts[p[0]].name
+                dst_ = self.topology.hosts[p[-1]].name
+                tree_ = [self.topology.hosts[p[j]].switch_name for j in p[1:-1]]
 
-            with open(mapping_file, 'w') as map_f:
-                print(mapping_buf, end="", file=map_f)
+                content += f'''
+    {{
+        name: "S1-{i}", 
+        packetFilter: "*-type1_{i}-*", 
+        source: "{self.topology.hosts[p[0]].name}", 
+        destination: "{self.topology.hosts[p[-1]].name}"
+        trees: [[{pprint.pformat(tree_)}]]
+    }},
+                '''
+            for i, p in enumerate(self.type2_route):
+                src_ = self.topology.hosts[p[0]].name
+                dst_ = self.topology.hosts[p[-1]].name
+                tree_ = [self.topology.hosts[p[j]].switch_name for j in p[1:-1]]
+
+                content += f'''
+    {{
+        name: "S1-{i}", 
+        packetFilter: "*-type1_{i}-*", 
+        source: "{self.topology.hosts[p[0]].name}", 
+        destination: "{self.topology.hosts[p[-1]].name}"
+        trees: [[{pprint.pformat(tree_)}]]
+    }}'''
+                if i != len(self.type2_route) - 1:
+                    content += ','
+            content += "\n]"
+            f.write(content)
+
+            with open(info_file, 'wb') as info_f:
+                pickle.dump(stream_mapping, info_f)
             '''
-            *.streamRedundancyConfigurator.configuration = [{name: "S1", packetFilter: "*-app1-*", source: "source", destination: "destination",
-                                                    trees: [[["source", "s1", "s2a", "s3a", "destination"]]]},
-            {name: "S2", packetFilter: "*-app0-*", source: "source", destination: "destination",
-                                                    trees: [[["source", "s1", "s2b", "s3b", "destination"]]]}]
+            *.streamRedundancyConfigurator.configuration = [
+                {
+                    name: "S1", 
+                    packetFilter: "*-app1-*", 
+                    source: "source", 
+                    destination: "destination",
+                    trees: [[["source", "s1", "s2a", "s3a", "destination"]]]
+                },
+                {
+                    name: "S2", 
+                    packetFilter: "*-app0-*", 
+                    source: "source", 
+                    destination: "destination",
+                    trees: [[["source", "s1", "s2b", "s3b", "destination"]]]
+                }
+            ]
             '''
 
 

@@ -1,17 +1,3 @@
-ned_header = "package inet.tutorials.demo_test;\n"
-ned_header += "import inet.networks.base.TsnNetworkBase;\n"
-ned_header += "import inet.node.ethernet.EthernetLink;\n"
-ned_header += "import inet.node.tsn.TsnDevice;\n"
-ned_header += "import inet.node.tsn.TsnSwitch;\n"
-ned_header += "\n"
-ned_header += "module LocalTsnSwitch extends TsnSwitch\n"
-ned_header += "{\n"
-ned_header += "\t@defaultStatistic(\"gateStateChanged:vector\"; module=\"eth[0].macLayer.queue.gate[0]\");\n"
-ned_header += "}\n"
-ned_header += "network TSN_multipath extends TsnNetworkBase\n"
-ned_header += "{\n"
-
-
 class Tsn_Device():
     def __init__(self, name="", switch_name = ""):
         # There always is a switch for amy device (host)
@@ -76,37 +62,56 @@ class Topology():
 
     def genNed(self, file_name):
         # if file_name were not specified, output the result to stdout
-        with open(file_name, "w+") as out_f:
-            # header
-            print(ned_header, file=out_f)
+        with open(file_name, "w+") as f:
+            ### header
+            content = '''
+package inet.tutorials.demo_test;
+import inet.networks.base.TsnNetworkBase;
+import inet.node.ethernet.EthernetLink;
+import inet.node.tsn.TsnDevice;
+import inet.node.tsn.TsnSwitch;
 
-            # submodule (host & switch)
-            print("\tsubmodules:\n", file=out_f)
-            for device in self.hosts:
-                submodule = "\t\t{}".format(device.name)
-                submodule += ": TsnDevice {\n"
-                submodule += "\t\t\t@display(\"p=300,200\");\n"
-                submodule += "\t\t}\n"
-                submodule += "\t\t{}".format(device.switch_name)
-                submodule += ": LocalTsnSwitch {\n"
-                submodule += "\t\t\t@display(\"p=300,200\");\n" 
-                submodule += "\t\t}\n"
-                print(submodule, file=out_f)
+module LocalTsnSwitch extends TsnSwitch
+{
+    @defaultStatistic(\"gateStateChanged:vector\"; module=\"eth[0].macLayer.queue.gate[0]\");
+}
+network TSN_multipath extends TsnNetworkBase
+{'''
+            f.write(content)
 
-            # connection (edge)
-            print("\tconnections:\n", file=out_f)
+            ### submodule (host & switch)
+            content = '''
+    submodules:'''
+
             for device in self.hosts:
-                print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(device.name, device.switch_name), file=out_f)
+                content += f'''
+        {device.name}: TsnDevice {{
+            @display("p=300,200");
+        }}
+        {device.switch_name}: LocalTsnSwitch {{
+            @display("p=300,200");
+        }}
+'''
+            f.write(content)
+
+            ### connection (edge)
+            content = '''
+    connections:'''
+
+            for device in self.hosts:
+                content += f'''
+        {device.name}.ethg++ <--> EthernetLink <--> {device.switch_name}.ethg++;'''
                 device.host_gates_bitrate.append(10)
                 device.switch_gates_bitrate.append(10)
 
             for edge in self.edges:
-                print("\t\t{}.ethg++ <--> EthernetLink <--> {}.ethg++;".format(self.hosts[edge.src].switch_name, self.hosts[edge.dst].switch_name), file=out_f)
+                content += f'''
+        {self.hosts[edge.src].switch_name}.ethg++ <--> EthernetLink <--> {self.hosts[edge.dst].switch_name}.ethg++;'''
                 self.hosts[edge.src].switch_gates_bitrate.append(edge.cap)
                 self.hosts[edge.dst].switch_gates_bitrate.append(edge.cap)
 
-            # end
-            print("}", file=out_f)
+            content += "\n}\n"
+            f.write(content)
 
 if __name__ == "__main__":
     T = Topology()

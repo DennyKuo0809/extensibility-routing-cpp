@@ -29,6 +29,12 @@ def parse_args() -> Namespace:
         help="Path to the ini generated result.",
         default=0.0
     )
+    parser.add_argument(
+        "--info_output",
+        type=str,
+        help="Path to the information of streams.",
+        default=0.0
+    )
     args = parser.parse_args()
     return args
 
@@ -40,7 +46,7 @@ def main(args):
     R.fromFile(args.routing_path)
     print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
-    R.genINI(args.ini_output, "output/map.out")
+    R.genINI(args.ini_output, args.info_output)
 
 if __name__ == "__main__":
     args = parse_args()

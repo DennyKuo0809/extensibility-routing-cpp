@@ -11,13 +11,17 @@
 class Solution{
 private:
     Scenario scenario;
-
+    /* Type-1 */
     std::vector<std::vector<int> > type1_path;
     bool type1_solved;
     std::string type1_method;
 
+    /* Type-2 */
     std::vector<std::vector<int> > type2_path;
     bool type2_solved;
+
+    /* Shortest path -- for analysis */
+    std::vector<std::vector<int> > shortest_path_routing;
 
     /* About cycle */
     std::vector<std::vector<int> > cycle_pool;
@@ -44,6 +48,7 @@ public:
     /* API: caller */
     void solve_type1(std::string method);
     void solve_type2();
+    void perform_shortest_path();
 
     /* Member Function: type-1 solver */
     void shortest_path();
@@ -57,6 +62,7 @@ public:
 
     /* IO */
     friend std::ostream& operator<< (std::ostream& os, Solution& sol);
+    void output_shortest_path(std::ostream& os);
 };
 
 #endif

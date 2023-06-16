@@ -1,5 +1,0 @@
-'host1.app[0]' : 'type1-flow1',
-'host2.app[0]' : 'type2-flow1',
-'host4.app[0]' : 'type1-flow0',
-'host4.app[1]' : 'type2-flow0',
-'host4.app[2]' : 'type2-flow2',

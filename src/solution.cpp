@@ -12,14 +12,20 @@
 // }
 
 void print2dvec(std::string name, std::vector<std::vector<int> > vec){
-    std::cout << name << "\n";
+    std::cerr << "[I] " << name << "\n";
     for(int i = 0 ; i < vec.size() ; i ++){
-        for(int j = 0 ; j < vec[i].size() ; j ++){
-            std::cout << vec[i][j] << " ";
+        std::cerr << "\t{" << i << "} ";
+        if(vec[i].size()){
+            std::cerr << vec[i][0];
         }
-        std::cout << "\n";
+        for(int j = 1 ; j < vec[i].size() ; j ++){
+            std::cerr << " --> " << vec[i][j];
+        }
+        if(name == "Cycle Pool"){
+            std::cerr << " --> " << vec[i][0];
+        }
+        std::cerr << "\n";
     }
-    std::cout << "-----------------------------\n";
 }
 
 /* API */
@@ -60,7 +66,8 @@ void Solution::solve_type1(std::string method){
     }
 
     if(type1_path.size() != 0){
-        std::cerr << "[Info] Solve type-1 by method \"" << method << "\" successfully." << std::endl;
+        std::cerr << "[I] Solve type-1 by method \"" << method << "\" successfully." << std::endl;
+        print2dvec("Type-1 solution", type1_path);
         type1_method = method;
         type1_solved = true;
     }
@@ -78,7 +85,8 @@ void Solution::solve_type2(){
     Circuit_finding Cf(scenario.graph);
     Cf.johnson();
     cycle_pool = Cf.get_cycle_pool();
-    print2dvec("cycle_pool", cycle_pool);
+    std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
+    print2dvec("Cycle Pool", cycle_pool);
 
     /* Cycle Merge */
     for(int i = 0 ; i < cycle_pool.size() ; i ++){
@@ -97,6 +105,18 @@ void Solution::solve_type2(){
     cycle_selection();
 
 }
+void Solution::perform_shortest_path(){
+    for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
+        shortest_path_routing.push_back( 
+            scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate)
+        );
+    }
+    for(int i = 0 ; i < scenario.Type_2.size() ; i ++){
+        shortest_path_routing.push_back( 
+            scenario.graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate)
+        );
+    }
+}
 
 /* Member Function: type-1 solver */
 void Solution::shortest_path(){
@@ -105,7 +125,7 @@ void Solution::shortest_path(){
         type1_path.push_back(scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
         if(type1_path[i].size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[Info] Fail to solve type-1 by the method \"Shortest Path\"." << std::endl;
+            std::cerr << "[W] Fail to solve type-1 by the method \"Shortest Path\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
@@ -118,7 +138,7 @@ void Solution::least_used_capacity_percentage(){
         scenario.graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
         if(all_path.size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[Info] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
+            std::cerr << "[W] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
@@ -144,7 +164,7 @@ void Solution::min_max_percentage(){
         scenario.graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
         if(all_path.size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[Info] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
+            std::cerr << "[W] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
@@ -172,7 +192,7 @@ void Solution::least_conflict_value(){
         std::vector<int> path = scenario.graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate);
         if(path.size() == 0){
             /* Fail to solve type-2 streams */
-            std::cerr << "[Info] The type-2 streams are un-solvable." << std::endl;
+            std::cerr << "[W] (least conflct value) The type-2 streams are un-solvable by using shortest path." << std::endl;
             return;
         }
         for(int j = 0 ; j < path.size()-1 ; j ++){
@@ -186,7 +206,7 @@ void Solution::least_conflict_value(){
         scenario.graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
         if(all_path.size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[Info] Fail to solve type-1 by the method \"Least Conflict Value\"." << std::endl;
+            std::cerr << "[W] Fail to solve type-1 by the method \"Least Conflict Value\"." << std::endl;
             type1_path =  std::vector<std::vector<int> >();
         }
         double least_c = 0.0;
@@ -373,8 +393,8 @@ void Solution::cycle_selection(){
         }
     }
 
-
-    // print2dvec("Type2 routing path", type2_path);
+    std::cerr << "[I] Cycle Selection completed. Type-2 solution is ready.\n";
+    print2dvec("Type-2 solution", type2_path);
 }
 
 std::ostream& operator<< (std::ostream& os, Solution& sol){
@@ -395,4 +415,16 @@ std::ostream& operator<< (std::ostream& os, Solution& sol){
         }
     }
     return os;
+}
+void Solution::output_shortest_path(std::ostream& os){
+    if(shortest_path_routing.size()){
+        for(int i = 0 ; i < shortest_path_routing.size() ; i ++){
+            int hop_cnt = shortest_path_routing[i].size()-1;
+            double total_cap = 0.0;
+            for(int j = 0 ; j < shortest_path_routing[i].size()-1 ; j ++){
+                total_cap += scenario.graph.get_capacity(shortest_path_routing[i][j], shortest_path_routing[i][j+1]);
+            }
+            os << hop_cnt << " " << total_cap << "\n";
+        }
+    }
 }
