@@ -121,7 +121,7 @@ class Route():
                 p = in_f.readline().split()
                 p = [int(e) for e in p]
                 self.type2_route.append(p)
-            
+    
 
     def parseRouting(self, type1_route, type2_cycle):
         self.type1_route = [r[0] for r in type1_route]
@@ -150,14 +150,10 @@ class Route():
             else:
                 self.type2_route.append(type2_cycle[s_idx:] + type2_cycle[1: d_idx+1])
 
-        return 
+        return
 
-    def genINI(self, outFile, info_file):
-        stream_mapping = {}
-
-        with open(outFile, "w+") as f:
-            ### Basic configuration and setting
-            content = '''
+    def genINI_scenario(self, ):
+        content = '''
 [General]
 network = TSN_multipath
 sim-time-limit = 2ms
@@ -176,46 +172,88 @@ sim-time-limit = 2ms
 *.streamRedundancyConfigurator.typename = "StreamRedundancyConfigurator"
 
 '''
-            f.write(content)
+        ### Bit rate of edges
+        for device in self.topology.hosts:
+            for i, br in enumerate(device.host_gates_bitrate):
+                content += f"*.{device.name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
+            for i, br in enumerate(device.switch_gates_bitrate):
+                content += f"*.{device.switch_name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
+        return content
 
-            ### Bit rate of edges
-            content = ''
-            for device in self.topology.hosts:
-                for i, br in enumerate(device.host_gates_bitrate):
-                    content += f"*.{device.name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
-                for i, br in enumerate(device.switch_gates_bitrate):
-                    content += f"*.{device.switch_name}.eth[{i}].bitrate = {int(10 * br)}Mbps\n"
-            f.write(content)
+    def genINI_routing(self, ):
+        ### Routing
+        content = '''
+# seamless stream redundancy configuration
+*.streamRedundancyConfigurator.configuration = ['''
+        for i, p in enumerate(self.type1_route):
+            print(p)
+            src_ = self.topology.hosts[p[0]].name
+            dst_ = self.topology.hosts[p[-1]].name
+            tree_ = [src_] + [self.topology.hosts[j].switch_name for j in p] + [dst_]
+            content += f'''
+    {{
+        name: "S1-{i}", 
+        packetFilter: "*-type1_{i}-*", 
+        source: "{src_}", 
+        destination: "{dst_}",
+        trees: [[{pprint.pformat(tree_).replace("'", '"')}]]
+    }},'''
+        for i, p in enumerate(self.type2_route):
+            print(p)
+            src_ = self.topology.hosts[p[0]].name
+            dst_ = self.topology.hosts[p[-1]].name
+            tree_ = [src_] + [self.topology.hosts[j].switch_name for j in p] + [dst_]
+            content += f'''
+    {{
+        name: "S2-{i}", 
+        packetFilter: "*-type1_{i}-*", 
+        source: "{self.topology.hosts[p[0]].name}", 
+        destination: "{self.topology.hosts[p[-1]].name}",
+        trees: [[{pprint.pformat(tree_).replace("'", '"')}]]
+    }}'''
+            if i != len(self.type2_route) - 1:
+                content += ','
+        content += "]\n"
+        return content
+
+    def genINI(self, outFile, info_file):
+        module_2_stream = {}
+        stream_2_module = {}
+
+        with open(outFile, "w+") as f:
+            ### Basic configuration and setting + Capacity of edges
+            scenario_content = self.genINI_scenario()
+            f.write(scenario_content)
 
             ### Apps
-            content = '''
+            app_content = '''
 # apps
             '''
             for i in range(self.topology.host_num):
                 name = self.topology.hosts[i].name
                 num = len(self.app[i])
-                content += f"\n*.{name}.numApps = {num}\n"
+                app_content += f"\n*.{name}.numApps = {num}\n"
 
                 for j, app in enumerate(self.app[i]):
                     if app['role'] == "send":
                         if app['type'] == 1:
-                            content += f'''
+                            app_content += f'''
 *.{name}.app[{j}].typename = "UdpSourceApp"
 *.{name}.app[{j}].io.destAddress = "{app['dst']}"
 *.{name}.app[{j}].source.packetNameFormat = "%M-%m-%c"
 *.{name}.app[{j}].source.displayStringTextFormat = "sent %p pk (%l)"
-*.{name}.app[{j}].source.packetLength = {int(500*app['util'])}B
+*.{name}.app[{j}].source.packetLength = {int(1000*app['util'])}B
 *.{name}.app[{j}].source.productionInterval = 100us
 *.{name}.app[{j}].display-name = "type{app['type']}_{app['flow-id']}"
 *.{name}.app[{j}].io.destPort = {app['destport']}
                             '''
                         elif app['type'] == 2:
-                            content += f'''
+                            app_content += f'''
 *.{name}.app[{j}].typename = "UdpBasicApp"
 *.{name}.app[{j}].destAddresses = "{app['dst']}"
 *.{name}.app[{j}].source.packetNameFormat = "%M-%m-%c"
 *.{name}.app[{j}].source.displayStringTextFormat = "sent %p pk (%l)"
-*.{name}.app[{j}].messageLength = {int(500*app['util'])}B
+*.{name}.app[{j}].messageLength = {int(1000*app['util'])}B
 *.{name}.app[{j}].sendInterval = 100us
 *.{name}.app[{j}].startTime = {app['start']}us
 *.{name}.app[{j}].stopTime = {app['stop']}us
@@ -223,57 +261,102 @@ sim-time-limit = 2ms
 *.{name}.app[{j}].destPort = {app['destport']}
                             '''
                     else:
-                        content += f'''
+                        app_content +=f'''
 *.{name}.app[{j}].typename = "UdpSinkApp"
 *.{name}.app[{j}].io.localPort = {app['localport']}
                         '''
 
                         ### Mapping destination module --> type + flow ID
-                        stream_mapping[f'{i}-{j}'] = {
-                            'stream-type': app['type'],
-                            'stream-id': app['flow-id'],
+                        module_2_stream[f'host{i}-app{j}'] = {
+                            'stream': f'type{app["type"]}-{app["flow-id"]}',
+                            'bitrate': self.topology.type1[app['flow-id']][2] \
+                                        if app['type'] == 1 \
+                                        else self.topology.type2[app['flow-id']][2]
                         }
-            f.write(content)
+                        stream_2_module[f'type{app["type"]}-{app["flow-id"]}'] = {
+                            'module': f'host{i}-app{j}',
+                            'bitrate': self.topology.type1[app['flow-id']][2] \
+                                        if app['type'] == 1 \
+                                        else self.topology.type2[app['flow-id']][2]
+                        }
+            f.write(app_content)
 
             ### Routing
-            content = '''
+            routing_content = self.genINI_routing()
+            f.write(routing_content)
+
+            if info_file is not None:
+                with open(info_file, 'wb') as info_f:
+                    pickle.dump([module_2_stream, stream_2_module], info_f)
+
+    def gen_shortest_path_content(self, info_file, out_dir):  
+        with open(info_file, 'r') as info_f:
+            lines = info_f.readlines()
+            for line in lines:
+                infos = line.split()
+                type_, id_ = [int(infos[0]), int(infos[1])]
+                
+                if type_ == 1:
+                    src, dst, util = self.topology.type1[id_]
+                else:
+                    src, dst, util, _ = self.topology.type2[id_]
+                rout = [int(n) for n in infos[4:]]
+
+                src_name = self.topology.hosts[src].name
+                dst_name = self.topology.hosts[dst].name
+                tree_ = [src_name] + [self.topology.hosts[n].switch_name for n in rout] + [dst_name]
+                
+                scenario_content = self.genINI_scenario()
+
+                ### apps + routing
+                content = f'''
+# Apps
+*.{src_name}.numApps = 1
+*.{src_name}.app[0].typename = "UdpSourceApp"
+*.{src_name}.app[0].io.destAddress = "{dst_name}"
+*.{src_name}.app[0].source.packetNameFormat = "%M-%m-%c"
+*.{src_name}.app[0].source.displayStringTextFormat = "sent %p pk (%l)"
+*.{src_name}.app[0].source.packetLength = {int(1000*util)}B
+*.{src_name}.app[0].source.productionInterval = 100us
+*.{src_name}.app[0].display-name = "type{type_}_{id_}"
+*.{src_name}.app[0].io.destPort = 1000
+
+*.{dst_name}.numApps = 1
+*.{dst_name}.app[0].typename = "UdpSinkApp"
+*.{dst_name}.app[0].io.localPort = 1000
+
 # seamless stream redundancy configuration
-*.streamRedundancyConfigurator.configuration = ['''
-            for i, p in enumerate(self.type1_route):
-                src_ = self.topology.hosts[p[0]].name
-                dst_ = self.topology.hosts[p[-1]].name
-                tree_ = [self.topology.hosts[p[j]].switch_name for j in p[1:-1]]
-
-                content += f'''
+*.streamRedundancyConfigurator.configuration = [
     {{
-        name: "S1-{i}", 
-        packetFilter: "*-type1_{i}-*", 
-        source: "{self.topology.hosts[p[0]].name}", 
-        destination: "{self.topology.hosts[p[-1]].name}"
-        trees: [[{pprint.pformat(tree_)}]]
-    }},
-                '''
-            for i, p in enumerate(self.type2_route):
-                src_ = self.topology.hosts[p[0]].name
-                dst_ = self.topology.hosts[p[-1]].name
-                tree_ = [self.topology.hosts[p[j]].switch_name for j in p[1:-1]]
+        name: "shortest_path", 
+        packetFilter: "*-type{type_}_{id_}-*", 
+        source: "{src_name}", 
+        destination: "{dst_name}",
+        trees: [[{pprint.pformat(tree_).replace("'", '"')}]]
+    }}]
+'''
+                with open(f'{out_dir}/shortest_path/type{type_}-{id_}.ini', 'w') as out_f:
+                    out_f.write(scenario_content + content)
 
-                content += f'''
-    {{
-        name: "S1-{i}", 
-        packetFilter: "*-type1_{i}-*", 
-        source: "{self.topology.hosts[p[0]].name}", 
-        destination: "{self.topology.hosts[p[-1]].name}"
-        trees: [[{pprint.pformat(tree_)}]]
-    }}'''
-                if i != len(self.type2_route) - 1:
-                    content += ','
-            content += "\n]"
-            f.write(content)
 
-            with open(info_file, 'wb') as info_f:
-                pickle.dump(stream_mapping, info_f)
-            '''
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+'''
             *.streamRedundancyConfigurator.configuration = [
                 {
                     name: "S1", 
@@ -291,5 +374,3 @@ sim-time-limit = 2ms
                 }
             ]
             '''
-
-

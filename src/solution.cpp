@@ -419,12 +419,21 @@ std::ostream& operator<< (std::ostream& os, Solution& sol){
 void Solution::output_shortest_path(std::ostream& os){
     if(shortest_path_routing.size()){
         for(int i = 0 ; i < shortest_path_routing.size() ; i ++){
+            int stream_type = (i < scenario.Type_1.size())? 1: 2;
+            int stream_id = (i < scenario.Type_1.size())? i: i-scenario.Type_1.size();
+
             int hop_cnt = shortest_path_routing[i].size()-1;
             double total_cap = 0.0;
             for(int j = 0 ; j < shortest_path_routing[i].size()-1 ; j ++){
                 total_cap += scenario.graph.get_capacity(shortest_path_routing[i][j], shortest_path_routing[i][j+1]);
             }
-            os << hop_cnt << " " << total_cap << "\n";
+            os << stream_type << " " << stream_id << " " << hop_cnt << " " << total_cap;
+
+            for(int j = 0 ; j < shortest_path_routing[i].size() ; j ++){
+                os << " " << shortest_path_routing[i][j];
+            }
+
+            os << "\n";
         }
     }
 }

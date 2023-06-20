@@ -18,21 +18,15 @@ def parse_args() -> Namespace:
         default=0.0
     )
     parser.add_argument(
-        "--ned_output",
+        "--sp_info",
         type=str,
-        help="Path to the ned generated result.",
+        help="Path to the information of shortest path.",
         default=0.0
     )
     parser.add_argument(
-        "--ini_output",
+        "--dir",
         type=str,
-        help="Path to the ini generated result.",
-        default=0.0
-    )
-    parser.add_argument(
-        "--info_output",
-        type=str,
-        help="Path to the information of streams.",
+        help="Path to the output directory.",
         default=0.0
     )
     args = parser.parse_args()
@@ -41,12 +35,13 @@ def parse_args() -> Namespace:
 def main(args):
     T = ned_generator.Topology()
     T.fromFile(args.scenario)
-    T.genNed(args.ned_output)
+    T.genNed(args.dir+'/scenario.ned')
     R = ini_generator.Route(T)
     R.fromFile(args.routing_path)
     print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
-    R.genINI(args.ini_output, args.info_output)
+    R.genINI(args.dir + '/omnetpp.ini', args.dir + '/modules.info')
+    R.gen_shortest_path_content(args.sp_info, args.dir)
 
 if __name__ == "__main__":
     args = parse_args()

@@ -1,7 +1,7 @@
 ### Command Line Arguments
-# $1: path to csv from simulation
-# $2: path to information about shortest path
+# $1: path to directory
+# $2: 
 
 python3 analysis/main.py \
---csv $1 \
---sp-info $2
+--result $1 \
+--info $2
