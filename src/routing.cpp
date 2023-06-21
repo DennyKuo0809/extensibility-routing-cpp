@@ -11,7 +11,10 @@ int main(int argc, char *argv[]){
      *  4. Path to shortest path information file
      *******************************************/
 
-    assert(argc == 5);
+    if (argc < 5){
+        std::cerr << "Usage: ./executable [file path to scenario] [method for type-1 streams] [file path to output file] [path to shortest path info file]" << std::endl;
+        exit(-1);
+    }
     std::string path_to_scenario = std::string(argv[1]);
     std::string type1_method = std::string(argv[2]);
     std::string path_to_output = std::string(argv[3]);
