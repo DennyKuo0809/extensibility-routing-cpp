@@ -12,21 +12,33 @@ def parse_args() -> Namespace:
         help="Path to input data."
     )
     parser.add_argument(
-        "--routing_path",
-        type=str,
-        help="Path to the routing path of type1+2 streams",
-        default=0.0
-    )
-    parser.add_argument(
-        "--sp_info",
-        type=str,
-        help="Path to the information of shortest path.",
-        default=0.0
-    )
-    parser.add_argument(
         "--dir",
         type=str,
-        help="Path to the output directory.",
+        help="Path to the input and output directory.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--method",
+        type=str,
+        help="Method for type-1 routing.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--output_sp",
+        type=bool,
+        help="Output information of shortest path or not.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--output_ned",
+        type=bool,
+        help="Output ned file or not.",
+        default=0.0
+    )
+    parser.add_argument(
+        "--output_module",
+        type=bool,
+        help="Output information of modules or not.",
         default=0.0
     )
     args = parser.parse_args()
@@ -35,13 +47,19 @@ def parse_args() -> Namespace:
 def main(args):
     T = ned_generator.Topology()
     T.fromFile(args.scenario)
-    T.genNed(args.dir+'/scenario.ned')
     R = ini_generator.Route(T)
-    R.fromFile(args.routing_path)
+    R.fromFile(f"{args.dir}/route/{args.method}.txt")
     print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
-    R.genINI(args.dir + '/omnetpp.ini', args.dir + '/modules.info')
-    R.gen_shortest_path_content(args.sp_info, args.dir)
+    
+    if args.output_ned:
+        T.genNed(f"{args.dir}/scenario.ned")
+    if args.output_sp:
+        R.gen_shortest_path_content(f"{args.dir}/info/shortest_path.txt", f"{args.dir}/sim-conf")
+    if args.output_module:
+        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", f"{args.dir}/info/module_stream.pickle")
+    else:
+        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", None)
 
 if __name__ == "__main__":
     args = parse_args()

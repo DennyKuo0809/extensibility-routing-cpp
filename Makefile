@@ -1,4 +1,4 @@
-demo:
-	g++ -std=c++11 src/*.cpp -o extensibility_routing
+all:
+	g++ -std=c++11 extensibility-routing/src/*.cpp extensibility-routing/main.cpp -o solver
 clean:
-	rm -f extensibility_routing
+	rm -f solver

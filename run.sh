@@ -1,52 +1,197 @@
 ### Command Line Arguments
-# $1: path to scenario
-# $2: type1 method
-# $3: path to output directory
+#   -s, --scenario    Path to input scenario
+#   -o, --output      Path to output directory
+#   -m, --method      (Optional) Routing Method for type-1 streams.
+#                     All four method will be performed if not specified.
+#                           * shortest_path
+#                           * min_max_percentage
+#                           * least_used_capacity_percentage
+#                           * least_conflict_value
 
 
-### Compile cpp 
-make clean
-make
+### Architecture of output directory
+#   .
+#   ├── sim-conf
+#   │   ├── shortest-{stream type}-{stream id}.ini
+#   │   ├── ...
+#   │   ├── shortest-{stream type}-{stream id}.ini
+#   │   ├── {type-1 method}.ini
+#   │   ├── ...
+#   │   └── {type-1 method}.ini
+#   ├── route
+#   │   ├── {type-1 method}.txt
+#   │   ├── ...
+#   │   └── {type-1 method}.txt
+#   ├── info
+#   │   ├── shortest_path.txt
+#   │   └── module_stream.pickle
+#   ├── log
+#   └── scenario.ned
 
-### Create Directory
-filename=`basename $1`
-dirname="${3%/}/${filename%.*}"
-echo $dirname
 
-if [[ -d $dirname || -L $dirname ]] ; then
-    i=1
-    while [[ -d $dirname-$i || -L $dirname-$i ]] ; do
-        let i++
-    done
-    dirname=$dirname-$i
+### Parse Arguments
+POSITIONAL_ARGS=()
+TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value")
+ARG_NOTICE=$'[Usage]\n-s, --scenario\t\tPath to scenario.\n-o, --output\t\tPath to output directory.\n-m, --method\t\tRouting method for type-1 streams.\n\t\t\t\t* shortest_path\n\t\t\t\t* min_max_percentage\n\t\t\t\t* least_used_capacity_percentage\n\t\t\t\t* least_conflict_value'
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -s|--scenario)
+      SCENARIO="`realpath $2`"
+      shift # past argument
+      shift # past value
+      ;;
+    -o|--output)
+      OUTPUTDIR="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -m|--method)
+      METHOD="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -h|--help)
+      echo "$ARG_NOTICE"
+      shift # past argument
+      exit 0
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      echo "$ARG_NOTICE"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
+set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
+
+if [ "$SCENARIO" == "" ] || [ "$OUTPUTDIR" == "" ]
+then
+    echo "Lack of required argument"
+    echo "$ARG_NOTICE"
+    exit 1
 fi
 
-mkdir $dirname
-mkdir "$dirname/shortest_path"
+VALID_METHOD=false
+for m in ${TYPE1_METHOD[@]}
+do
+    echo $m
+    if [ "$METHOD" == "$m" ]
+    then
+        VALID_METHOD=true
+        break
+    fi
+done
 
-### Create output file
-routing_path="$dirname/routing.txt"
-shortest_path_info_path="$dirname/shortest_path_info.txt"
-module_info_path="$dirname/module.info"
-ini_path="$dirname/omnetpp.ini"
-ned_path="$dirname/scenario.ned"
+if [ $VALID_METHOD == false ] && [ "$METHOD" != "" ]
+then
+    echo "Invalid method: $METHOD"
+    exit 1
+fi
 
-# touch $routing_path
-# touch $shortest_path_info_path
-# touch $module_info_path
-# touch $ini_path
-# touch $ned_path
+### Notice
+if [ "$METHOD" == "" ]
+then
+    SPEC_METHOD='Not specified.'
+else
+    SPEC_METHOD="$METHOD"
+fi
+printf "\n[Info] Start with\n\t(Scenario)\t\t$SCENARIO\n\t(Output directory)\t$OUTPUTDIR\n\t(Method)\t\t$SPEC_METHOD\n\n"
 
+
+### Create sub-directory
+printf "[Info] Creating the output directory\t$OUTPUTDIR.\n"
+if [ -d "$OUTPUTDIR" ]
+then
+    printf "[Info] Since already existed, overwriting the output directory\t$OUTPUTDIR.\n"
+    rm -rf "$OUTPUTDIR"
+fi
+mkdir "$OUTPUTDIR"
+OUTPUTDIR="`realpath $OUTPUTDIR`"
+mkdir "$OUTPUTDIR/route"
+mkdir "$OUTPUTDIR/info"
+mkdir "$OUTPUTDIR/sim-conf"
+touch "$OUTPUTDIR/log"
+
+### Compile cpp 
+printf "[Info] Compiling solver for routing.\n"
+make clean >>"$OUTPUTDIR/log" 2>&1
+make >>"$OUTPUTDIR/log" 2>&1
 
 ### Routing
-./extensibility_routing $1 $2 $routing_path $shortest_path_info_path
+if [ "$METHOD" != "" ]
+then
+    routing_path="$OUTPUTDIR/route/$METHOD.txt"
+    shortest_path_info_path="$OUTPUTDIR/info/shortest_path.txt"
+    ./solver \
+        $SCENARIO \
+        $METHOD \
+        $routing_path \
+        $shortest_path_info_path
+else
+    for i in ${!TYPE1_METHOD[@]}
+    do
+        m=${TYPE1_METHOD[$i]}
+        routing_path="$OUTPUTDIR/route/$m.txt"
+        shortest_path_info_path="$OUTPUTDIR/info/shortest_path.txt"
+        if [ $i == 0 ]
+        then
+            ./solver \
+              $SCENARIO \
+              $m \
+              $routing_path \
+              $shortest_path_info_path \
+              'true'
+        else
+            ./solver \
+              $SCENARIO \
+              $m \
+              $routing_path \
+              $shortest_path_info_path \
+              'false'
+        fi
+    done
+fi
 
 ### Generate input file for simulator
-python3 generator/main.py \
---scenario $1 \
---routing_path $routing_path \
---sp_info $shortest_path_info_path \
---dir $dirname
+if [ "$METHOD" != "" ]
+then
+    python3 generator/main.py \
+    --scenario "$SCENARIO" \
+    --method "$METHOD" \
+    --dir "$OUTPUTDIR" \
+    --output_sp 'True' \
+    --output_ned 'True' \
+    --output_module 'True'
+else
+    for i in ${!TYPE1_METHOD[@]}
+    do
+        m=${TYPE1_METHOD[$i]}
+        if [ $i == 0 ]
+        then
+            python3 generator/main.py \
+            --scenario "$SCENARIO" \
+            --method "$m" \
+            --dir "$OUTPUTDIR" \
+            --output_sp 'True' \
+            --output_ned 'True' \
+            --output_module 'True'
+        else
+            python3 generator/main.py \
+            --scenario "$SCENARIO" \
+            --method "$m" \
+            --dir "$OUTPUTDIR" \
+            --output_sp 'False' \
+            --output_ned 'False' \
+            --output_module 'False'
+        fi
+    done
+fi
 
 ### Clear
-make clean
+make clean >>"$OUTPUTDIR/log" 2>&1

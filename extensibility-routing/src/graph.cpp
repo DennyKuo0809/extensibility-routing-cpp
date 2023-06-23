@@ -116,7 +116,7 @@ void Graph::dfs(int current, int dst, int dist, int data_rate, int* cur_path, bo
         if(!visited[adj_list[current][i]] && capacity[current][adj_list[current][i]] > data_rate){
             visited[adj_list[current][i]] = true;
             cur_path[dist] = adj_list[current][i];
-            dfs(adj_list[current][i], dst, data_rate, dist+1, cur_path, visited, path);
+            this -> dfs(adj_list[current][i], dst, dist+1, data_rate, cur_path, visited, path);
             visited[adj_list[current][i]] = false;
         }
     }
@@ -126,7 +126,7 @@ void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<in
     bool* visited = new bool[vertex_num];
     cur_path[0] = src;
     visited[src] = true;
-    dfs(src, dst, data_rate, 1, cur_path, visited, path);
+    dfs(src, dst, 1, data_rate, cur_path, visited, path);
     delete[] cur_path;
     delete[] visited;
 }
