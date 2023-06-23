@@ -13,7 +13,7 @@ int main(int argc, char *argv[]){
      *******************************************/
 
     if (argc != 6){
-        std::cerr << "Usage: ./executable [file path to scenario] [method for type-1 streams] [file path to output file] [path to shortest path info file]" << std::endl;
+        std::cerr << "Usage: ./executable [file path to scenario] [method for type-1 streams] [file path to output file] [path to shortest path info file] [Output shortest path info]" << std::endl;
         exit(-1);
     }
     std::string path_to_scenario = std::string(argv[1]);
