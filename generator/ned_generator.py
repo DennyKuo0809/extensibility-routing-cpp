@@ -65,7 +65,7 @@ class Topology():
         with open(file_name, "w+") as f:
             ### header
             content = '''
-package inet.tutorials.demo_test;
+package inet.tutorials.extensibility_routing;
 import inet.networks.base.TsnNetworkBase;
 import inet.node.ethernet.EthernetLink;
 import inet.node.tsn.TsnDevice;

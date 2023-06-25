@@ -335,7 +335,7 @@ sim-time-limit = 2ms
         trees: [[{pprint.pformat(tree_).replace("'", '"')}]]
     }}]
 '''
-                with open(f'{out_dir}/type{type_}-{id_}.ini', 'w') as out_f:
+                with open(f'{out_dir}/shortest-{type_}-{id_}.ini', 'w') as out_f:
                     out_f.write(scenario_content + content)
 
 

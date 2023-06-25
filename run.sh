@@ -7,6 +7,10 @@
 #                           * min_max_percentage
 #                           * least_used_capacity_percentage
 #                           * least_conflict_value
+#   --omnet_dir       Path to omnet directory
+#   --inet_dir        Path to inet directory
+#   --sim_dir         Path to simulation directory
+#   --do_sim          Do simulation if specified
 
 
 ### Architecture of output directory
@@ -18,6 +22,13 @@
 #   │   ├── {type-1 method}.ini
 #   │   ├── ...
 #   │   └── {type-1 method}.ini
+#   ├── result
+#   │   ├── shortest-{stream type}-{stream id}.csv
+#   │   ├── ...
+#   │   ├── shortest-{stream type}-{stream id}.csv
+#   │   ├── {type-1 method}.csv
+#   │   ├── ...
+#   │   └── {type-1 method}.csv
 #   ├── route
 #   │   ├── {type-1 method}.txt
 #   │   ├── ...
@@ -33,6 +44,7 @@
 POSITIONAL_ARGS=()
 TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value")
 ARG_NOTICE=$'[Usage]\n-s, --scenario\t\tPath to scenario.\n-o, --output\t\tPath to output directory.\n-m, --method\t\tRouting method for type-1 streams.\n\t\t\t\t* shortest_path\n\t\t\t\t* min_max_percentage\n\t\t\t\t* least_used_capacity_percentage\n\t\t\t\t* least_conflict_value'
+DO_SIM=false
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -50,6 +62,25 @@ while [[ $# -gt 0 ]]; do
       METHOD="$2"
       shift # past argument
       shift # past value
+      ;;
+    --inet_dir)
+      INETDIR="`realpath $2`"
+      shift # past argument
+      shift # past value
+      ;;
+    --sim_dir)
+      SIMDIR="`realpath $2`"
+      shift # past argument
+      shift # past value
+      ;;
+    --omnet_dir)
+      OMNETDIR="`realpath $2`"
+      shift # past argument
+      shift # past value
+      ;;
+    --do_sim)
+      DO_SIM=true
+      shift # past argument
       ;;
     -h|--help)
       echo "$ARG_NOTICE"
@@ -116,6 +147,7 @@ OUTPUTDIR="`realpath $OUTPUTDIR`"
 mkdir "$OUTPUTDIR/route"
 mkdir "$OUTPUTDIR/info"
 mkdir "$OUTPUTDIR/sim-conf"
+mkdir "$OUTPUTDIR/result"
 touch "$OUTPUTDIR/log"
 
 ### Compile cpp 
@@ -124,6 +156,7 @@ make clean >>"$OUTPUTDIR/log" 2>&1
 make >>"$OUTPUTDIR/log" 2>&1
 
 ### Routing
+printf "[Info] Start routing ...\n"
 if [ "$METHOD" != "" ]
 then
     routing_path="$OUTPUTDIR/route/$METHOD.txt"
@@ -157,8 +190,10 @@ else
         fi
     done
 fi
+printf "[Info] Complete routing.\n"
 
 ### Generate input file for simulator
+printf "[Info] Generating input for simulation ...\n"
 if [ "$METHOD" != "" ]
 then
     python3 generator/main.py \
@@ -192,6 +227,37 @@ else
         fi
     done
 fi
+printf "[Info] Complete generating.\n"
+
+
+### Perform Simulation and collect results
+if [ $DO_SIM == true ]
+then
+    printf "[Info] Start simulation ...\n"
+    source "$OMNETDIR/setenv" >>"$OUTPUTDIR/log" 2>&1
+    source "$INETDIR/setenv" >>"$OUTPUTDIR/log" 2>&1
+    cp "$OUTPUTDIR/scenario.ned"  "$SIMDIR/demo.ned"
+    SIM_CONF="$SIMDIR/omnetpp.ini"
+    SIM_RESULT="$SIMDIR/results/*.vec"
+
+    all_ini=($(ls "$OUTPUTDIR/sim-conf"))
+    for ini in "${all_ini[@]}"
+    do
+        FILENAME="${ini%.*}"
+        SRC_CONF="$OUTPUTDIR/sim-conf/$ini"
+        DST_RESULT="$OUTPUTDIR/result/$FILENAME.csv"
+
+        cp "$SRC_CONF" "$SIM_CONF"
+        inet -u Cmdenv "$SIM_CONF" >>"$OUTPUTDIR/log" 2>&1
+
+        opp_scavetool x \
+        -f name=~meanBitLifeTimePerPacket:vector \
+        -F CSV-R \
+        -o "$DST_RESULT" "$SIM_RESULT" >>"$OUTPUTDIR/log" 2>&1
+    done
+    printf "[Info] Complete simulation.\n"
+fi
+
 
 ### Clear
 make clean >>"$OUTPUTDIR/log" 2>&1
