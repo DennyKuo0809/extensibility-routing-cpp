@@ -84,7 +84,7 @@ class Route():
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
 
-        for id, (src, dst, util, _) in enumerate(self.topology.type2):
+        for id, (src, dst, util, lambda_) in enumerate(self.topology.type2):
             poisson = Stream_switch(Lambda=(random.randint(1, 9)/10))
             poisson_schedule = poisson.on_off_schedule()
             for interval in poisson_schedule:
@@ -103,7 +103,7 @@ class Route():
                 "role": "recv", 
                 "localport": self.port[dst],
                 "type": int(2),
-                "flow-id" : int(id),
+                "flow-id" : int(id)
             }
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
@@ -218,7 +218,7 @@ sim-time-limit = 2ms
 
     def genINI(self, outFile, info_file):
         module_2_stream = {}
-        stream_2_module = {}
+        stream_info = {}
 
         with open(outFile, "w+") as f:
             ### Basic configuration and setting + Capacity of edges
@@ -267,17 +267,14 @@ sim-time-limit = 2ms
                         '''
 
                         ### Mapping destination module --> type + flow ID
-                        module_2_stream[f'host{i}-app{j}'] = {
-                            'stream': f'type{app["type"]}-{app["flow-id"]}',
-                            'bitrate': self.topology.type1[app['flow-id']][2] \
-                                        if app['type'] == 1 \
-                                        else self.topology.type2[app['flow-id']][2]
-                        }
-                        stream_2_module[f'type{app["type"]}-{app["flow-id"]}'] = {
+                        module_2_stream[f'host{i}-app{j}'] = f'{app["type"]}-{app["flow-id"]}',
+                        stream_info[f'{app["type"]}-{app["flow-id"]}'] = {
                             'module': f'host{i}-app{j}',
                             'bitrate': self.topology.type1[app['flow-id']][2] \
                                         if app['type'] == 1 \
-                                        else self.topology.type2[app['flow-id']][2]
+                                        else self.topology.type2[app['flow-id']][2],
+                            'lambda': self.topology.type2[app['flow-id']][3] \
+                                        if app['type'] == 2 else None
                         }
             f.write(app_content)
 
@@ -287,7 +284,7 @@ sim-time-limit = 2ms
 
             if info_file is not None:
                 with open(info_file, 'wb') as info_f:
-                    pickle.dump([module_2_stream, stream_2_module], info_f)
+                    pickle.dump([module_2_stream, stream_info], info_f)
 
     def gen_shortest_path_content(self, info_file, out_dir):  
         with open(info_file, 'r') as info_f:

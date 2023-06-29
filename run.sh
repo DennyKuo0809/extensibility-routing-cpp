@@ -258,6 +258,13 @@ then
     printf "[Info] Complete simulation.\n"
 fi
 
+### Anlysis
+printf "[Info] Starting analysis...\n"
+printf "[Info] Results:"
+if [ $DO_SIM == true ]
+then
+    python3 analysis/main.py --dir $OUTPUTDIR
+fi
 
 ### Clear
 make clean >>"$OUTPUTDIR/log" 2>&1

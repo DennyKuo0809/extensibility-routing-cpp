@@ -7,14 +7,9 @@ from matplotlib import pyplot as plt
 def parse_args() -> Namespace:
     parser = ArgumentParser()
     parser.add_argument(
-        "--result",
+        "--dir",
         type=str,
-        help="Path to result dirctory."
-    )
-    parser.add_argument(
-        "--info",
-        type=str,
-        help="Path to directory contains information."
+        help="Path to output dirctory."
     )
     args = parser.parse_args()
     return args
@@ -53,21 +48,35 @@ def parse_shortest_path_info(input_file, m2s, s2m):
         return 
 
 def main(args):
-    sim_delays = parse_csv(args.result + '/result.csv')
-    m2s, s2m = parse_module_info(args.info + '/modules.info')
-    parse_shortest_path_info(args.info + '/shortest_path_info.txt', m2s, s2m)
-    
-    for k, v in sim_delays.items():
-        stream_name = m2s[k]['stream'].replace('type', '')
-        shortest_path_delay = parse_csv(args.result + f'/result{stream_name}.csv').values()
-        shortest_path_delay = list(shortest_path_delay)[0]
-        print(f"({k}) shortest delay: {shortest_path_delay[0]:e} | avg delay: {(sum(v)/len(v)):e}")
-        plt.plot(v, label=f"sp{stream_name}")
-        plt.plot(shortest_path_delay, label=f"sim{stream_name}")
-        plt.legend(loc="upper right")
-        plt.show()
-    # print(m2s)
-    # print(delays)
+    ### Parse shortest path reult
+    m2s, s_info = parse_module_info(args.dir + '/info/module_stream.pickle')
+    streams = list(s_info.keys())
+    for k in streams:
+        file_name = f'{args.dir}/result/shortest-{k}.csv'
+        shortest_delay = list(parse_csv(file_name).values())[0][0]
+        if k[0] == '2':
+            s_info[k]['shortest_delay'] = shortest_delay * s_info[k]['lambda']
+            s_info[k]['deadline'] = s_info[k]['shortest_delay'] * 2
+        else:
+            s_info[k]['shortest_delay'] = shortest_delay
+            s_info[k]['deadline'] = s_info[k]['shortest_delay'] * 3
+            
+   
+    ### Parse routing result
+    for m in ['shortest_path', 'min_max_percentage', 'least_used_capacity_percentage', 'least_conflict_value']:
+        try:
+            sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
+            print(f"\n({m.replace('_', ' ')})")
+            print("\t\tDeadline     | Average Delay | Total | Meet | Feasible Rate")
+            for k, v in sim_delays.items():
+                total_package = len(v)
+                avg_delay = sum(v)/len(v)
+                deadline = s_info[m2s[k][0]]['deadline']
+                num_meet = len([i for i in v if i <= deadline])
+                print(f"({m2s[k][0]})\t \t{deadline:e} | {avg_delay:e}  | {total_package:<5} | {num_meet:<4} | {100 * num_meet/total_package:0.3f}%")
+
+        except FileNotFoundError:
+            pass
 
 if __name__ == "__main__":
     args = parse_args()
