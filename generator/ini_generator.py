@@ -156,7 +156,7 @@ class Route():
         content = '''
 [General]
 network = TSN_multipath
-sim-time-limit = 2ms
+sim-time-limit = 10ms
 
 # disable automatic MAC forwarding table configuration
 *.macForwardingTableConfigurator.typename = ""
@@ -186,7 +186,7 @@ sim-time-limit = 2ms
 # seamless stream redundancy configuration
 *.streamRedundancyConfigurator.configuration = ['''
         for i, p in enumerate(self.type1_route):
-            print(p)
+            # print(p)
             src_ = self.topology.hosts[p[0]].name
             dst_ = self.topology.hosts[p[-1]].name
             tree_ = [src_] + [self.topology.hosts[j].switch_name for j in p] + [dst_]
@@ -199,7 +199,7 @@ sim-time-limit = 2ms
         trees: [[{pprint.pformat(tree_).replace("'", '"')}]]
     }},'''
         for i, p in enumerate(self.type2_route):
-            print(p)
+            # print(p)
             src_ = self.topology.hosts[p[0]].name
             dst_ = self.topology.hosts[p[-1]].name
             tree_ = [src_] + [self.topology.hosts[j].switch_name for j in p] + [dst_]
@@ -233,7 +233,6 @@ sim-time-limit = 2ms
                 name = self.topology.hosts[i].name
                 num = len(self.app[i])
                 app_content += f"\n*.{name}.numApps = {num}\n"
-
                 for j, app in enumerate(self.app[i]):
                     if app['role'] == "send":
                         if app['type'] == 1:
@@ -265,7 +264,6 @@ sim-time-limit = 2ms
 *.{name}.app[{j}].typename = "UdpSinkApp"
 *.{name}.app[{j}].io.localPort = {app['localport']}
                         '''
-
                         ### Mapping destination module --> type + flow ID
                         module_2_stream[f'host{i}-app{j}'] = f'{app["type"]}-{app["flow-id"]}',
                         stream_info[f'{app["type"]}-{app["flow-id"]}'] = {

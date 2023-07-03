@@ -41,7 +41,9 @@ bash run.sh \
 │   └── {type-1 method}.txt
 ├── info
 │   ├── shortest_path.txt
-│   └── module_stream.pickle
+│   ├── module_stream_{type-1 method}.pickle
+│   ├── ...
+│   └── module_stream_{type-1 method}.pickle
 ├── log
 └── scenario.ned
 ```

@@ -14,30 +14,32 @@
 
 
 ### Architecture of output directory
-#   .
-#   ├── sim-conf
-#   │   ├── shortest-{stream type}-{stream id}.ini
-#   │   ├── ...
-#   │   ├── shortest-{stream type}-{stream id}.ini
-#   │   ├── {type-1 method}.ini
-#   │   ├── ...
-#   │   └── {type-1 method}.ini
-#   ├── result
-#   │   ├── shortest-{stream type}-{stream id}.csv
-#   │   ├── ...
-#   │   ├── shortest-{stream type}-{stream id}.csv
-#   │   ├── {type-1 method}.csv
-#   │   ├── ...
-#   │   └── {type-1 method}.csv
-#   ├── route
-#   │   ├── {type-1 method}.txt
-#   │   ├── ...
-#   │   └── {type-1 method}.txt
-#   ├── info
-#   │   ├── shortest_path.txt
-#   │   └── module_stream.pickle
-#   ├── log
-#   └── scenario.ned
+# .
+# ├── sim-conf
+# │   ├── shortest-{stream type}-{stream id}.ini
+# │   ├── ...
+# │   ├── shortest-{stream type}-{stream id}.ini
+# │   ├── {type-1 method}.ini
+# │   ├── ...
+# │   └── {type-1 method}.ini
+# ├── result
+# │   ├── shortest-{stream type}-{stream id}.csv
+# │   ├── ...
+# │   ├── shortest-{stream type}-{stream id}.csv
+# │   ├── {type-1 method}.csv
+# │   ├── ...
+# │   └── {type-1 method}.csv
+# ├── route
+# │   ├── {type-1 method}.txt
+# │   ├── ...
+# │   └── {type-1 method}.txt
+# ├── info
+# │   ├── shortest_path.txt
+# │   ├── module_stream_{type-1 method}.pickle
+# │   ├── ...
+# │   └── module_stream_{type-1 method}.pickle
+# ├── log
+# └── scenario.ned
 
 
 ### Parse Arguments

@@ -49,7 +49,7 @@ def main(args):
     T.fromFile(args.scenario)
     R = ini_generator.Route(T)
     R.fromFile(f"{args.dir}/route/{args.method}.txt")
-    print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
+    # print(f"type1 routing : \n{R.type1_route}\ntype2 routing: \n{R.type2_route}")
     R.parseStream()
     
     if args.output_ned:
@@ -57,7 +57,7 @@ def main(args):
     if args.output_sp:
         R.gen_shortest_path_content(f"{args.dir}/info/shortest_path.txt", f"{args.dir}/sim-conf")
     if args.output_module:
-        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", f"{args.dir}/info/module_stream.pickle")
+        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", f"{args.dir}/info/module_stream_{args.method}.pickle")
     else:
         R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", None)
 
