@@ -52,6 +52,7 @@ public:
 
     /* Member Function: type-1 solver */
     void shortest_path();
+    void enhanced_shortest_path();
     void least_used_capacity_percentage();
     void min_max_percentage();
     void least_conflict_value();

@@ -56,6 +56,9 @@ void Solution::solve_type1(std::string method){
     if(method == "shortest_path"){
         shortest_path();
     }
+    else if (method == "enhanced_shortest_path"){
+        enhanced_shortest_path();
+    }
     else if(method == "least_used_capacity_percentage"){
         least_used_capacity_percentage();
     }
@@ -64,6 +67,10 @@ void Solution::solve_type1(std::string method){
     }
     else if(method == "least_conflict_value"){
         least_conflict_value();
+    }
+    else {
+        std::cerr << "Undefined method: " << method << std::endl;
+        exit(1);
     }
 
     if(type1_path.size() != 0){
@@ -133,25 +140,25 @@ void Solution::shortest_path(){
     }
 }
 
-// void Solution::enhanced_shortest_path(){
-//     type1_path = std::vector<std::vector<int>>();
-//     int n = scenario.Type_1.size();
-//     std::vector<int> ord(n);
-//     iota(ord.begin(), ord.end(), 0);
-//     sort(ord.begin(), ord.end(), [&](int i, int j){
-//         return scenario.Type_1[i].data_rate > scenario.Type_1[j].data_rate;
-//     });
+void Solution::enhanced_shortest_path(){
+    int n = scenario.Type_1.size();
+    type1_path = std::vector<std::vector<int>>(n);
+    std::vector<int> ord(n);
+    iota(ord.begin(), ord.end(), 0);
+    sort(ord.begin(), ord.end(), [&](int i, int j){
+        return scenario.Type_1[i].data_rate > scenario.Type_1[j].data_rate;
+    });
 
-//     for (int _i = 0, i = ord[_i]; _i < n; _i++, i = ord[_i]){
-//         type1_path.push_back(scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
-//         if(type1_path[i].size() == 0){
-//             /* Fail to solve type-1 streams */
-//             std::cerr << "[W] Fail to solve type-1 by the method \"Enhanced Shortest Path\"." << std::endl;
-//             type1_path = std::vector<std::vector<int> >();
-//             return;
-//         }
-//     }
-// }
+    for (int _i = 0, i = ord[_i]; _i < n; _i++, i = ord[_i]){
+        type1_path[i] = scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate);
+        if (type1_path[i].size() == 0){
+            /* Fail to solve type-1 streams */
+            std::cerr << "[W] Fail to solve type-1 by the method \"Enhanced Shortest Path\"." << std::endl;
+            type1_path = std::vector<std::vector<int> >();
+            return;
+        }
+    }
+}
 
 void Solution::least_used_capacity_percentage(){
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
