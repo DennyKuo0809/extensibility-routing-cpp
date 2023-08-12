@@ -4,17 +4,21 @@
 #include <vector>
 #include "graph.hpp"
 
-struct type_1{
-    int src;
-    int dst;
-    double data_rate;
-};
 
 struct type_2{
     int src;
     int dst;
     double data_rate;
     double Lambda;
+    type_2(int _src, int _dst, double _data_rate, double _Lambda): src(_src), dst(_dst), data_rate(_data_rate), Lambda(_Lambda) {}
+};
+
+struct type_1{
+    int src;
+    int dst;
+    double data_rate;
+    type_1(int _src, int _dst, double _data_rate): src(_src), dst(_dst), data_rate(_data_rate) {}
+    type_1(type_2 s): src(s.src), dst(s.dst), data_rate(s.data_rate) {}
 };
 
 

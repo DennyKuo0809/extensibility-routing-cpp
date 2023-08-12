@@ -60,6 +60,11 @@ public:
     void greedy_merge(int start);
     void cycle_selection();
 
+    /* Member Function: simplex */
+    std::vector<std::vector<int>> ILP_routing_util(int vertex_cnt, std::vector<Edge> edge, std::vector<type_1> stream);
+    void ILP_routing();
+
+
     /* IO */
     friend std::ostream& operator<< (std::ostream& os, Solution& sol);
     void output_shortest_path(std::ostream& os);

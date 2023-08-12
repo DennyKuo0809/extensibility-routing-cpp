@@ -44,6 +44,9 @@ void Graph::clear_neighbor(int src){
 void Graph::set_capacity(int src, int dst, double data_rate){
     capacity[src][dst] = data_rate;
 }
+void Graph::push_edge(int src, int dst, double cap){
+    edge_list.push_back(Edge{src, dst, cap});
+}
 
 /* API: getter */
 int Graph::get_vertex_num() const{
@@ -57,6 +60,9 @@ double Graph::get_capacity(int src, int dst) const{
 }
 std::vector<std::vector<int> > Graph::get_graph() const{
     return adj_list;
+}
+std::vector<Edge> Graph::get_edge_list() const{
+    return edge_list;
 }
 
 /* Member Function: About graph */

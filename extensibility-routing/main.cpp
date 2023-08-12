@@ -17,7 +17,7 @@ int main(int argc, char *argv[]){
         exit(-1);
     }
     std::string path_to_scenario = std::string(argv[1]);
-    std::string type1_method = std::string(argv[2]);
+    std::string routing_method = std::string(argv[2]);
     std::string path_to_output = std::string(argv[3]);
     std::string path_to_shortest_path_info = std::string(argv[4]);
     std::string output_shortest = std::string(argv[5]);
@@ -29,12 +29,16 @@ int main(int argc, char *argv[]){
     ifs >> scenario;
     Solution solution(scenario);
 
+    if(routing_method == "simplex"){
+        solution.ILP_routing();
+    }
+    else{
+        solution.solve_type1(routing_method);
+        solution.solve_type2();
+    }
 
-    solution.solve_type1(type1_method);
-    solution.solve_type2();
 
-
-    // std::cout << solution;
+    // std::cerr << solution;
 
     std::ofstream ofs;
     ofs.open(path_to_output,  std::ifstream::out);
