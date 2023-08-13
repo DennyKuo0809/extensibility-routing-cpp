@@ -1,5 +1,5 @@
-rm -f solver
-g++ -std=c++11 extensibility-routing/src/*.cpp extensibility-routing/main.cpp -o solver
+make: *** No rule to make target 'clean'.  Stop.
+make: *** No targets specified and no makefile found.  Stop.
 Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1'.
 Environment for 'omnetpp-6.0.1' in directory '/home/ubuntu/omnetpp-6.0.1' is ready.
 Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5'.
@@ -18,111 +18,111 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:44-16820
+Assigned runID=General-0-20230813-10:07:51-5883
+Setting up network "TSN_multipath"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 391   present: 391   in FES: 57
+** Event #15709   t=0.01   Elapsed: 0.194522s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=80760.3   simsec/sec=0.0514102   ev/simsec=1.5709e+06
+     Messages:  created: 18825   present: 701   in FES: 10
+
+<!> Simulation time limit reached -- at t=0.01s, event #15709
+
+Calling finish() at end of Run #0...
+[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.
+Exported 5 vectors
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
+
+Preparing for running configuration General, run #0...
+Assigned runID=General-0-20230813-10:07:52-5916
 Setting up network "TSN_multipath"...
 Initializing...
 
 Running simulation...
 ** Event #0   t=0   Elapsed: 9e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
-     Messages:  created: 391   present: 391   in FES: 57
-** Event #7121   t=0.01   Elapsed: 0.084024s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=84756.7   simsec/sec=0.119024   ev/simsec=712100
-     Messages:  created: 7781   present: 441   in FES: 9
+     Messages:  created: 394   present: 394   in FES: 58
+** Event #15980   t=0.01   Elapsed: 0.198288s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=80592.3   simsec/sec=0.0504332   ev/simsec=1.598e+06
+     Messages:  created: 19113   present: 704   in FES: 10
 
-<!> Simulation time limit reached -- at t=0.01s, event #7121
-
-Calling finish() at end of Run #0...
-[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-
-End.
-Exported 5 vectors
-OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
-Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
-See the license for distribution terms and warranty disclaimer
-
-Setting up Cmdenv...
-
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
-
-Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:45-16838
-Setting up network "TSN_multipath"...
-Initializing...
-
-Running simulation...
-** Event #0   t=0   Elapsed: 8e-06s (0m 00s)  0% completed  (0% total)
-     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
-     Messages:  created: 382   present: 382   in FES: 54
-** Event #8246   t=0.01   Elapsed: 0.09985s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=82589.7   simsec/sec=0.100157   ev/simsec=824600
-     Messages:  created: 9301   present: 428   in FES: 8
-
-<!> Simulation time limit reached -- at t=0.01s, event #8246
+<!> Simulation time limit reached -- at t=0.01s, event #15980
 
 Calling finish() at end of Run #0...
 [INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
@@ -202,99 +202,7 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:45-16856
-Setting up network "TSN_multipath"...
-Initializing...
-
-Running simulation...
-** Event #0   t=0   Elapsed: 8e-06s (0m 00s)  0% completed  (0% total)
-     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
-     Messages:  created: 388   present: 388   in FES: 56
-** Event #6033   t=0.01   Elapsed: 0.066463s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=90780.5   simsec/sec=0.150473   ev/simsec=603300
-     Messages:  created: 6257   present: 434   in FES: 6
-
-<!> Simulation time limit reached -- at t=0.01s, event #6033
-
-Calling finish() at end of Run #0...
-[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
-[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	Removing all packets.
-[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
-[INFO]	 
-[INFO]	Clear all sockets
-
-End.
-Exported 5 vectors
-OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
-Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
-See the license for distribution terms and warranty disclaimer
-
-Setting up Cmdenv...
-
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
-Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
-
-Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:46-16874
+Assigned runID=General-0-20230813-10:07:53-5934
 Setting up network "TSN_multipath"...
 Initializing...
 
@@ -302,8 +210,8 @@ Running simulation...
 ** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
      Messages:  created: 330   present: 330   in FES: 36
-** Event #2932   t=0.01   Elapsed: 0.032904s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=89118.5   simsec/sec=0.303951   ev/simsec=293200
+** Event #2932   t=0.01   Elapsed: 0.032938s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=89026.5   simsec/sec=0.303638   ev/simsec=293200
      Messages:  created: 3233   present: 350   in FES: 5
 
 <!> Simulation time limit reached -- at t=0.01s, event #2932
@@ -386,7 +294,7 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:46-16892
+Assigned runID=General-0-20230813-10:07:53-5952
 Setting up network "TSN_multipath"...
 Initializing...
 
@@ -394,8 +302,8 @@ Running simulation...
 ** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
      Messages:  created: 330   present: 330   in FES: 36
-** Event #2440   t=0.01   Elapsed: 0.024849s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=98208.9   simsec/sec=0.402495   ev/simsec=244000
+** Event #2440   t=0.01   Elapsed: 0.024843s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=98232.6   simsec/sec=0.402593   ev/simsec=244000
      Messages:  created: 2535   present: 342   in FES: 3
 
 <!> Simulation time limit reached -- at t=0.01s, event #2440
@@ -478,16 +386,16 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:47-16910
+Assigned runID=General-0-20230813-10:07:53-5970
 Setting up network "TSN_multipath"...
 Initializing...
 
 Running simulation...
-** Event #0   t=0   Elapsed: 1e-05s (0m 00s)  0% completed  (0% total)
+** Event #0   t=0   Elapsed: 8e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
      Messages:  created: 330   present: 330   in FES: 36
-** Event #2427   t=0.01   Elapsed: 0.024678s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=98366.6   simsec/sec=0.405301   ev/simsec=242700
+** Event #2427   t=0.01   Elapsed: 0.024495s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=99097.6   simsec/sec=0.408313   ev/simsec=242700
      Messages:  created: 2526   present: 346   in FES: 5
 
 <!> Simulation time limit reached -- at t=0.01s, event #2427
@@ -570,16 +478,16 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:47-16928
+Assigned runID=General-0-20230813-10:07:54-5988
 Setting up network "TSN_multipath"...
 Initializing...
 
 Running simulation...
-** Event #0   t=0   Elapsed: 9e-06s (0m 00s)  0% completed  (0% total)
+** Event #0   t=0   Elapsed: 6e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
      Messages:  created: 330   present: 330   in FES: 36
-** Event #2901   t=0.01   Elapsed: 0.032669s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=88816.1   simsec/sec=0.306157   ev/simsec=290100
+** Event #2901   t=0.01   Elapsed: 0.031853s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=91083.2   simsec/sec=0.313972   ev/simsec=290100
      Messages:  created: 3208   present: 358   in FES: 9
 
 <!> Simulation time limit reached -- at t=0.01s, event #2901
@@ -662,16 +570,16 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:48-16946
+Assigned runID=General-0-20230813-10:07:54-6006
 Setting up network "TSN_multipath"...
 Initializing...
 
 Running simulation...
-** Event #0   t=0   Elapsed: 6e-06s (0m 00s)  0% completed  (0% total)
+** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
      Messages:  created: 330   present: 330   in FES: 36
-** Event #2932   t=0.01   Elapsed: 0.032837s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=89297.7   simsec/sec=0.304562   ev/simsec=293200
+** Event #2932   t=0.01   Elapsed: 0.032848s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=89270.5   simsec/sec=0.30447   ev/simsec=293200
      Messages:  created: 3233   present: 350   in FES: 5
 
 <!> Simulation time limit reached -- at t=0.01s, event #2932
@@ -754,19 +662,19 @@ Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks
 Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
 
 Preparing for running configuration General, run #0...
-Assigned runID=General-0-20230703-11:00:48-16964
+Assigned runID=General-0-20230813-10:07:55-6024
 Setting up network "TSN_multipath"...
 Initializing...
 
 Running simulation...
-** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
+** Event #0   t=0   Elapsed: 6e-06s (0m 00s)  0% completed  (0% total)
      Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
-     Messages:  created: 364   present: 364   in FES: 48
-** Event #5856   t=0.01   Elapsed: 0.065465s (0m 00s)  100% completed  (100% total)
-     Speed:     ev/sec=89459.2   simsec/sec=0.152765   ev/simsec=585600
-     Messages:  created: 6076   present: 410   in FES: 6
+     Messages:  created: 376   present: 376   in FES: 52
+** Event #6337   t=0.01   Elapsed: 0.069305s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=91441.7   simsec/sec=0.144298   ev/simsec=633700
+     Messages:  created: 6547   present: 422   in FES: 6
 
-<!> Simulation time limit reached -- at t=0.01s, event #5856
+<!> Simulation time limit reached -- at t=0.01s, event #6337
 
 Calling finish() at end of Run #0...
 [INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
@@ -832,4 +740,96 @@ Calling finish() at end of Run #0...
 
 End.
 Exported 5 vectors
-rm -f solver
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
+
+Preparing for running configuration General, run #0...
+Assigned runID=General-0-20230813-10:07:55-6042
+Setting up network "TSN_multipath"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 7e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 397   present: 397   in FES: 59
+** Event #7115   t=0.01   Elapsed: 0.082328s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=86426.8   simsec/sec=0.121471   ev/simsec=711500
+     Messages:  created: 7741   present: 443   in FES: 6
+
+<!> Simulation time limit reached -- at t=0.01s, event #7115
+
+Calling finish() at end of Run #0...
+[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-08 Ipv4:{inet_addr:10.0.0.2/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-0D Ipv4:{inet_addr:10.0.0.3/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.4/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.01 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-19 Ipv4:{inet_addr:10.0.0.5/29 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.
+Exported 5 vectors
+make: *** No rule to make target 'clean'.  Stop.

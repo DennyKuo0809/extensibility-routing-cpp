@@ -4,7 +4,7 @@ project(extensibility_routing C)
 
 option(CXX "enable C++ compilation" ON)
 
-set (CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
 
 if(CXX)
   enable_language(CXX)
@@ -33,20 +33,19 @@ include_directories(include)
 
 # list source files here
 file(GLOB SOURCE_FILES
-    src/*.cpp
-    main.cpp
+    extensibility-routing/src/*.cpp
+    extensibility-routing/main.cpp
 )
 
-add_executable(${CMAKE_PROJECT_NAME} 
-  ${SOURCE_FILES})
+add_executable(solver ${SOURCE_FILES})
 
 if(CXX)
-  set(CMAKE_CXX_STANDARD 11)
-  target_link_libraries(${CMAKE_PROJECT_NAME} optimized ${GUROBI_CXX_LIBRARY}
+  set(CMAKE_CXX_STANDARD 17)
+  target_link_libraries(solver optimized ${GUROBI_CXX_LIBRARY}
                         debug ${GUROBI_CXX_DEBUG_LIBRARY})
 endif()
 
-target_link_libraries(${CMAKE_PROJECT_NAME} ${GUROBI_LIBRARY})
+target_link_libraries(solver ${GUROBI_LIBRARY})
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_CURRENT_SOURCE_DIR})
   include(FeatureSummary)
