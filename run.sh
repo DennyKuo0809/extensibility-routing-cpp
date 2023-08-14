@@ -167,7 +167,8 @@ then
         $SCENARIO \
         $METHOD \
         $routing_path \
-        $shortest_path_info_path
+        $shortest_path_info_path \
+        'true'
 else
     for i in ${!TYPE1_METHOD[@]}
     do

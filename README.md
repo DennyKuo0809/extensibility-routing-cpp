@@ -83,13 +83,16 @@ bash run.sh \
 └── scenario.ned
 ```
 
+## Demo
+```
+bash demo.sh
+```
 
 ## About simulation
 1. Download [Omnet++](https://omnetpp.org/download/)
 2. Download and install [INET](https://inet.omnetpp.org/Installation.html)
 3. Create a simulation directory under INET root directory
 
-## TODO
+## TODO List
 * simulation generator module name
 * demo
-* clean up
