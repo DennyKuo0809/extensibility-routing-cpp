@@ -22,7 +22,7 @@ private:
 
 public:
     Circuit_finding() = delete;
-    Circuit_finding(Graph g): origin_graph{g}, graph{g} {
+    Circuit_finding(Graph g, double trim): origin_graph{g}, graph{g}, trim_factor{trim} {
         int n = g.vertex_num;
         Source = 0;
         blocked = std::vector<bool>(n, false);

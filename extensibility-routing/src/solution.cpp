@@ -74,7 +74,7 @@ void Solution::solve_type1(std::string method){
         type1_solved = true;
     }
 }
-void Solution::solve_type2(){
+void Solution::solve_type2(int trim){
     /* Remove the capacity which occupy by type-1 streams */
     for(int i = 0 ; i < type1_path.size() ; i ++){
         for(int j = 0 ; j < type1_path[i].size() - 1 ; j ++){
@@ -84,7 +84,7 @@ void Solution::solve_type2(){
     }
     
     /* Construct cycle pool */
-    Circuit_finding Cf(scenario.graph);
+    Circuit_finding Cf(scenario.graph, trim);
     Cf.johnson();
     cycle_pool = Cf.get_cycle_pool();
     std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
@@ -420,7 +420,7 @@ void Solution::cycle_selection(){
 }
 
 
-/* Member Function: simplex */
+/* Member Function: ILP */
 std::vector<std::vector<int>> Solution::ILP_routing_util(int vertex_cnt, std::vector<Edge> edge, std::vector<type_1> stream){
     int edge_cnt = edge.size(), total_stream_cnt = stream.size();
     
@@ -531,7 +531,7 @@ void Solution::ILP_routing(){
     };
 
     if (query(0).empty()){
-        std::cerr << "[Info] (simplex) No solution\n";
+        std::cerr << "[Info] (ILP) No solution\n";
     }
     else {
         double lo = 0, hi = 1e7;

@@ -100,7 +100,13 @@ class testcase:
                 f.write(f"{s[0]} {s[1]} {s[2]} {s[3]}\n")
 
 if __name__ == "__main__":
-    T = testcase()
-    T.dump(path='input/Abilene.in')
+    T = testcase(
+        real_world_topo=False,
+        num_vertex=50, # for random topoloty
+        cap_utl_ratio=0.5,
+        type1_type2_ratio=2,
+        type1_num=10
+    )
+    T.dump(path='50.in')
 
             

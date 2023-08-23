@@ -46,7 +46,8 @@
 POSITIONAL_ARGS=()
 TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value" "simplex")
 ARG_NOTICE=$'[Usage]\n-s, --scenario\t\tPath to scenario.\n-o, --output\t\tPath to output directory.\n-m, --method\t\tRouting method for type-1 streams.\n\t\t\t\t* shortest_path\n\t\t\t\t* min_max_percentage\n\t\t\t\t* least_used_capacity_percentage\n\t\t\t\t* least_conflict_value'
-DO_SIM=false
+DO_SIM=falserealpath $2
+TRIM=0.0
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -62,6 +63,11 @@ while [[ $# -gt 0 ]]; do
       ;;
     -m|--method)
       METHOD="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -t|--trim)
+      TRIM="$2"
       shift # past argument
       shift # past value
       ;;
@@ -168,7 +174,8 @@ then
         $METHOD \
         $routing_path \
         $shortest_path_info_path \
-        'true'
+        'true' \
+        $TRIM
 else
     for i in ${!TYPE1_METHOD[@]}
     do
@@ -182,14 +189,16 @@ else
               $m \
               $routing_path \
               $shortest_path_info_path \
-              'true'
+              'true' \
+              $TRIM
         else
             ./solver \
               $SCENARIO \
               $m \
               $routing_path \
               $shortest_path_info_path \
-              'false'
+              'false' \
+              $TRIM
         fi
     done
 fi
