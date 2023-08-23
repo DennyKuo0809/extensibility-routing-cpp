@@ -1,5 +1,6 @@
 #include <queue>
 #include <algorithm>
+#include <string.h>
 #include <iostream>
 #include "../include/graph.hpp"
 
@@ -44,6 +45,9 @@ void Graph::clear_neighbor(int src){
 void Graph::set_capacity(int src, int dst, double data_rate){
     capacity[src][dst] = data_rate;
 }
+void Graph::push_edge(int src, int dst, double cap){
+    edge_list.push_back(Edge{src, dst, cap});
+}
 
 /* API: getter */
 int Graph::get_vertex_num() const{
@@ -57,6 +61,9 @@ double Graph::get_capacity(int src, int dst) const{
 }
 std::vector<std::vector<int> > Graph::get_graph() const{
     return adj_list;
+}
+std::vector<Edge> Graph::get_edge_list() const{
+    return edge_list;
 }
 
 /* Member Function: About graph */
@@ -103,6 +110,11 @@ std::vector<int> Graph::shortest_path(int src, int dst, int data_rate){
 
 /* DFS to find all path from src to dst in the network */
 void Graph::dfs(int current, int dst, int dist, int data_rate, int* cur_path, bool* visited, std::vector<std::vector<int> >& path){
+    std::cerr << "(dfs) " << current << " " << dst << " " << dist << " " << data_rate << "\n";
+    for(int i = 0 ; i < vertex_num ; i ++){
+        std::cerr << visited[i] << " ";
+    }
+    std::cerr << "\n";
     if(current == dst){
         cur_path[dist] = dst;
         path.push_back(std::vector<int>());
@@ -124,9 +136,12 @@ void Graph::dfs(int current, int dst, int dist, int data_rate, int* cur_path, bo
 void Graph::all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path){
     int* cur_path = new int[vertex_num];
     bool* visited = new bool[vertex_num];
+    memset(cur_path, 0, sizeof(int)*vertex_num);
+    memset(visited, 0, sizeof(bool)*vertex_num);
     cur_path[0] = src;
     visited[src] = true;
     dfs(src, dst, 1, data_rate, cur_path, visited, path);
+    std::cerr << "dfs finish\n";
     delete[] cur_path;
     delete[] visited;
 }

@@ -43,6 +43,7 @@ std::istream& operator>> (std::istream& is, Scenario& S){
             is >> v;
             is >> c;
             S.graph.set_neighbor(i, v, c);
+            S.graph.push_edge(i, v, c);
         }
     }
 

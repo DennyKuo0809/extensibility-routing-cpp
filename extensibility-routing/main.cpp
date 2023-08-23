@@ -12,15 +12,16 @@ int main(int argc, char *argv[]){
      *  5. Output information of shortest path or not
      *******************************************/
 
-    if (argc != 6){
-        std::cerr << "Usage: ./executable [file path to scenario] [method for type-1 streams] [file path to output file] [path to shortest path info file] [Output shortest path info]" << std::endl;
+    if (argc != 7){
+        std::cerr << "Usage: ./executable [Scenario File] [Routing Method] [Output File] [Shortest Path Information Output File] [Output Shortest Path Information or not] [Trim Value]" << std::endl;
         exit(-1);
     }
     std::string path_to_scenario = std::string(argv[1]);
-    std::string type1_method = std::string(argv[2]);
+    std::string routing_method = std::string(argv[2]);
     std::string path_to_output = std::string(argv[3]);
     std::string path_to_shortest_path_info = std::string(argv[4]);
     std::string output_shortest = std::string(argv[5]);
+    double trim_value = std::stod(std::string(argv[6]));
 
     std::ifstream ifs;
     ifs.open(path_to_scenario,  std::ifstream::in);
@@ -29,12 +30,16 @@ int main(int argc, char *argv[]){
     ifs >> scenario;
     Solution solution(scenario);
 
+    if(routing_method == "ILP"){
+        solution.ILP_routing();
+    }
+    else{
+        solution.solve_type1(routing_method);
+        solution.solve_type2(trim_value);
+    }
 
-    solution.solve_type1(type1_method);
-    solution.solve_type2();
 
-
-    // std::cout << solution;
+    // std::cerr << solution;
 
     std::ofstream ofs;
     ofs.open(path_to_output,  std::ifstream::out);

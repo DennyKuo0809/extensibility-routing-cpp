@@ -3,6 +3,11 @@
 #include <vector>
 #include <algorithm>
 
+struct Edge{
+    int src, dst;
+    double cap;
+};
+
 class SCC;
 class Circuit_finding;
 class Graph{
@@ -11,6 +16,7 @@ private:
     std::vector<int> node_list;
     std::vector<std::vector<int> > adj_list;
     std::vector<std::vector<double> > capacity;
+    std::vector<Edge> edge_list;
 
 public:
     /* Constructor: new graph */
@@ -25,12 +31,14 @@ public:
     void set_neighbor(int src, int dst, double data_rate);
     void clear_neighbor(int src);
     void set_capacity(int src, int dst, double data_rate);
+    void push_edge(int src, int dst, double cap);
 
     /* API: getter */
     int get_vertex_num() const;
     std::vector<int> get_neighbor(int index) const; 
     double get_capacity(int src, int dst) const;
     std::vector<std::vector<int> > get_graph() const; // return copy of adj_list
+    std::vector<Edge> get_edge_list() const;
 
     /* Member Function: About graph */
     /* BFS to find shortest path in the network */

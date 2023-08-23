@@ -47,7 +47,7 @@ public:
 
     /* API: caller */
     void solve_type1(std::string method);
-    void solve_type2();
+    void solve_type2(int trim);
     void perform_shortest_path();
 
     /* Member Function: type-1 solver */
@@ -59,6 +59,11 @@ public:
     /* Member Function: type-2 utilization */
     void greedy_merge(int start);
     void cycle_selection();
+
+    /* Member Function: ILP */
+    std::vector<std::vector<int>> ILP_routing_util(int vertex_cnt, std::vector<Edge> edge, std::vector<type_1> stream);
+    void ILP_routing();
+
 
     /* IO */
     friend std::ostream& operator<< (std::ostream& os, Solution& sol);
