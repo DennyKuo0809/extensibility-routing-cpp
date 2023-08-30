@@ -110,18 +110,22 @@ std::vector<int> Graph::shortest_path(int src, int dst, int data_rate){
 
 /* DFS to find all path from src to dst in the network */
 void Graph::dfs(int current, int dst, int dist, int data_rate, int* cur_path, bool* visited, std::vector<std::vector<int> >& path){
-    std::cerr << "(dfs) " << current << " " << dst << " " << dist << " " << data_rate << "\n";
-    for(int i = 0 ; i < vertex_num ; i ++){
-        std::cerr << visited[i] << " ";
-    }
-    std::cerr << "\n";
+    // std::cerr << "(dfs) " << current << " " << dst << " " << dist << " " << data_rate << "\n";
+    // for(int i = 0 ; i < vertex_num ; i ++){
+    //     std::cerr << visited[i] << " ";
+    // }
+    // std::cerr << "\n";
     if(current == dst){
         cur_path[dist] = dst;
         path.push_back(std::vector<int>());
         int id = path.size() - 1;
         for(int i = 0 ; i < dist ; i ++){
             path[id].push_back(cur_path[i]);
+            // if(i){
+            //     capacity[cur_path[i-1]][cur_path[i]] -= data_rate;
+            // }
         }
+        std::cerr << "(dfs) found " << id << "-th path\n";
         return;
     }
     for(int i = 0 ; i < adj_list[current].size() ; i ++){
@@ -171,7 +175,7 @@ std::vector<int> Graph::dijk(int src, std::vector<int> dst, int* cost){
         included[min_dis_node] = true;
 
         for(int neighbor: adj_list[min_dis_node]){
-            if(dis[neighbor] > dis[min_dis_node] + capacity[min_dis_node][neighbor]){
+            if(!included[neighbor] && dis[neighbor] > dis[min_dis_node] + capacity[min_dis_node][neighbor]){
                 prev[neighbor] = min_dis_node;
                 dis[neighbor] = dis[min_dis_node] + capacity[min_dis_node][neighbor];
             }
@@ -180,7 +184,7 @@ std::vector<int> Graph::dijk(int src, std::vector<int> dst, int* cost){
     int min_dis = INF;
     int min_dis_dst = -1;
     for(int d: dst){
-        if(dis[d] < INF){
+        if(dis[d] < min_dis){
             min_dis = dis[d];
             min_dis_dst = d;
         }

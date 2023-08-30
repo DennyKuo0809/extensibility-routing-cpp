@@ -15,7 +15,7 @@ class Stream_switch():
     def poisson_reverse(self, probability):
         return -math.log(1 - probability) / self.Lambda
 
-    def on_off_schedule(self, sim_time=2000):
+    def on_off_schedule(self, sim_time=10000):
         t = 0
         on = False
         schedule = []
@@ -206,7 +206,7 @@ sim-time-limit = 10ms
             content += f'''
     {{
         name: "S2-{i}", 
-        packetFilter: "*-type1_{i}-*", 
+        packetFilter: "*-type2_{i}-*", 
         source: "{self.topology.hosts[p[0]].name}", 
         destination: "{self.topology.hosts[p[-1]].name}",
         trees: [[{pprint.pformat(tree_).replace("'", '"')}]]

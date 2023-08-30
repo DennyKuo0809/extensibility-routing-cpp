@@ -1,2 +1,4 @@
 rm -rf build
-rm solver
+rm -f solver
+rm -f clean
+rm -rf generator/__pycache__

@@ -6,12 +6,6 @@
 #include <numeric>
 #include "gurobi_c++.h"
 #include "../include/solution.hpp"
-// void printvec(std::vector<int> vec){
-//     // for(int i = 0 ; i < vec.size() ; i ++){
-//     //     std::cout << vec[i] << " ";
-//     // }
-//     // std::cout << "\n";
-// }
 
 void print2dvec(std::string name, std::vector<std::vector<int> > vec){
     std::cerr << "[I] " << name << "\n";
@@ -127,7 +121,7 @@ void Solution::shortest_path(){
         type1_path.push_back(scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
         if(type1_path[i].size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[W] Fail to solve type-1 by the method \"Shortest Path\"." << std::endl;
+            std::cerr << "[Warning] Fail to solve type-1 by the method \"Shortest Path\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
@@ -164,15 +158,16 @@ void Solution::least_used_capacity_percentage(){
             type1_path = std::vector<std::vector<int> >();
             return;
         }
-        double least_p = 1.0;
+        double least_p = 1.0, current_least_p = 1.0;
         int least_id = 0;
         for(int j = 0 ; j < all_path.size() ; j ++){
             double total_capacity = 0.0;
             for(int k = 0 ; k < all_path[j].size()-1 ; k ++){
                 total_capacity += scenario.graph.get_capacity(all_path[j][k], all_path[j][k+1]);
             }
-            if(scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / total_capacity < least_p){
-                least_p = scenario.Type_1[i].data_rate * (double)(all_path[j].size() - 1) / total_capacity;
+            current_least_p = scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / total_capacity;
+            if(current_least_p < least_p){
+                least_p = current_least_p;
                 least_id = j;
             }
         }
@@ -186,23 +181,26 @@ void Solution::min_max_percentage(){
         scenario.graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
         if(all_path.size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[W] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
+            std::cerr << "[Warning] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
-        double least_p = 1.0;
+        std::cerr << "Finish finding all possible path, " << all_path.size() << "in total.\n";
+        double least_p = 1.0, current_least_p = 1.0;
         int least_id = 0;
         for(int j = 0 ; j < all_path.size() ; j ++){
             double least_capacity = scenario.graph.get_capacity(all_path[j][0], all_path[j][1]);
             for(int k = 1 ; k < all_path[j].size()-1 ; k ++){
                 least_capacity = std::min(least_capacity, scenario.graph.get_capacity(all_path[j][k], all_path[j][k+1]));
             }
-            if(scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / least_capacity < least_p){
-                least_p = scenario.Type_1[i].data_rate * (double)(all_path[j].size() - 1) / least_capacity;
+            current_least_p = scenario.Type_1[i].data_rate / least_capacity;
+            if(current_least_p < least_p){
+                least_p = current_least_p;
                 least_id = j;
             }
         }
         type1_path.push_back(all_path[least_id]);
+        std::cerr << "Finish routing for type1_" << type1_path.size() - 1 << "\n";
     }
 }
 
@@ -320,7 +318,7 @@ void Solution::cycle_selection(){
     for(int i = 0 ; i < vertex_num ; i ++) reverse_map_[i] = i;
     
     // print2dvec("cycle_pool", cycle_pool);
-    // print2dvec("result", result);
+    print2dvec("result", result);
     int min_cost = 2147483647;
     int min_cost_result = 0;
     for(int i = 0 ; i < result.size() ; i ++){
@@ -365,11 +363,12 @@ void Solution::cycle_selection(){
         /* Set new graph */
         g.set_vertex_num(total_vertex_num+1);
 
-        /* Duplicated nodes formed complete graph */
+        /* Duplicated nodes forme a complete graph */
         for(int node = 0 ; node < vertex_num ; node ++){
             for(int i = 0 ; i < dup[node].size() ; i ++){
                 for(int j = i+1 ; j < dup[node].size() ; j ++){
                     g.set_neighbor(dup[node][i], dup[node][j], 100);
+                    g.set_neighbor(dup[node][j], dup[node][i], 100);
                 }
             }
         }
@@ -387,18 +386,25 @@ void Solution::cycle_selection(){
          *      Using Dijkstra
          ***********************************************************************/
         int cost = 0;
+        bool fail = false;
+        int path_len = 0;
         std::vector<std::vector<int> > sol_path;
         for(auto stream: scenario.Type_2){
             g.clear_neighbor(total_vertex_num);
             for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0.01);
             std::vector<int> tmp = g.dijk(total_vertex_num, dup[stream.dst], &cost);
-            for(int e = 0 ; e < tmp.size() ; e ++){
+            path_len = tmp.size();
+            if(path_len == 0){
+                fail = true;
+                break;
+            }
+            for(int e = 0 ; e < path_len ; e ++){
                 if(tmp[e] >= total_vertex_num) tmp[e] = reverse_map[tmp[e]];
             }
             sol_path.push_back(tmp);
             // printvec(tmp);
         }
-        if(cost < min_cost){
+        if(!fail && cost < min_cost){
             min_cost = cost;
             min_cost_result = i;
             type2_path = std::vector<std::vector<int> >();
@@ -589,5 +595,3 @@ void Solution::output_shortest_path(std::ostream& os){
         }
     }
 }
-
-
