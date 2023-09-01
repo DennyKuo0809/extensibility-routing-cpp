@@ -16,29 +16,28 @@ private:
     std::vector<std::vector<double> > capacity;
     std::vector<Edge> edge_list;
 
+    std::vector<std::vector<int> > sorted_adj_list;
+    std::vector<double> sorted_edge_prefix_sum;
+    int max_avg_len = 1;
+    double max_avg_sum = 0.0;
+
 public:
     /* Constructor */
     Enhance_Graph() = delete;
-    Enhance_Graph(Graph g){
-        vertex_num = g.get_vertex_num();
-        adj_list = g.get_graph();
-        capacity = g.get_cap_matrix();
-        edge_list = g.get_edge_list();
-    }
+    Enhance_Graph(Graph g);
 
     /* BFS to find shortest path in the network */
     std::vector<int> shortest_path(int src, int dst, int data_rate);
 
     /* DFS to find all path from src to dst in the network */
-    void dfs(int current, int dst, int dist, int data_rate, int* cur_path, bool* visited, std::vector<std::vector<int> >& path);
-    void all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path);
+    void heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path);
+    void heuristic_search_max_avg(int src, int dst, int data_rate, std::vector<int>& path);
 
-    /* Multiple source, destination Dijkstra */
-    std::vector<int> dijk(int src, std::vector<int> dst, int* cost);
 
     /* For Type-1 solution */
     std::vector<int> dijk_min_max_percentage(int src, int dst);
     std::vector<int> dijk_least_conflict_value(int src, int dst, std::vector<std::vector<double> >& occupy);
+    
     
     friend class Solution;
 };

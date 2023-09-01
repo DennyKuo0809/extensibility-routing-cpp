@@ -135,47 +135,51 @@ void Solution::least_conflict_value(){
 }
 
 
-// void Solution::least_used_capacity_percentage(){
-//     int v_num = scenario.graph.get_vertex_num();
-//     std::vector<std::vector<int> > sorted_adj = scenario.graph.get_graph();
-//     for(int i = 0 ; i < v_num ; i ++){
-//         std::sort(
-//             sorted_adj[i].begin(),
-//             sorted_adj[i].end(),
-//             [&](int n1, int n2){
-//                 return scenario.graph.get_capacity(i, n1) > scenario.graph.get_capacity(i, n2);
-//             }
-//         );
-//     }
-
-// }
-
-
-
-
 void Solution::least_used_capacity_percentage(){
-    for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
-        std::vector<std::vector<int> > all_path;
-        e_graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
-        if(all_path.size() == 0){
+    for(int i = 0 ; i <  scenario.Type_1.size() ; i ++){
+        type1_path.push_back(std::vector<int>());
+        e_graph.heuristic_search_max_avg(
+            scenario.Type_1[i].src, 
+            scenario.Type_1[i].dst,
+            scenario.Type_1[i].data_rate,
+            type1_path[i]
+        );
+
+        if(type1_path[i].size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[W] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
+            std::cerr << "[WARNING] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }
-        double least_p = 1.0, current_least_p = 1.0;
-        int least_id = 0;
-        for(int j = 0 ; j < all_path.size() ; j ++){
-            double total_capacity = 0.0;
-            for(int k = 0 ; k < all_path[j].size()-1 ; k ++){
-                total_capacity += scenario.graph.get_capacity(all_path[j][k], all_path[j][k+1]);
-            }
-            current_least_p = scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / total_capacity;
-            if(current_least_p < least_p){
-                least_p = current_least_p;
-                least_id = j;
-            }
-        }
-        type1_path.push_back(all_path[least_id]);
     }
 }
+
+
+
+
+// void Solution::least_used_capacity_percentage(){
+//     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
+//         std::vector<std::vector<int> > all_path;
+//         e_graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
+//         if(all_path.size() == 0){
+//             /* Fail to solve type-1 streams */
+//             std::cerr << "[W] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
+//             type1_path = std::vector<std::vector<int> >();
+//             return;
+//         }
+//         double least_p = 1.0, current_least_p = 1.0;
+//         int least_id = 0;
+//         for(int j = 0 ; j < all_path.size() ; j ++){
+//             double total_capacity = 0.0;
+//             for(int k = 0 ; k < all_path[j].size()-1 ; k ++){
+//                 total_capacity += scenario.graph.get_capacity(all_path[j][k], all_path[j][k+1]);
+//             }
+//             current_least_p = scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / total_capacity;
+//             if(current_least_p < least_p){
+//                 least_p = current_least_p;
+//                 least_id = j;
+//             }
+//         }
+//         type1_path.push_back(all_path[least_id]);
+//     }
+// }
