@@ -34,12 +34,12 @@ void Solution::set_type1_path(std::vector<std::vector<int> > t1_path){
 void Solution::perform_shortest_path(){
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
         shortest_path_routing.push_back( 
-            scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate)
+            e_graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate)
         );
     }
     for(int i = 0 ; i < scenario.Type_2.size() ; i ++){
         shortest_path_routing.push_back( 
-            scenario.graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate)
+            e_graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate)
         );
     }
 }

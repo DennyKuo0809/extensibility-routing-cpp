@@ -6,6 +6,18 @@
 #include <numeric>
 #include "../../include/solution.hpp"
 
+/* API: getter */
+std::vector<std::vector<int> > Solution::get_type1_path() const{
+    return type1_path;
+}
+
+std::vector<std::vector<int> > Solution::get_type2_path() const{
+    return type2_path;
+}
+
+std::vector<std::vector<int> > Solution::get_cycle_pool() const{
+    return cycle_pool;
+}
 
 /* API: caller */
 void Solution::solve_type1(std::string method){
@@ -34,7 +46,7 @@ void Solution::solve_type1(std::string method){
 void Solution::shortest_path(){
     type1_path = std::vector<std::vector<int> >();
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
-        type1_path.push_back(scenario.graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
+        type1_path.push_back(e_graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
         if(type1_path[i].size() == 0){
             /* Fail to solve type-1 streams */
             std::cerr << "[Warning] Fail to solve type-1 by the method \"Shortest Path\"." << std::endl;
@@ -70,7 +82,7 @@ void Solution::min_max_percentage(){
     // Perform a transformed dijkstra algoritm
     for(int i = 0 ; i <  scenario.Type_1.size() ; i ++){
         type1_path.push_back(
-            scenario.graph.dijk_min_max_percentage(
+            e_graph.dijk_min_max_percentage(
                 scenario.Type_1[i].src, 
                 scenario.Type_1[i].dst
             )
@@ -93,7 +105,7 @@ void Solution::least_conflict_value(){
 
     /* Find shortest path for type-2 */
     for(int i = 0 ; i < scenario.Type_2.size() ; i ++){
-        std::vector<int> path = scenario.graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate);
+        std::vector<int> path = e_graph.shortest_path(scenario.Type_2[i].src, scenario.Type_2[i].dst, scenario.Type_2[i].data_rate);
         if(path.size() == 0){
             /* Fail to solve type-2 streams */
             std::cerr << "[WARNING] (least conflct value) The type-2 streams are un-solvable by using shortest path." << std::endl;
@@ -106,7 +118,7 @@ void Solution::least_conflict_value(){
 
     for(int i = 0 ; i <  scenario.Type_1.size() ; i ++){
         type1_path.push_back(
-            scenario.graph.dijk_least_conflict_value(
+            e_graph.dijk_least_conflict_value(
                 scenario.Type_1[i].src, 
                 scenario.Type_1[i].dst,
                 occupy
@@ -122,10 +134,29 @@ void Solution::least_conflict_value(){
     }
 }
 
+
+// void Solution::least_used_capacity_percentage(){
+//     int v_num = scenario.graph.get_vertex_num();
+//     std::vector<std::vector<int> > sorted_adj = scenario.graph.get_graph();
+//     for(int i = 0 ; i < v_num ; i ++){
+//         std::sort(
+//             sorted_adj[i].begin(),
+//             sorted_adj[i].end(),
+//             [&](int n1, int n2){
+//                 return scenario.graph.get_capacity(i, n1) > scenario.graph.get_capacity(i, n2);
+//             }
+//         );
+//     }
+
+// }
+
+
+
+
 void Solution::least_used_capacity_percentage(){
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
         std::vector<std::vector<int> > all_path;
-        scenario.graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
+        e_graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
         if(all_path.size() == 0){
             /* Fail to solve type-1 streams */
             std::cerr << "[W] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;

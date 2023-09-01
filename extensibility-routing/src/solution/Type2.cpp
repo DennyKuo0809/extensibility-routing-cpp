@@ -184,7 +184,7 @@ void Solution::cycle_selection(){
         for(auto stream: scenario.Type_2){
             g.clear_neighbor(total_vertex_num);
             for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0.01);
-            std::vector<int> tmp = g.dijk(total_vertex_num, dup[stream.dst], &cost);
+            std::vector<int> tmp = g.multi_dst_dijk(total_vertex_num, dup[stream.dst], &cost);
             path_len = tmp.size();
             if(path_len == 0){
                 fail = true;
