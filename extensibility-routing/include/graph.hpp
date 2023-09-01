@@ -33,23 +33,43 @@ public:
     void set_capacity(int src, int dst, double data_rate);
     void push_edge(int src, int dst, double cap);
 
+
     /* API: getter */
-    int get_vertex_num() const;
-    std::vector<int> get_neighbor(int index) const; 
-    double get_capacity(int src, int dst) const;
-    std::vector<std::vector<int> > get_graph() const; // return copy of adj_list
-    std::vector<Edge> get_edge_list() const;
+    int get_vertex_num() const{
+        return vertex_num;
+    }
+    std::vector<int> get_neighbor(int index) const{
+        return adj_list[index];
+    }
+    double get_capacity(int src, int dst) const{
+        return capacity[src][dst];
+    }
+    std::vector<std::vector<int> > get_graph() const{
+        return adj_list;
+    }
+    std::vector<std::vector<double> > get_cap_matrix() const{
+        return capacity;
+    }
+    std::vector<Edge> get_edge_list() const{
+        return edge_list;
+    }
+    
 
     /* Member Function: About graph */
-    /* BFS to find shortest path in the network */
+    // BFS to find shortest path in the network
     std::vector<int> shortest_path(int src, int dst, int data_rate);
 
-    /* DFS to find all path from src to dst in the network */
+    // DFS to find all path from src to dst in the network
     void dfs(int current, int dst, int dist, int data_rate, int* cur_path, bool* visited, std::vector<std::vector<int> >& path);
     void all_path(int src, int dst, int data_rate, std::vector<std::vector<int> >& path);
 
-    /* Dijkstra Algorithm */
+    // Dijkstra Algorithm
     std::vector<int> dijk(int src, std::vector<int> dst, int* cost);
+
+
+    /* For Type-1 solution */
+    std::vector<int> dijk_min_max_percentage(int src, int dst);
+    std::vector<int> dijk_least_conflict_value(int src, int dst, std::vector<std::vector<double> >& occupy);
 
     friend class SCC;
     friend class Circuit_finding;

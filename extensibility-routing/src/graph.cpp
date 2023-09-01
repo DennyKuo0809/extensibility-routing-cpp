@@ -49,23 +49,6 @@ void Graph::push_edge(int src, int dst, double cap){
     edge_list.push_back(Edge{src, dst, cap});
 }
 
-/* API: getter */
-int Graph::get_vertex_num() const{
-    return vertex_num;
-}
-std::vector<int> Graph::get_neighbor(int index) const{
-    return adj_list[index];
-}
-double Graph::get_capacity(int src, int dst) const{
-    return capacity[src][dst];
-}
-std::vector<std::vector<int> > Graph::get_graph() const{
-    return adj_list;
-}
-std::vector<Edge> Graph::get_edge_list() const{
-    return edge_list;
-}
-
 /* Member Function: About graph */
 /* BFS to find shortest path in the network */
 std::vector<int> Graph::shortest_path(int src, int dst, int data_rate){
@@ -198,5 +181,98 @@ std::vector<int> Graph::dijk(int src, std::vector<int> dst, int* cost){
     }
     std::reverse(sol_path.begin(), sol_path.end());
     *cost += min_dis;
+    return sol_path;
+}
+
+std::vector<int> Graph::dijk_min_max_percentage(int src, int dst){
+    // Find the path whose minimum weight edge has the biggest weight
+    std::vector<double> min_weight(vertex_num, -1);
+    std::vector<bool> included(vertex_num, false);
+    std::vector<int> prev(vertex_num, -1);
+
+    for(auto neighbor: adj_list[src]){
+        min_weight[neighbor] = capacity[src][neighbor];
+        prev[neighbor] = src;
+    }
+
+    included[src] = true;
+
+    for(int cnt = 1 ; cnt < vertex_num ; cnt ++){
+        int max_min_weight = -1;
+        int new_node = -1;
+        for(int node = 0 ; node < vertex_num ; node ++){
+            if(!included[node] && min_weight[node] > max_min_weight){
+                max_min_weight = min_weight[node];
+                new_node = node;
+            }
+        }
+        if(new_node < 0 || new_node == dst) break;
+        included[new_node] = true;
+
+        for(int neighbor: adj_list[new_node]){
+            if(!included[neighbor]){
+                int new_min_weight = std::min(capacity[new_node][neighbor], min_weight[new_node]);
+                if(min_weight[neighbor] < 0 || new_min_weight > min_weight[neighbor]){
+                    min_weight[neighbor] = new_min_weight;
+                    prev[neighbor] = new_node;
+                }
+            }
+        }
+    }
+
+    /* Reconstruct the path */
+    std::vector<int> sol_path;
+    int node = dst;
+    while(node != -1) {
+        sol_path.push_back(node);
+        node = prev[node];
+    }
+    std::reverse(sol_path.begin(), sol_path.end());
+    return sol_path;
+}
+
+
+std::vector<int> Graph::dijk_least_conflict_value(int src, int dst, std::vector<std::vector<double> >& occupy){
+    // Find the path whose minimum weight edge has the biggest weight
+    const int INF = 2147483647;
+    std::vector<double> min_conflict(vertex_num, INF);
+    std::vector<bool> included(vertex_num, false);
+    std::vector<int> prev(vertex_num, -1);
+
+    for(auto neighbor: adj_list[src]){
+        min_conflict[neighbor] = occupy[src][neighbor];
+        prev[neighbor] = src;
+    }
+
+    included[src] = true;
+
+    for(int cnt = 1 ; cnt < vertex_num ; cnt ++){
+        int min_conflict_v = INF;
+        int new_node = -1;
+        for(int node = 0 ; node < vertex_num ; node ++){
+            if(!included[node] && min_conflict[node] < min_conflict_v){
+                min_conflict_v = min_conflict[node];
+                new_node = node;
+            }
+        }
+        if(new_node < 0 || new_node == dst) break;
+        included[new_node] = true;
+
+        for(int neighbor: adj_list[new_node]){
+            if(!included[neighbor] && min_conflict[neighbor] > min_conflict[new_node] + occupy[new_node][neighbor]){
+                prev[neighbor] = new_node;
+                min_conflict[neighbor] = min_conflict[new_node] + occupy[new_node][neighbor];
+            }
+        }
+    }
+
+    /* Reconstruct the path */
+    std::vector<int> sol_path;
+    int node = dst;
+    while(node != -1) {
+        sol_path.push_back(node);
+        node = prev[node];
+    }
+    std::reverse(sol_path.begin(), sol_path.end());
     return sol_path;
 }
