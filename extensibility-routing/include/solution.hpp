@@ -38,9 +38,17 @@ public:
 
     /* API */
     /* API: getter */
-    std::vector<std::vector<int> > get_type1_path() const;
-    std::vector<std::vector<int> > get_type2_path() const;
-    std::vector<std::vector<int> > get_cycle_pool() const;
+    std::vector<std::vector<int> > get_type1_path() const{
+        return type1_path;
+    }
+
+    std::vector<std::vector<int> > get_type2_path() const{
+        return type2_path;
+    }
+
+    std::vector<std::vector<int> > get_cycle_pool() const{
+        return cycle_pool;
+    }
     
     /* API: setter */
     void set_type1_path(std::vector<std::vector<int> > t1_path);
@@ -51,6 +59,9 @@ public:
     void perform_shortest_path();
 
     /* Member Function: type-1 solver */
+    void dijk_min_max_percentage(int src, int dst);
+    void dijk_least_used_capacity_percentage(int src, int dst);
+    void dijk_least_conflict_value(int src, int dst);
     void shortest_path();
     void least_used_capacity_percentage();
     void min_max_percentage();
@@ -64,6 +75,8 @@ public:
     std::vector<std::vector<int>> ILP_routing_util(int vertex_cnt, std::vector<Edge> edge, std::vector<type_1> stream);
     void ILP_routing();
 
+    /* Util */
+    void print2dvec(std::string name, std::vector<std::vector<int> > vec);
 
     /* IO */
     friend std::ostream& operator<< (std::ostream& os, Solution& sol);

@@ -1,6 +1,6 @@
 bash run.sh \
 --scenario demo/input/50.in \
---method ILP \
+--method min_max_percentage \
 --trim 5 \
 --output demo/output/50-1 \
 --sim_dir ~/omnetpp-6.0.1/samples/inet4.5/tutorials/extensibility_routing/ \
