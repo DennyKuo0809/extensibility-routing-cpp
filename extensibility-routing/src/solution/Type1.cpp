@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <set>
 #include <numeric>
-#include "../include/solution.hpp"
+#include "../../include/solution.hpp"
 
 
 /* API: caller */

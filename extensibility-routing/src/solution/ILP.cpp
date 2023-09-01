@@ -5,7 +5,7 @@
 #include <set>
 #include <numeric>
 #include "gurobi_c++.h"
-#include "../include/solution.hpp"
+#include "../../include/solution.hpp"
 
 
 /* Member Function: ILP */

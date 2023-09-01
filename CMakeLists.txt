@@ -34,6 +34,7 @@ include_directories(include)
 # list source files here
 file(GLOB SOURCE_FILES
     extensibility-routing/src/*.cpp
+    extensibility-routing/src/solution/*.cpp
     extensibility-routing/main.cpp
 )
 

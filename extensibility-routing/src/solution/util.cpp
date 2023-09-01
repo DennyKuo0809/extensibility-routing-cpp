@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <set>
 #include <numeric>
-#include "../include/solution.hpp"
+#include "../../include/solution.hpp"
 
 void Solution::print2dvec(std::string name, std::vector<std::vector<int> > vec){
     std::cerr << "[I] " << name << "\n";
