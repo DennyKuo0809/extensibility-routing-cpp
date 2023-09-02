@@ -28,6 +28,9 @@ find_package(GUROBI REQUIRED)
 
 include_directories(${GUROBI_INCLUDE_DIRS})
 
+# add definition
+add_definitions(-DHEURISTIC_CUT)
+
 # add header file
 include_directories(include)
 

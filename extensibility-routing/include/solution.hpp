@@ -20,6 +20,8 @@ private:
     std::vector<double> sorted_edge_prefix_sum;
     int max_avg_len = 1;
     double max_avg_sum = 0.0;
+    double max_avg = 0.0;
+    int num_cut = 0;
 
 public:
     /* Constructor */
@@ -30,7 +32,7 @@ public:
     std::vector<int> shortest_path(int src, int dst, int data_rate);
 
     /* DFS to find all path from src to dst in the network */
-    void heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path);
+    void heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path, std::vector<std::vector<double> >& max_sum);
     void heuristic_search_max_avg(int src, int dst, int data_rate, std::vector<int>& path);
 
 

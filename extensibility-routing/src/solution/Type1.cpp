@@ -147,7 +147,7 @@ void Solution::least_used_capacity_percentage(){
 
         if(type1_path[i].size() == 0){
             /* Fail to solve type-1 streams */
-            std::cerr << "[WARNING] Fail to solve type-1 by the method \"Min Max Percentage\"." << std::endl;
+            std::cerr << "[WARNING] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
             type1_path = std::vector<std::vector<int> >();
             return;
         }

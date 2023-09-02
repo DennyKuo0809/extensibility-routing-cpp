@@ -55,6 +55,8 @@
         "cinttypes": "cpp",
         "typeinfo": "cpp",
         "queue": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "camera": "cpp",
+        "graphicscontext": "cpp"
     }
 }

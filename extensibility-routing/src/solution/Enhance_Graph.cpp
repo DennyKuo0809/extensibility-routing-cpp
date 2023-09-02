@@ -118,42 +118,96 @@ std::vector<int> Enhance_Graph::shortest_path(int src, int dst, int data_rate){
 
 
 /* DFS to find path with maximum average weight from src to dst in the network */
-void Enhance_Graph::heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path){
+void Enhance_Graph::heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path, std::vector<std::vector<double> >& max_sum){
+    // std::cerr << "(heuristict dfs) " << current << " " << dst << " " << dist << " " << sum << "\n";
+    // std::cerr << "(heuristict dfs) dist=" << dist  << "\n";
+
     if(current == dst){
-        if(sum / (dist-1) > max_avg_sum / max_avg_len){ /* Check if bigger average weight */
+        // std::cerr << "(New Path) " << sum << " / " << (dist-1) << "\n";
+        double cap_sum = 0;
+        if(sum / (dist-1) > max_avg){ /* Check if bigger average weight */
+            std::cerr << "(update) " << sum << " / " << (dist-1) << "\n";
             max_avg_sum = sum;
             max_avg_len = dist - 1;
+            max_avg = sum / (dist-1);
             cur_path[dist] = dst;
-            for(int i = 0 ; i < dist ; i ++){
+            path = std::vector<int>();
+            path.push_back(cur_path[0]);
+            for(int i = 1 ; i < dist ; i ++){
                 path.push_back(cur_path[i]);
+                cap_sum += capacity[cur_path[i-1]][cur_path[i]];
+                if(cap_sum > max_sum[i][cur_path[i]]){
+                    max_sum[i][cur_path[i]] = cap_sum;
+                }
+            }
+        }
+        else{
+            double cap_sum = 0;
+            for(int i = 1 ; i < dist ; i ++){
+                cap_sum += capacity[cur_path[i-1]][cur_path[i]];
+                if(cap_sum > max_sum[i][cur_path[i]]){
+                    max_sum[i][cur_path[i]] = cap_sum;
+                }
             }
         }
         return;
     }
     for(int neighbor: sorted_adj_list[current]){
+        // if(dist < 30){
+        //     std::cerr << "dfs on (layer) " << dist << " (node) " << neighbor << "\n";
+        // }
         if(!visited[neighbor] && capacity[current][neighbor] > data_rate){
             /* Cut */
 #ifdef HEURISTIC_CUT
-            if(sum + capacity[current][neighbor] + sorted_edge_prefix_sum[max_avg_len-dist] < max_avg_sum){
-                break;
+            if(max_avg_sum > 0 && neighbor != dst){
+                int s = sum + capacity[current][neighbor];
+                if(s < max_sum[dist][neighbor]){
+                    // std::cerr <<  "(No." << this -> num_cut << ") CUT at dist " <<  dist << "\n";
+                    this -> num_cut ++;
+                    break;
+                }
+                bool cut = true;
+                // int depth = std::min(vertex_num - dist, 2);
+                for(int d = 1 ; d < vertex_num - dist ; d ++){
+                    if(s + sorted_edge_prefix_sum[d] > max_avg * (dist + d)){
+                        cut = false;
+                        break;
+                    }
+                }
+                if(cut) {
+                    // std::cerr <<  "(No." << this -> num_cut << ") CUT at dist " <<  dist << "\n";
+                    this -> num_cut ++;
+                    break;
+                }
             }
 #endif            
             visited[neighbor] = true;
             cur_path[dist] = neighbor;
-            heuristic_dfs_max_avg(neighbor, dst, dist+1, sum + capacity[current][neighbor], data_rate, cur_path, visited, path);
+            heuristic_dfs_max_avg(neighbor, dst, dist+1, sum + capacity[current][neighbor], data_rate, cur_path, visited, path, max_sum);
             visited[neighbor] = false;
         }
     }
 }
 void Enhance_Graph::heuristic_search_max_avg(int src, int dst, int data_rate, std::vector<int>& path){
+    /* Initialize */
     int* cur_path = new int[vertex_num];
     bool* visited = new bool[vertex_num];
+    std::vector<std::vector<double> > max_sum(vertex_num, std::vector<double>(vertex_num, 0));
     memset(cur_path, 0, sizeof(int)*vertex_num);
     memset(visited, 0, sizeof(bool)*vertex_num);
     cur_path[0] = src;
     visited[src] = true;
-    heuristic_dfs_max_avg(src, dst, 1, 0.0, data_rate, cur_path, visited, path);
-    std::cerr << "dfs finish\n";
+
+    /* Call dfs */
+    std::cerr << "(heuristict search) " << src << " " << dst <<  "\n";
+    heuristic_dfs_max_avg(src, dst, 1, 0.0, data_rate, cur_path, visited, path, max_sum);
+    std::cerr << "(heuristict search) Finish with " << this -> num_cut << " cut\n";
+
+    /* Reset */
+    this -> max_avg_len = 1;
+    this -> max_avg_sum = 0.0;
+    this -> max_avg = 0.0;
+    this -> num_cut = 0;
     delete[] cur_path;
     delete[] visited;
 }

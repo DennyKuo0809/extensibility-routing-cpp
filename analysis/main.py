@@ -49,7 +49,7 @@ def parse_shortest_path_info(input_file, m2s, s2m):
 
 def main(args):
     ### Parse routing result
-    for m in ['shortest_path', 'min_max_percentage', 'least_used_capacity_percentage', 'least_conflict_value', 'simplex']:
+    for m in ['shortest_path', 'min_max_percentage', 'least_used_capacity_percentage', 'least_conflict_value', 'ILP']:
         try:
             ### Parse shortest path reult
             m2s, s_info = parse_module_info(args.dir + f'/info/module_stream_{m}.pickle')

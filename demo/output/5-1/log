@@ -1,8 +1,3 @@
-cat clean.sh >clean 
-chmod a+x clean
+make: 'clean' is up to date.
 make: *** No targets specified and no makefile found.  Stop.
-Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1'.
-Environment for 'omnetpp-6.0.1' in directory '/home/ubuntu/omnetpp-6.0.1' is ready.
-Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5'.
-Environment for INET 4.5.0 in directory '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5' is ready.
 make: 'clean' is up to date.
