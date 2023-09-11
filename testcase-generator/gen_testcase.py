@@ -65,16 +65,17 @@ class testcase:
         ### Type-1
         for _ in range(self.type1_num):
             src, dst = random.sample(all_pair, k=1)[0]
-            self.type1.append([src, dst, random.randrange(1, 7)])
+            self.type1.append([src, dst, random.randrange(12, 25) * self.cap_utl_ratio])
 
         ### Type-2
-        sum_type2_lambda = 0.0
-        while sum_type2_lambda < self.type1_num * self.type1_type2_ratio:
+        cnt = 0
+        while cnt < self.type1_type2_ratio * self.type1_num:
             src, dst = random.sample(all_pair, k=1)[0]
-            util = random.randrange(1, 7)
+            util = random.randrange(12, 25) * self.cap_utl_ratio
             lambda_ = random.random()
             self.type2.append([src, dst, util, lambda_])
-            sum_type2_lambda += lambda_
+            # sum_type2_lambda += lambda_
+            cnt += 1
 
         self.type2_num = len(self.type2)
             
@@ -102,11 +103,11 @@ class testcase:
 if __name__ == "__main__":
     T = testcase(
         real_world_topo=False,
-        num_vertex=50, # for random topoloty
-        cap_utl_ratio=0.5,
-        type1_type2_ratio=2,
-        type1_num=10
+        num_vertex=5, # for random topoloty
+        cap_utl_ratio=0.001,
+        type1_type2_ratio=2.5,
+        type1_num=2
     )
-    T.dump(path='50.in')
+    T.dump(path='demo/input/5.in')
 
             

@@ -158,8 +158,6 @@ mkdir "$OUTPUTDIR/sim-conf"
 mkdir "$OUTPUTDIR/result"
 touch "$OUTPUTDIR/log"
 
-### Compile cpp 
-printf "[Info] Compiling solver for routing.\n"
 make clean >>"$OUTPUTDIR/log" 2>&1
 make >>"$OUTPUTDIR/log" 2>&1
 

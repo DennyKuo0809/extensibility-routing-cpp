@@ -196,21 +196,25 @@ void Solution::cycle_selection(){
             sol_path.push_back(tmp);
             // printvec(tmp);
         }
+        print2dvec("sol_path", sol_path);
         if(!fail && cost < min_cost){
             min_cost = cost;
             min_cost_result = i;
             type2_path = std::vector<std::vector<int> >();
             for(int ns = 0 ; ns < sol_path.size() ; ns ++){
                 type2_path.push_back(std::vector<int> ());
+                int len = 0;
                 for(int nn = 0 ; nn < sol_path[ns].size() ; nn ++){
                     int no = sol_path[ns][nn];
                     if(no >= vertex_num) no = reverse_map[no];
-                    if(nn == 0 || no != type2_path[ns][nn-1]){
+                    if(nn == 0 || no != type2_path[ns][len-1]){
                         type2_path[ns].push_back(no);
+                        len ++;
                     }
                 }
             }
         }
+        print2dvec("type2_path", type2_path);
     }
 
     std::cerr << "[I] Cycle Selection completed. Type-2 solution is ready.\n";

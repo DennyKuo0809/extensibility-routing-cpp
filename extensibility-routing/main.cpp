@@ -28,6 +28,7 @@ int main(int argc, char *argv[]){
 
     Scenario scenario;
     ifs >> scenario;
+    std::cerr << scenario;
     Solution solution(scenario);
 
     if(routing_method == "ILP"){
