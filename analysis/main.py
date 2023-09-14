@@ -111,11 +111,8 @@ def main_deadline_avg(args):
                 streams = sorted(list(s_info.keys()), key=lambda x: (x[0],int(x[2:])))
             for k in streams:
                 file_name = f'{args.dir}/result/shortest-{k}.csv'
-                shortest_delay = list(parse_csv(file_name).values())[0][0]
-                if k[0] == '2':
-                    s_info[k]['shortest_delay'] = shortest_delay * s_info[k]['lambda']
-                else:
-                    s_info[k]['shortest_delay'] = shortest_delay
+                shortest_delay_list = list(parse_csv(file_name).values())[0]
+                s_info[k]['shortest_delay'] = sum(shortest_delay_list) / len(shortest_delay_list)
 
             sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
             # print(f"\n({m.replace('_', ' ')})")
@@ -130,6 +127,8 @@ def main_deadline_avg(args):
                     avg_delay = sum(sim_delays[s_info[s]['module']]) / len(sim_delays[s_info[s]['module']])
                 else:
                     avg_delay = 0
+                
+                print(f"{s} | {avg_delay} | {s_info[s]['shortest_delay']}")
                 delays.append(avg_delay / s_info[s]['shortest_delay'])
                 labels.append(s)
             x = np.arange(len(streams))
@@ -142,6 +141,9 @@ def main_deadline_avg(args):
             print(str(e))
             pass
     plt.xticks(x + (len(method_list)-1) * width/2, streams)
+    plt.title('50 nodes')
+    plt.ylabel('Delay / (delay of shortest path)')
+    plt.grid(axis='y', linestyle='--')
     plt.legend()
     plt.show()
 
@@ -168,11 +170,14 @@ def main_deadline_lu_cut(args):
         streams = sorted(list(s_info.keys()), key=lambda x: (x[0],int(x[2:])))
     for k in streams:
         file_name = f'{args.dir}/result/shortest-{k}.csv'
-        shortest_delay = list(parse_csv(file_name).values())[0][0]
-        if k[0] == '2':
-            s_info[k]['shortest_delay'] = shortest_delay * s_info[k]['lambda']
-        else:
-            s_info[k]['shortest_delay'] = shortest_delay
+        shortest_delay_list = list(parse_csv(file_name).values())[0]
+        
+        shortest_delay = sum(shortest_delay_list)/len(shortest_delay_list)
+        s_info[k]['shortest_delay'] = shortest_delay
+            
+
+        print(f"{k} | {shortest_delay_list} | {s_info[k]['lambda']}")
+            
 
     cut_sim_delays = parse_csv(f'{args.dir}-cut/result/{m}.csv')
     sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
@@ -189,14 +194,22 @@ def main_deadline_lu_cut(args):
             cut_avg_delay = sum(cut_sim_delays[s_info_cut[s]['module']]) / len(cut_sim_delays[s_info_cut[s]['module']])
         else:
             cut_avg_delay = 0
+        print(f"{s} | {avg_delay} | {s_info[s]['shortest_delay']}")
         delays.append(avg_delay / s_info[s]['shortest_delay'])
         cut_delays.append(cut_avg_delay / s_info[s]['shortest_delay'])
         labels.append(s)
     x = np.arange(len(streams))
-    plt.bar(x , delays, label=f"{m.replace('_', ' ')}", width=width)
-    plt.bar(x +width , cut_delays, label=f"{m.replace('_', ' ')}", width=width)
+    # print(delays)
+    # print(cut_delays)
+    plt.bar(x , delays, label=f"No cut", width=width)
+    plt.bar(x +width , cut_delays, label=f"Cut", width=width)
 
+    start, end = plt.ylim()
+    plt.title('20 nodes')
+    plt.ylabel('Delay / (delay of shortest path)')
+    plt.yticks(np.arange(start, end, 0.5))
     plt.xticks(x + width/2, streams)
+    plt.grid(axis='y', linestyle='--')
     plt.legend()
     plt.show()
 
@@ -294,6 +307,6 @@ def main_deliver_lu_cut(args):
 
 if __name__ == "__main__":
     args = parse_args()
-    main_deadline_lu_cut(args)
+    main_deadline_avg(args)
 
 

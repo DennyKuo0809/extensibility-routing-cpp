@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS = -O3 -DNDEBUG   -std=gnu++17
 
-CXX_DEFINES = 
+CXX_DEFINES = -DHEURISTIC_CUT
 
 CXX_INCLUDES = -I/opt/gurobi1002/linux64/include -I/home/ubuntu/Desktop/extensibility-routing-cpp/include 
 

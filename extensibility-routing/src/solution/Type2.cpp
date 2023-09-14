@@ -38,7 +38,6 @@ void Solution::solve_type2(int trim){
     
     /* Cycle Seclection */
     cycle_selection();
-
 }
 
 /* Member Function: type-2 utilization */
@@ -196,7 +195,7 @@ void Solution::cycle_selection(){
             sol_path.push_back(tmp);
             // printvec(tmp);
         }
-        print2dvec("sol_path", sol_path);
+        // print2dvec("sol_path", sol_path);
         if(!fail && cost < min_cost){
             min_cost = cost;
             min_cost_result = i;
@@ -214,7 +213,7 @@ void Solution::cycle_selection(){
                 }
             }
         }
-        print2dvec("type2_path", type2_path);
+        // print2dvec("type2_path", type2_path);
     }
 
     std::cerr << "[I] Cycle Selection completed. Type-2 solution is ready.\n";

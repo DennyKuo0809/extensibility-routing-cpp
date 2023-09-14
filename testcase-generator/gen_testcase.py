@@ -12,6 +12,7 @@ class testcase:
             cap_utl_ratio=0.5,
             type1_type2_ratio=2,
             type1_num=10,
+            lambda_lim=[0.1, 0.95]
         ):
 
         ### Member variables
@@ -25,6 +26,7 @@ class testcase:
         self.type1 = []
         self.type2 = []
         self.trans_ratio_list = []
+        self.lambda_lim = lambda_lim
 
         ### Topology: Nodes & Edges
         if real_world_topo:
@@ -68,11 +70,12 @@ class testcase:
             self.type1.append([src, dst, random.randrange(12, 25) * self.cap_utl_ratio])
 
         ### Type-2
+        lambda_range = self.lambda_lim[1] - self.lambda_lim[0]
         cnt = 0
         while cnt < self.type1_type2_ratio * self.type1_num:
             src, dst = random.sample(all_pair, k=1)[0]
             util = random.randrange(12, 25) * self.cap_utl_ratio
-            lambda_ = random.random()
+            lambda_ = random.random() * lambda_range + self.lambda_lim[0]
             self.type2.append([src, dst, util, lambda_])
             # sum_type2_lambda += lambda_
             cnt += 1
@@ -103,11 +106,12 @@ class testcase:
 if __name__ == "__main__":
     T = testcase(
         real_world_topo=False,
-        num_vertex=5, # for random topoloty
+        num_vertex=50, # for random topoloty
         cap_utl_ratio=0.001,
         type1_type2_ratio=2.5,
-        type1_num=2
+        type1_num=10
     )
-    T.dump(path='demo/input/5.in')
+    print(T.type1_type2_ratio)
+    T.dump(path='demo/input/50.in')
 
             
