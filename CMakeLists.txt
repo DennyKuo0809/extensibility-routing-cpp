@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.3)
 project(extensibility_routing C)
 
 option(CXX "enable C++ compilation" ON)
+option(HEURISTIC_CUT "enable huristic cut on dfs of method \"Least used capacity percentage\"" OFF)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -27,6 +28,9 @@ endif()
 find_package(GUROBI REQUIRED)
 
 include_directories(${GUROBI_INCLUDE_DIRS})
+
+# add definition
+add_definitions(-DHEURISTIC_CUT)
 
 # add header file
 include_directories(include)

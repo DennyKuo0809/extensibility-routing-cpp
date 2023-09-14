@@ -1,6 +1,7 @@
 #ifndef JOHNSON_HPP
 #define JOHNSON_HPP
 #include <stack>
+#include <iostream>
 #include "graph.hpp"
 
 

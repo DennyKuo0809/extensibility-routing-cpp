@@ -8,9 +8,47 @@
 #include "scenario.hpp"
 #include "johnson.hpp"
 
+class Solution;
+class Enhance_Graph: public Graph {
+private:
+    int vertex_num;
+    std::vector<std::vector<int> > adj_list;
+    std::vector<std::vector<double> > capacity;
+    std::vector<Edge> edge_list;
+
+    std::vector<std::vector<int> > sorted_adj_list;
+    std::vector<double> sorted_edge_prefix_sum;
+    int max_avg_len = 1;
+    double max_avg_sum = 0.0;
+    double max_avg = 0.0;
+    int num_cut = 0;
+
+public:
+    /* Constructor */
+    Enhance_Graph() = delete;
+    Enhance_Graph(Graph g);
+
+    /* BFS to find shortest path in the network */
+    std::vector<int> shortest_path(int src, int dst, int data_rate);
+
+    /* DFS to find all path from src to dst in the network */
+    void heuristic_dfs_max_avg(int current, int dst, int dist, int sum, int data_rate, int* cur_path, bool* visited, std::vector<int>& path, std::vector<std::vector<double> >& max_sum);
+    void heuristic_search_max_avg(int src, int dst, int data_rate, std::vector<int>& path);
+
+
+    /* For Type-1 solution */
+    std::vector<int> dijk_min_max_percentage(int src, int dst);
+    std::vector<int> dijk_least_conflict_value(int src, int dst, std::vector<std::vector<double> >& occupy);
+    
+    
+    friend class Solution;
+};
+
 class Solution{
 private:
     Scenario scenario;
+    Enhance_Graph e_graph;
+
     /* Type-1 */
     std::vector<std::vector<int> > type1_path;
     bool type1_solved;
@@ -34,21 +72,17 @@ public:
     /* Constructor */
     Solution() = delete;
     Solution(Scenario S): 
-        scenario{S}, type1_solved{false}, type2_solved{false}, type1_method{""} {}
+        scenario{S}, 
+        type1_solved{false}, 
+        type2_solved{false}, 
+        type1_method{""},
+        e_graph{S.graph} {}
 
     /* API */
     /* API: getter */
-    std::vector<std::vector<int> > get_type1_path() const{
-        return type1_path;
-    }
-
-    std::vector<std::vector<int> > get_type2_path() const{
-        return type2_path;
-    }
-
-    std::vector<std::vector<int> > get_cycle_pool() const{
-        return cycle_pool;
-    }
+    std::vector<std::vector<int> > get_type1_path() const;
+    std::vector<std::vector<int> > get_type2_path() const;
+    std::vector<std::vector<int> > get_cycle_pool() const;
     
     /* API: setter */
     void set_type1_path(std::vector<std::vector<int> > t1_path);
@@ -59,9 +93,6 @@ public:
     void perform_shortest_path();
 
     /* Member Function: type-1 solver */
-    void dijk_min_max_percentage(int src, int dst);
-    void dijk_least_used_capacity_percentage(int src, int dst);
-    void dijk_least_conflict_value(int src, int dst);
     void shortest_path();
     void least_used_capacity_percentage();
     void min_max_percentage();

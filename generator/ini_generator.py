@@ -10,7 +10,7 @@ import pprint
 class Stream_switch():
     def __init__(self, Lambda=0.5, period=100):
         self.Lambda = Lambda
-        self.period = period
+        self.period = period # unit: us
 
     def poisson_reverse(self, probability):
         return -math.log(1 - probability) / self.Lambda
@@ -60,6 +60,7 @@ class Route():
         self.port = [1000 for _ in range(T.host_num)]
         self.type1_route = []
         self.type2_route = []
+        self.app_statics = {}
 
         self.poisson = Stream_switch()
 
@@ -81,6 +82,7 @@ class Route():
                 "type": int(1),
                 "flow-id" : int(id),
             }
+            self.app_statics[f"1-{id}"] = 100
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
 
@@ -99,6 +101,10 @@ class Route():
                     "stop": interval[1] * 100
                 }
                 self.app[src].append(new_src_app)
+                if f"2-{id}" not in self.app_statics:
+                    self.app_statics[f"2-{id}"] = interval[1] - interval[0]
+                else:
+                    self.app_statics[f"2-{id}"] += (interval[1] - interval[0])
             new_dst_app = {
                 "role": "recv", 
                 "localport": self.port[dst],
@@ -272,7 +278,8 @@ sim-time-limit = 10ms
                                         if app['type'] == 1 \
                                         else self.topology.type2[app['flow-id']][2],
                             'lambda': self.topology.type2[app['flow-id']][3] \
-                                        if app['type'] == 2 else None
+                                        if app['type'] == 2 else None,
+                            'number': self.app_statics[f'{app["type"]}-{app["flow-id"]}']
                         }
             f.write(app_content)
 
