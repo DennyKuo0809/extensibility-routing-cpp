@@ -2,6 +2,40 @@ import get_topo
 import bisect
 import random
 import itertools
+from argparse import ArgumentParser, Namespace
+
+def parse_args() -> Namespace:
+    parser = ArgumentParser()
+    parser.add_argument(
+        "--num_vertex",
+        type=int,
+    )
+    parser.add_argument(
+        "--cap_utl_ratio",
+        type=float,
+    )
+    parser.add_argument(
+        "--type1_type2_ratio",
+        type=float,
+    )
+    parser.add_argument(
+        "--type1_num",
+        type=int,
+    )
+    parser.add_argument(
+        "--lambda_upper",
+        type=float,
+    )
+    parser.add_argument(
+        "--lambda_lower",
+        type=float,
+    )
+    parser.add_argument(
+        "--output",
+        type=str,
+    )
+    args = parser.parse_args()
+    return args
 
 class testcase:
     def __init__(
@@ -104,14 +138,15 @@ class testcase:
                 f.write(f"{s[0]} {s[1]} {s[2]} {s[3]}\n")
 
 if __name__ == "__main__":
+    args = parse_args()
     T = testcase(
         real_world_topo=False,
-        num_vertex=50, # for random topoloty
-        cap_utl_ratio=0.001,
-        type1_type2_ratio=2.5,
-        type1_num=10
+        num_vertex=args.num_vertex, # for random topoloty
+        cap_utl_ratio=args.cap_utl_ratio,
+        type1_type2_ratio=args.type1_type2_ratio,
+        type1_num=args.type1_num,
+        lambda_lim=[args.lambda_lower, args.lambda_upper]
     )
-    print(T.type1_type2_ratio)
-    T.dump(path='demo/input/50.in')
+    T.dump(path=args.output)
 
             

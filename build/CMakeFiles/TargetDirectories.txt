@@ -1,3 +1,0 @@
-/home/ubuntu/Desktop/extensibility-routing-cpp/build/CMakeFiles/rebuild_cache.dir
-/home/ubuntu/Desktop/extensibility-routing-cpp/build/CMakeFiles/edit_cache.dir
-/home/ubuntu/Desktop/extensibility-routing-cpp/build/CMakeFiles/solver.dir

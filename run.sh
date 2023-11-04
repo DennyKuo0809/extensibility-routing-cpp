@@ -46,7 +46,7 @@
 POSITIONAL_ARGS=()
 TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value" "ILP")
 ARG_NOTICE=$'[Usage]\n-s, --scenario\t\tPath to scenario.\n-o, --output\t\tPath to output directory.\n-m, --method\t\tRouting method for type-1 streams.\n\t\t\t\t* shortest_path\n\t\t\t\t* min_max_percentage\n\t\t\t\t* least_used_capacity_percentage\n\t\t\t\t* least_conflict_value'
-DO_SIM=falserealpath $2
+DO_SIM=false
 TRIM=0.0
 
 while [[ $# -gt 0 ]]; do
@@ -62,7 +62,11 @@ while [[ $# -gt 0 ]]; do
       shift # past value
       ;;
     -m|--method)
-      METHOD="$2"
+      if [[ $2 == "NONE" ]]; then
+        METHOD=""
+      else
+        METHOD="$2"
+      fi
       shift # past argument
       shift # past value
       ;;
@@ -116,10 +120,10 @@ then
     exit 1
 fi
 
+
 VALID_METHOD=false
 for m in ${TYPE1_METHOD[@]}
 do
-    echo $m
     if [ "$METHOD" == "$m" ]
     then
         VALID_METHOD=true
@@ -142,7 +146,6 @@ else
 fi
 printf "\n[Info] Start with\n\t(Scenario)\t\t$SCENARIO\n\t(Output directory)\t$OUTPUTDIR\n\t(Method)\t\t$SPEC_METHOD\n\n"
 
-
 ### Create sub-directory
 printf "[Info] Creating the output directory\t$OUTPUTDIR.\n"
 if [ -d "$OUTPUTDIR" ]
@@ -150,16 +153,15 @@ then
     printf "[Info] Since already existed, overwriting the output directory\t$OUTPUTDIR.\n"
     rm -rf "$OUTPUTDIR"
 fi
-mkdir "$OUTPUTDIR"
+
 OUTPUTDIR="`realpath $OUTPUTDIR`"
+mkdir "$OUTPUTDIR"
 mkdir "$OUTPUTDIR/route"
 mkdir "$OUTPUTDIR/info"
 mkdir "$OUTPUTDIR/sim-conf"
 mkdir "$OUTPUTDIR/result"
 touch "$OUTPUTDIR/log"
 
-make clean >>"$OUTPUTDIR/log" 2>&1
-make >>"$OUTPUTDIR/log" 2>&1
 
 ### Routing
 printf "[Info] Start routing ...\n"
