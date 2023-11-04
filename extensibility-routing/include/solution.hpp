@@ -18,6 +18,7 @@ private:
 
     std::vector<std::vector<int> > sorted_adj_list;
     std::vector<double> sorted_edge_prefix_sum;
+    std::vector<std::vector<int> > map2edgeidx;
     int max_avg_len = 1;
     double max_avg_sum = 0.0;
     double max_avg = 0.0;
@@ -37,7 +38,7 @@ public:
 
 
     /* For Type-1 solution */
-    std::vector<int> dijk_min_max_percentage(int src, int dst);
+    std::vector<int> prims_max_min_edge(int src, int dst);
     std::vector<int> dijk_least_conflict_value(int src, int dst, std::vector<std::vector<double> >& occupy);
     
     

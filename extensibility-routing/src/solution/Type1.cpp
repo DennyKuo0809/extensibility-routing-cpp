@@ -45,6 +45,7 @@ void Solution::solve_type1(std::string method){
 /* Member Function: type-1 solver */
 void Solution::shortest_path(){
     type1_path = std::vector<std::vector<int> >();
+    /* TODO: sort Type-1 streams by their data rate */
     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
         type1_path.push_back(e_graph.shortest_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate));
         if(type1_path[i].size() == 0){
@@ -82,7 +83,7 @@ void Solution::min_max_percentage(){
     // Perform a transformed dijkstra algoritm
     for(int i = 0 ; i <  scenario.Type_1.size() ; i ++){
         type1_path.push_back(
-            e_graph.dijk_min_max_percentage(
+            e_graph.prims_max_min_edge(
                 scenario.Type_1[i].src, 
                 scenario.Type_1[i].dst
             )
@@ -153,33 +154,3 @@ void Solution::least_used_capacity_percentage(){
         }
     }
 }
-
-
-
-
-// void Solution::least_used_capacity_percentage(){
-//     for(int i = 0 ; i < scenario.Type_1.size() ; i ++){
-//         std::vector<std::vector<int> > all_path;
-//         e_graph.all_path(scenario.Type_1[i].src, scenario.Type_1[i].dst, scenario.Type_1[i].data_rate, all_path);
-//         if(all_path.size() == 0){
-//             /* Fail to solve type-1 streams */
-//             std::cerr << "[W] Fail to solve type-1 by the method \"Least Used Capacity Percentage\"." << std::endl;
-//             type1_path = std::vector<std::vector<int> >();
-//             return;
-//         }
-//         double least_p = 1.0, current_least_p = 1.0;
-//         int least_id = 0;
-//         for(int j = 0 ; j < all_path.size() ; j ++){
-//             double total_capacity = 0.0;
-//             for(int k = 0 ; k < all_path[j].size()-1 ; k ++){
-//                 total_capacity += scenario.graph.get_capacity(all_path[j][k], all_path[j][k+1]);
-//             }
-//             current_least_p = scenario.Type_1[i].data_rate * (all_path[j].size() - 1) / total_capacity;
-//             if(current_least_p < least_p){
-//                 least_p = current_least_p;
-//                 least_id = j;
-//             }
-//         }
-//         type1_path.push_back(all_path[least_id]);
-//     }
-// }

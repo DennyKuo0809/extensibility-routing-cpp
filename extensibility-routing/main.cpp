@@ -31,13 +31,11 @@ int main(int argc, char *argv[]){
     std::cerr << scenario;
     Solution solution(scenario);
 
-    if(routing_method == "ILP"){
-        solution.ILP_routing();
-    }
-    else{
-        solution.solve_type1(routing_method);
-        solution.solve_type2(trim_value);
-    }
+    
+    if(routing_method == "ILP") solution.ILP_routing();
+    else solution.solve_type1(routing_method);
+
+    solution.solve_type2(trim_value);
 
 
     // std::cerr << solution;

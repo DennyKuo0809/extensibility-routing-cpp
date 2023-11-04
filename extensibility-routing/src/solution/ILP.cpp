@@ -131,7 +131,7 @@ void Solution::ILP_routing(){
         std::vector<std::vector<int> > final_solution = query(lo);
         // std::cerr << final_solution;
         type1_path.assign(final_solution.begin(), final_solution.begin() + scenario.Type_1.size());
-        // print2dvec("type1_path", type1_path);
-        type2_path.assign(final_solution.begin() + scenario.Type_1.size(), final_solution.end());
+        print2dvec("type1_path", type1_path);
+        // type2_path.assign(final_solution.begin() + scenario.Type_1.size(), final_solution.end());
     }
 }
