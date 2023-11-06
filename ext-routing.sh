@@ -46,6 +46,7 @@ while IFS='=' read -r key value; do
     if [[ $key && $value ]]; then
         if [[ $key != \#* ]]; then
             declare "$key=$value"
+            echo "$key=$value"
         fi
     fi
 done < extensibility-routing.conf

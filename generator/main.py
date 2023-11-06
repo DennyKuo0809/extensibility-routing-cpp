@@ -55,11 +55,13 @@ def main(args):
     if args.output_ned:
         T.genNed(f"{args.dir}/scenario.ned")
     if args.output_sp:
-        R.gen_shortest_path_content(f"{args.dir}/info/shortest_path.txt", f"{args.dir}/sim-conf")
+        R.genINI_shortest_path(f"{args.dir}/info/shortest_path.txt", f"{args.dir}/sim-conf")
     if args.output_module:
-        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", f"{args.dir}/info/module_stream_{args.method}.pickle")
+        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini")
+        R.genINFO(f"{args.dir}/info/module_stream_{args.method}.pickle")
     else:
-        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini", None)
+        R.genINI(f"{args.dir}/sim-conf/{args.method}.ini")
+
 
 if __name__ == "__main__":
     args = parse_args()

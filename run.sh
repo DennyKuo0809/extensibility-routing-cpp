@@ -131,16 +131,16 @@ do
     fi
 done
 
-if [ $VALID_METHOD == false ] && [ "$METHOD" != "" ]
+if [ $VALID_METHOD == false ] && [ "$METHOD" != "all" ]
 then
     echo "Invalid method: $METHOD"
     exit 1
 fi
 
 ### Notice
-if [ "$METHOD" == "" ]
+if [ "$METHOD" == "all" ]
 then
-    SPEC_METHOD='Not specified.'
+    SPEC_METHOD='All methods.'
 else
     SPEC_METHOD="$METHOD"
 fi
@@ -165,7 +165,7 @@ touch "$OUTPUTDIR/log"
 
 ### Routing
 printf "[Info] Start routing ...\n"
-if [ "$METHOD" != "" ]
+if [ "$METHOD" != "all" ]
 then
     routing_path="$OUTPUTDIR/route/$METHOD.txt"
     shortest_path_info_path="$OUTPUTDIR/info/shortest_path.txt"
@@ -206,7 +206,7 @@ printf "[Info] Complete routing.\n"
 
 ### Generate input file for simulator
 printf "[Info] Generating input for simulation ...\n"
-if [ "$METHOD" != "" ]
+if [ "$METHOD" != "all" ]
 then
     python3 generator/main.py \
     --scenario "$SCENARIO" \

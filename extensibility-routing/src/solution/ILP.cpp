@@ -63,7 +63,6 @@ std::vector<std::vector<int>> Solution::ILP_routing_util(int vertex_cnt, std::ve
         }
 
         // Run solver
-        
         model.optimize();
 
         // Restore ILP solution to the original problem
@@ -98,6 +97,10 @@ std::vector<std::vector<int>> Solution::ILP_routing_util(int vertex_cnt, std::ve
             return std::vector<std::vector<int> >();
         }
     }
+    catch(std::exception& e) {
+        std::cerr << "Standard C++ exception: " << e.what() << std::endl;
+        return std::vector<std::vector<int> >();
+    }
     catch (...) {
         std::cerr << "Internal error during optimization" << std::endl;
         return std::vector<std::vector<int> >();
@@ -115,6 +118,7 @@ void Solution::ILP_routing(){
         for (auto& [src, dst, data_rate, Lambda] : scenario.Type_2){
             stream_collection.push_back({src, dst, data_rate * rho});
         }
+        std::cerr << "[INFO] ILP solver with rho as " << rho << std::endl;
         return ILP_routing_util(vertex_cnt, edge, stream_collection);
     };
 
@@ -123,7 +127,7 @@ void Solution::ILP_routing(){
     }
     else {
         double lo = 0, hi = 1e7;
-        const double eps = 1e-7;
+        const double eps = 1e-2;
         while (hi - lo > eps){
             double mid = (lo + hi) / 2;
             (query(mid).empty() ? hi : lo) = mid;
