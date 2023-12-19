@@ -95,7 +95,8 @@ class Route():
             }
 
         for id, (src, dst, util, lambda_) in enumerate(self.topology.type2):
-            poisson = Stream_switch(Lambda=(random.randint(1, 9)/10))
+            # poisson = Stream_switch(Lambda=(random.randint(1, 9)/10))
+            poisson = Stream_switch(Lambda=float(lambda_))
             poisson_schedule = poisson.on_off_schedule()
             for interval in poisson_schedule:
                 new_src_app = {
@@ -122,7 +123,7 @@ class Route():
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
             self.module_2_stream[f'host{dst}-app{len(self.app[dst])-1}'] = f'2-{id}'
-            self.stream_info[f'1-{id}'] = {
+            self.stream_info[f'2-{id}'] = {
                 'module': f'host{dst}-app{len(self.app[dst])-1}',
                 'bitrate': self.topology.type2[id][2],
                 'lambda': self.topology.type2[id][3],
@@ -196,9 +197,9 @@ class Route():
         ### Bit rate of edges
         for device in self.topology.hosts:
             for i, br in enumerate(device.host_gates_bitrate):
-                self.config.set("General", f"*.{device.name}.eth[{i}].bitrate", f"{int(10 * br)}Mbps")
+                self.config.set("General", f"*.{device.name}.eth[{i}].bitrate", f"{int(100 * br)}Mbps")
             for i, br in enumerate(device.switch_gates_bitrate):
-                self.config.set("General", f"*.{device.switch_name}.eth[{i}].bitrate", f"{int(10 * br)}Mbps")
+                self.config.set("General", f"*.{device.switch_name}.eth[{i}].bitrate", f"{int(100 * br)}Mbps")
 
     def make_route_str(self, routes):
         num_route = len(routes)
@@ -268,8 +269,8 @@ class Route():
                         self.config.set("General", f"*.{name}.app[{j}].io.destAddress", f"\"{app['dst']}\"")
                         self.config.set("General", f"*.{name}.app[{j}].source.packetNameFormat", "\"%M-%m-%c\"")
                         self.config.set("General", f"*.{name}.app[{j}].source.displayStringTextFormat", "\"sent %p pk (%l)\"")
-                        self.config.set("General", f"*.{name}.app[{j}].source.packetLength", f"{int(1000*app['util'])}B")
-                        self.config.set("General", f"*.{name}.app[{j}].source.productionInterval", "100us")
+                        self.config.set("General", f"*.{name}.app[{j}].source.packetLength", f"{int(10000*app['util'])}B")
+                        self.config.set("General", f"*.{name}.app[{j}].source.productionInterval", "1ms")
                         self.config.set("General", f"*.{name}.app[{j}].display-name", f"\"type{app['type']}_{app['flow-id']}\"")
                         self.config.set("General", f"*.{name}.app[{j}].io.destPort", f"{app['destport']}")
                     elif app['type'] == 2:
@@ -277,8 +278,8 @@ class Route():
                         self.config.set("General", f"*.{name}.app[{j}].destAddresses", f"\"{app['dst']}\"")
                         self.config.set("General", f"*.{name}.app[{j}].source.packetNameFormat", "\"%M-%m-%c\"")
                         self.config.set("General", f"*.{name}.app[{j}].source.displayStringTextFormat", "\"sent %p pk (%l)\"")
-                        self.config.set("General", f"*.{name}.app[{j}].messageLength", f"{int(1000*app['util'])}B")
-                        self.config.set("General", f"*.{name}.app[{j}].sendInterval", "100us")
+                        self.config.set("General", f"*.{name}.app[{j}].messageLength", f"{int(10000*app['util'])}B")
+                        self.config.set("General", f"*.{name}.app[{j}].sendInterval", "1ms")
                         self.config.set("General", f"*.{name}.app[{j}].startTime", f"{app['start']}us")
                         self.config.set("General", f"*.{name}.app[{j}].stopTime", f"{app['stop']}us")
                         self.config.set("General", f"*.{name}.app[{j}].display-name", f"\"type{app['type']}_{app['flow-id']}\"")
@@ -325,8 +326,8 @@ class Route():
                 self.config.set("General", f"*.{src_name}.app[0].io.destAddress", f"\"{dst_name}\"")
                 self.config.set("General", f"*.{src_name}.app[0].source.packetNameFormat", packetNameFormat)
                 self.config.set("General", f"*.{src_name}.app[0].source.displayStringTextFormat", "\"sent %p pk (%l)\"")
-                self.config.set("General", f"*.{src_name}.app[0].source.packetLength", f"{int(1000*util)}B")
-                self.config.set("General", f"*.{src_name}.app[0].source.productionInterval", "100us")
+                self.config.set("General", f"*.{src_name}.app[0].source.packetLength", f"{int(10000*util)}B")
+                self.config.set("General", f"*.{src_name}.app[0].source.productionInterval", "1ms")
                 self.config.set("General", f"*.{src_name}.app[0].display-name", f"\"type{type_}_{id_}\"")
                 self.config.set("General", f"*.{src_name}.app[0].io.destPort", "1000")
 

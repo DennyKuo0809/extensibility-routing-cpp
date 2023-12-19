@@ -58,13 +58,12 @@ if [[ "$GEN_TESTCASE" == "true" ]]; then
     --num_vertex $EXT_ROUTE_GEN_NUM_NODES \
     --cap_utl_ratio $EXT_ROUTE_GEN_CAP_UTIL_RATIO \
     --type1_type2_ratio $EXT_ROUTE_GEN_TYPE1_TYPE2_RATIO \
-    --type1_num $EXT_ROUTE_GEN_TYPE1_NUM \
+    --stream_vertex_ratio $EXT_ROUTE_GEN_STREAM_VERTEX_RATIO \
     --lambda_upper $EXT_ROUTE_GEN_LAMBDA_UPPER_BOUND \
     --lambda_lower $EXT_ROUTE_GEN_LAMBDA_LOWER_BOUND \
     --output $EXT_ROUTE_GEN_PATH
 fi
 
-echo `ls solver`
 # Run extensibility routing
 if [[ "$DO_ROUTE" == "true" ]]; then
     if [[ "$DO_SIM" == "true" ]]; then
@@ -72,16 +71,30 @@ if [[ "$DO_ROUTE" == "true" ]]; then
         --scenario $EXT_ROUTE_INPUT_FILE \
         --method $EXT_ROUTE_METHOD \
         --trim $EXT_ROUTE_TRIM_VAL \
+        --sim_out $EXT_ROUTE_ANALYSIS_OUTPUT \
         --output $EXT_ROUTE_OUTPUT_DIR \
         --sim_dir $EXT_ROUTE_SIM_DIR \
         --omnet_dir $EXT_ROUTE_OMNET_DIR \
         --inet_dir $EXT_ROUTE_INET_DIR \
         --do_sim
+      
+
+        if [ $? != 0 ]
+        then
+          echo "Whole Process Failed"
+          exit 1
+        fi
     else
         bash run.sh \
         --scenario $EXT_ROUTE_INPUT_FILE \
         --method $EXT_ROUTE_METHOD \
         --trim $EXT_ROUTE_TRIM_VAL \
         --output $EXT_ROUTE_OUTPUT_DIR
+
+        if [ $? != 0 ]
+        then
+          echo "Whole Process Failed"
+          exit 1
+        fi
     fi
 fi

@@ -24,7 +24,7 @@ def parse_csv(input_file):
     modules = ['host'+d_from_s(n.split('.')[1])+'-app'+d_from_s(n.split('.')[2]) for n in module_names]
     
     vecvalues = list(vector_data['vecvalue'])
-    if isinstance(vecvalues[0], str):
+    if len(vecvalues) and isinstance(vecvalues[0], str):
         vecvalues = [[float(i) for i in l.split()] for l in vecvalues ]
     else:
         vecvalues = [vecvalues]

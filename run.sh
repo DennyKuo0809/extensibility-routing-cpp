@@ -75,6 +75,11 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;;
+    --sim_out)
+      SIMOUT="$2"
+      shift # past argument
+      shift # past value
+      ;;
     --inet_dir)
       INETDIR="`realpath $2`"
       shift # past argument
@@ -191,6 +196,12 @@ else
               $shortest_path_info_path \
               'true' \
               $TRIM
+            
+            if [ $? != 0 ]
+            then
+              echo "Routed Failed"
+              exit 1
+            fi
         else
             ./solver \
               $SCENARIO \
@@ -199,6 +210,13 @@ else
               $shortest_path_info_path \
               'false' \
               $TRIM
+            
+
+            if [ $? != 0 ]
+            then
+              echo "Generated Failed"
+              exit 1
+            fi
         fi
     done
 fi
@@ -228,6 +246,8 @@ else
             --output_sp 'True' \
             --output_ned 'True' \
             --output_module 'True'
+
+            
         else
             python3 generator/main.py \
             --scenario "$SCENARIO" \
@@ -275,7 +295,7 @@ printf "[Info] Starting analysis...\n"
 printf "[Info] Results:"
 if [ "$DO_SIM" = "true" ]
 then
-    python3 analysis/main.py --dir $OUTPUTDIR
+    python3 analysis/main.py --dir $OUTPUTDIR --out $SIMOUT
 fi
 
 ### Clear

@@ -124,10 +124,11 @@ void Solution::ILP_routing(){
 
     if (query(0).empty()){
         std::cerr << "[Info] (ILP) No solution\n";
+        exit(1);
     }
     else {
-        double lo = 0, hi = 1e7;
-        const double eps = 1e-2;
+        double lo = 0, hi = 1e4;
+        const double eps = 1;
         while (hi - lo > eps){
             double mid = (lo + hi) / 2;
             (query(mid).empty() ? hi : lo) = mid;

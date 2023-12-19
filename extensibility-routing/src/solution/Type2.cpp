@@ -21,7 +21,8 @@ void Solution::solve_type2(int trim){
     Cf.johnson();
     cycle_pool = Cf.get_cycle_pool();
     std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
-    print2dvec("Cycle Pool", cycle_pool);
+    std::cerr << "[I] The number of cycles: " << cycle_pool.size() << "\n" << std::endl;
+    // print2dvec("Cycle Pool", cycle_pool);
 
     /* Cycle Merge */
     for(int i = 0 ; i < cycle_pool.size() ; i ++){
@@ -38,6 +39,9 @@ void Solution::solve_type2(int trim){
     
     /* Cycle Seclection */
     cycle_selection();
+    if(type2_path.size() == 0) {
+        exit(1);
+    }
 }
 
 /* Member Function: type-2 utilization */
@@ -109,7 +113,8 @@ void Solution::cycle_selection(){
     for(int i = 0 ; i < vertex_num ; i ++) reverse_map_[i] = i;
     
     // print2dvec("cycle_pool", cycle_pool);
-    print2dvec("result", result);
+    // print2dvec("result", result);
+    std::cerr << "[I] The number of merging results: " << result.size() << "\n";
     int min_cost = 2147483647;
     int min_cost_result = 0;
     for(int i = 0 ; i < result.size() ; i ++){

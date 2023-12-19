@@ -1,0 +1,390 @@
+Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1'.
+Environment for 'omnetpp-6.0.1' in directory '/home/ubuntu/omnetpp-6.0.1' is ready.
+Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5'.
+Environment for INET 4.5.0 in directory '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5' is ready.
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
+
+Preparing for running configuration General, run #0...
+Assigned runID=General-0-20231219-01:23:24-143392
+Setting up network "TSN_multipath"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 9e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 1418   present: 1418   in FES: 237
+** Event #98816   t=0.00003155106   Elapsed: 2.00196s (0m 02s)  0% completed  (0% total)
+     Speed:     ev/sec=49360.2   simsec/sec=1.57601e-05   ev/simsec=3.13197e+09
+     Messages:  created: 123405   present: 65028   in FES: 290
+** Event #198144   t=0.000061020201   Elapsed: 4.00373s (0m 04s)  0% completed  (0% total)
+     Speed:     ev/sec=49620.1   simsec/sec=1.47215e-05   ev/simsec=3.37058e+09
+     Messages:  created: 245751   present: 128448   in FES: 295
+** Event #291328   t=0.000088692463   Elapsed: 6.0041s (0m 06s)  0% completed  (0% total)
+     Speed:     ev/sec=46583.5   simsec/sec=1.38336e-05   ev/simsec=3.36742e+09
+     Messages:  created: 360515   present: 187883   in FES: 285
+** Event #391424   t=0.000118436687   Elapsed: 8.00677s (0m 08s)  1% completed  (1% total)
+     Speed:     ev/sec=49981.1   simsec/sec=1.48522e-05   ev/simsec=3.36522e+09
+     Messages:  created: 483872   present: 251670   in FES: 285
+** Event #491776   t=0.000148298228   Elapsed: 10.0098s (0m 10s)  1% completed  (1% total)
+     Speed:     ev/sec=50100.4   simsec/sec=1.49083e-05   ev/simsec=3.36058e+09
+     Messages:  created: 607518   present: 315700   in FES: 288
+** Event #584960   t=0.000175921445   Elapsed: 12.0102s (0m 12s)  1% completed  (1% total)
+     Speed:     ev/sec=46581.4   simsec/sec=1.38085e-05   ev/simsec=3.37339e+09
+     Messages:  created: 722309   present: 375196   in FES: 306
+** Event #683776   t=0.000205254749   Elapsed: 14.0106s (0m 14s)  2% completed  (2% total)
+     Speed:     ev/sec=49399.2   simsec/sec=1.4664e-05   ev/simsec=3.36873e+09
+     Messages:  created: 844004   present: 438229   in FES: 291
+** Event #783872   t=0.000234955274   Elapsed: 16.1289s (0m 16s)  2% completed  (2% total)
+     Speed:     ev/sec=47252.8   simsec/sec=1.40209e-05   ev/simsec=3.37018e+09
+     Messages:  created: 967284   present: 502125   in FES: 296
+** Event #884224   t=0.000264719874   Elapsed: 18.1328s (0m 18s)  2% completed  (2% total)
+     Speed:     ev/sec=50078.9   simsec/sec=1.48535e-05   ev/simsec=3.37152e+09
+     Messages:  created: 1090875   present: 566174   in FES: 281
+** Event #984832   t=0.000294572755   Elapsed: 20.135s (0m 20s)  2% completed  (2% total)
+     Speed:     ev/sec=50248.6   simsec/sec=1.491e-05   ev/simsec=3.37013e+09
+     Messages:  created: 1214822   present: 630431   in FES: 304
+** Event #1076224   t=0.000321682624   Elapsed: 22.1352s (0m 22s)  3% completed  (3% total)
+     Speed:     ev/sec=45690.8   simsec/sec=1.35534e-05   ev/simsec=3.37117e+09
+     Messages:  created: 1327354   present: 688732   in FES: 283
+** Event #1173760   t=0.000350636281   Elapsed: 24.1373s (0m 24s)  3% completed  (3% total)
+     Speed:     ev/sec=48716.4   simsec/sec=1.44615e-05   ev/simsec=3.36869e+09
+     Messages:  created: 1447501   present: 750994   in FES: 283
+** Event #1268736   t=0.000378847291   Elapsed: 26.1415s (0m 26s)  3% completed  (3% total)
+     Speed:     ev/sec=47388.4   simsec/sec=1.40759e-05   ev/simsec=3.36663e+09
+     Messages:  created: 1564495   present: 811553   in FES: 282
+** Event #1361152   t=0.000406229584   Elapsed: 28.1532s (0m 28s)  4% completed  (4% total)
+     Speed:     ev/sec=45941   simsec/sec=1.3612e-05   ev/simsec=3.37503e+09
+     Messages:  created: 1678310   present: 870558   in FES: 281
+** Event #1450240   t=0.000432707429   Elapsed: 30.1575s (0m 30s)  4% completed  (4% total)
+     Speed:     ev/sec=44447.6   simsec/sec=1.32103e-05   ev/simsec=3.36462e+09
+     Messages:  created: 1788062   present: 927368   in FES: 292
+** Event #1548544   t=0.000461868336   Elapsed: 32.1606s (0m 32s)  4% completed  (4% total)
+     Speed:     ev/sec=49076.1   simsec/sec=1.45579e-05   ev/simsec=3.37109e+09
+     Messages:  created: 1909153   present: 990133   in FES: 279
+** Event #1647360   t=0.000491282088   Elapsed: 34.1619s (0m 34s)  4% completed  (4% total)
+     Speed:     ev/sec=49375.5   simsec/sec=1.46972e-05   ev/simsec=3.35952e+09
+     Messages:  created: 2030940   present: 1053133   in FES: 292
+** Event #1739008   t=0.000518436287   Elapsed: 36.1652s (0m 36s)  5% completed  (5% total)
+     Speed:     ev/sec=45748.1   simsec/sec=1.35546e-05   ev/simsec=3.37509e+09
+     Messages:  created: 2143817   present: 1111610   in FES: 295
+** Event #1838080   t=0.00054789154   Elapsed: 38.1655s (0m 38s)  5% completed  (5% total)
+     Speed:     ev/sec=49529.7   simsec/sec=1.47258e-05   ev/simsec=3.36347e+09
+     Messages:  created: 2265855   present: 1174801   in FES: 282
+** Event #1937664   t=0.000577475199   Elapsed: 40.1697s (0m 40s)  5% completed  (5% total)
+     Speed:     ev/sec=49687.3   simsec/sec=1.47607e-05   ev/simsec=3.36618e+09
+     Messages:  created: 2388525   present: 1238320   in FES: 284
+** Event #2029568   t=0.000604769639   Elapsed: 42.174s (0m 42s)  6% completed  (6% total)
+     Speed:     ev/sec=45853.9   simsec/sec=1.36181e-05   ev/simsec=3.36713e+09
+     Messages:  created: 2501750   present: 1296956   in FES: 286
+** Event #2128640   t=0.000634197603   Elapsed: 44.1785s (0m 44s)  6% completed  (6% total)
+     Speed:     ev/sec=49425.1   simsec/sec=1.4681e-05   ev/simsec=3.36659e+09
+     Messages:  created: 2623785   present: 1360150   in FES: 286
+** Event #2227200   t=0.000663523415   Elapsed: 46.2899s (0m 46s)  6% completed  (6% total)
+     Speed:     ev/sec=46679.7   simsec/sec=1.38892e-05   ev/simsec=3.36086e+09
+     Messages:  created: 2745249   present: 1422969   in FES: 285
+** Event #2327040   t=0.000693202708   Elapsed: 48.2906s (0m 48s)  6% completed  (6% total)
+     Speed:     ev/sec=49901.3   simsec/sec=1.48341e-05   ev/simsec=3.36396e+09
+     Messages:  created: 2868229   present: 1486612   in FES: 282
+** Event #2427136   t=0.000722916803   Elapsed: 50.2911s (0m 50s)  7% completed  (7% total)
+     Speed:     ev/sec=50036.4   simsec/sec=1.48536e-05   ev/simsec=3.36864e+09
+     Messages:  created: 2991569   present: 1550507   in FES: 291
+** Event #2520320   t=0.000750636207   Elapsed: 52.295s (0m 52s)  7% completed  (7% total)
+     Speed:     ev/sec=46501   simsec/sec=1.38326e-05   ev/simsec=3.36169e+09
+     Messages:  created: 3106380   present: 1609901   in FES: 284
+** Event #2620160   t=0.00078033046   Elapsed: 54.2988s (0m 54s)  7% completed  (7% total)
+     Speed:     ev/sec=49826.2   simsec/sec=1.48192e-05   ev/simsec=3.36227e+09
+     Messages:  created: 3229396   present: 1673560   in FES: 291
+** Event #2720512   t=0.000810070514   Elapsed: 56.2997s (0m 56s)  8% completed  (8% total)
+     Speed:     ev/sec=50151.9   simsec/sec=1.48629e-05   ev/simsec=3.3743e+09
+     Messages:  created: 3352980   present: 1737553   in FES: 282
+** Event #2813184   t=0.000837636818   Elapsed: 58.3028s (0m 58s)  8% completed  (8% total)
+     Speed:     ev/sec=46265.5   simsec/sec=1.37622e-05   ev/simsec=3.36179e+09
+     Messages:  created: 3467161   present: 1796686   in FES: 288
+** Event #2913024   t=0.000867358745   Elapsed: 60.3049s (1m 00s)  8% completed  (8% total)
+     Speed:     ev/sec=49866.5   simsec/sec=1.4845e-05   ev/simsec=3.35914e+09
+     Messages:  created: 3590205   present: 1860315   in FES: 295
+** Event #3010816   t=0.000896390335   Elapsed: 62.392s (1m 02s)  8% completed  (8% total)
+     Speed:     ev/sec=46855.8   simsec/sec=1.39101e-05   ev/simsec=3.36847e+09
+     Messages:  created: 3710652   present: 1922667   in FES: 296
+** Event #3110400   t=0.000926011647   Elapsed: 64.3925s (1m 04s)  9% completed  (9% total)
+     Speed:     ev/sec=49780.2   simsec/sec=1.48071e-05   ev/simsec=3.3619e+09
+     Messages:  created: 3833305   present: 1986154   in FES: 278
+** Event #3209728   t=0.00095551851   Elapsed: 66.3929s (1m 06s)  9% completed  (9% total)
+     Speed:     ev/sec=49653.9   simsec/sec=1.47504e-05   ev/simsec=3.36627e+09
+     Messages:  created: 3955698   present: 2049478   in FES: 289
+** Event #3301632   t=0.00098279121   Elapsed: 68.3941s (1m 08s)  9% completed  (9% total)
+     Speed:     ev/sec=45923.6   simsec/sec=1.36279e-05   ev/simsec=3.36982e+09
+     Messages:  created: 4068924   present: 2108121   in FES: 283
+** Event #3401216   t=0.001012368302   Elapsed: 70.3956s (1m 10s)  10% completed  (10% total)
+     Speed:     ev/sec=49754.1   simsec/sec=1.47773e-05   ev/simsec=3.36693e+09
+     Messages:  created: 4191518   present: 2171563   in FES: 280
+** Event #3500800   t=0.001042004191   Elapsed: 72.3968s (1m 12s)  10% completed  (10% total)
+     Speed:     ev/sec=49762.5   simsec/sec=1.48092e-05   ev/simsec=3.36025e+09
+     Messages:  created: 4314201   present: 2235013   in FES: 276
+** Event #3593216   t=0.001069405047   Elapsed: 74.3989s (1m 14s)  10% completed  (10% total)
+     Speed:     ev/sec=46160.1   simsec/sec=1.36862e-05   ev/simsec=3.37274e+09
+     Messages:  created: 4428069   present: 2293996   in FES: 280
+** Event #3694080   t=0.001099412952   Elapsed: 76.4005s (1m 16s)  10% completed  (10% total)
+     Speed:     ev/sec=50392.7   simsec/sec=1.49923e-05   ev/simsec=3.36125e+09
+     Messages:  created: 4552356   present: 2358316   in FES: 291
+** Event #3794176   t=0.001129084236   Elapsed: 78.4012s (1m 18s)  11% completed  (11% total)
+     Speed:     ev/sec=50030.8   simsec/sec=1.48306e-05   ev/simsec=3.3735e+09
+     Messages:  created: 4675609   present: 2422177   in FES: 285
+** Event #3886848   t=0.001156681681   Elapsed: 80.403s (1m 20s)  11% completed  (11% total)
+     Speed:     ev/sec=46293.3   simsec/sec=1.3786e-05   ev/simsec=3.35799e+09
+     Messages:  created: 4789792   present: 2481269   in FES: 279
+** Event #3986176   t=0.00118611741   Elapsed: 82.4033s (1m 22s)  11% completed  (11% total)
+     Speed:     ev/sec=49656   simsec/sec=1.47155e-05   ev/simsec=3.3744e+09
+     Messages:  created: 4912191   present: 2544637   in FES: 286
+** Event #4083200   t=0.00121502617   Elapsed: 84.4884s (1m 24s)  12% completed  (12% total)
+     Speed:     ev/sec=46533.3   simsec/sec=1.38648e-05   ev/simsec=3.35621e+09
+     Messages:  created: 5031695   present: 2606473   in FES: 280
+** Event #4183296   t=0.001244740426   Elapsed: 86.4919s (1m 26s)  12% completed  (12% total)
+     Speed:     ev/sec=49960.9   simsec/sec=1.48313e-05   ev/simsec=3.36862e+09
+     Messages:  created: 5155000   present: 2670316   in FES: 285
+** Event #4282880   t=0.001274375959   Elapsed: 88.4943s (1m 28s)  12% completed  (12% total)
+     Speed:     ev/sec=49731.7   simsec/sec=1.47998e-05   ev/simsec=3.36029e+09
+     Messages:  created: 5277665   present: 2733790   in FES: 297
+** Event #4375296   t=0.001301758837   Elapsed: 90.4949s (1m 30s)  13% completed  (13% total)
+     Speed:     ev/sec=46194   simsec/sec=1.36873e-05   ev/simsec=3.37496e+09
+     Messages:  created: 5391512   present: 2792775   in FES: 278
+** Event #4474880   t=0.001331371173   Elapsed: 92.495s (1m 32s)  13% completed  (13% total)
+     Speed:     ev/sec=49788.8   simsec/sec=1.48052e-05   ev/simsec=3.36292e+09
+     Messages:  created: 5514207   present: 2856286   in FES: 283
+** Event #4574208   t=0.001360868716   Elapsed: 94.4972s (1m 34s)  13% completed  (13% total)
+     Speed:     ev/sec=49609.3   simsec/sec=1.47325e-05   ev/simsec=3.36733e+09
+     Messages:  created: 5636605   present: 2919672   in FES: 286
+** Event #4666112   t=0.001388143047   Elapsed: 96.4988s (1m 36s)  13% completed  (13% total)
+     Speed:     ev/sec=45916.3   simsec/sec=1.36266e-05   ev/simsec=3.36962e+09
+     Messages:  created: 5749810   present: 2978284   in FES: 274
+** Event #4765696   t=0.001417736226   Elapsed: 98.5011s (1m 38s)  14% completed  (14% total)
+     Speed:     ev/sec=49735.1   simsec/sec=1.47797e-05   ev/simsec=3.3651e+09
+     Messages:  created: 5872464   present: 3041765   in FES: 286
+** Event #4864768   t=0.001447154382   Elapsed: 100.504s (1m 40s)  14% completed  (14% total)
+     Speed:     ev/sec=49474.1   simsec/sec=1.46907e-05   ev/simsec=3.36772e+09
+     Messages:  created: 5994528   present: 3104986   in FES: 283
+** Event #4957184   t=0.001474587289   Elapsed: 102.507s (1m 42s)  14% completed  (14% total)
+     Speed:     ev/sec=46121.3   simsec/sec=1.36907e-05   ev/simsec=3.3688e+09
+     Messages:  created: 6108361   present: 3163955   in FES: 272
+** Event #5056512   t=0.001504134929   Elapsed: 104.508s (1m 44s)  15% completed  (15% total)
+     Speed:     ev/sec=49639.6   simsec/sec=1.47666e-05   ev/simsec=3.36162e+09
+     Messages:  created: 6230742   present: 3227269   in FES: 278
+** Event #5155584   t=0.001533570716   Elapsed: 106.626s (1m 46s)  15% completed  (15% total)
+     Speed:     ev/sec=46772.3   simsec/sec=1.38968e-05   ev/simsec=3.3657e+09
+     Messages:  created: 6352763   present: 3290454   in FES: 273
+** Event #5255168   t=0.001563142915   Elapsed: 108.629s (1m 48s)  15% completed  (15% total)
+     Speed:     ev/sec=49731.1   simsec/sec=1.4768e-05   ev/simsec=3.36749e+09
+     Messages:  created: 6475456   present: 3353969   in FES: 277
+** Event #5355008   t=0.001592763933   Elapsed: 110.633s (1m 50s)  15% completed  (15% total)
+     Speed:     ev/sec=49810   simsec/sec=1.47779e-05   ev/simsec=3.37058e+09
+     Messages:  created: 6598463   present: 3417698   in FES: 284
+** Event #5446656   t=0.001620030868   Elapsed: 112.637s (1m 52s)  16% completed  (16% total)
+     Speed:     ev/sec=45731.1   simsec/sec=1.36058e-05   ev/simsec=3.36114e+09
+     Messages:  created: 6711363   present: 3476138   in FES: 286
+** Event #5545984   t=0.001649455994   Elapsed: 114.641s (1m 54s)  16% completed  (16% total)
+     Speed:     ev/sec=49574.6   simsec/sec=1.46861e-05   ev/simsec=3.37562e+09
+     Messages:  created: 6833675   present: 3539564   in FES: 280
+** Event #5645312   t=0.00167901978   Elapsed: 116.644s (1m 56s)  16% completed  (16% total)
+     Speed:     ev/sec=49595.2   simsec/sec=1.47614e-05   ev/simsec=3.35979e+09
+     Messages:  created: 6956043   present: 3602882   in FES: 275
+** Event #5737728   t=0.00170642685   Elapsed: 118.644s (1m 58s)  17% completed  (17% total)
+     Speed:     ev/sec=46198.4   simsec/sec=1.37007e-05   ev/simsec=3.37198e+09
+     Messages:  created: 7069899   present: 3661806   in FES: 283
+** Event #5748366   t=0.00170962419   Elapsed: 118.832s (1m 58s)  17% completed  (17% total)
+     Speed:     ev/sec=56566.5   simsec/sec=1.70008e-05   ev/simsec=3.32728e+09
+     Messages:  created: 7083001   present: 3668607   in FES: 282
+
+<!> SIGINT or SIGTERM received, exiting -- at t=0.00170962419s, event #5748366
+
+Calling finish() at end of Run #0...
+[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host5.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host6.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host7.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host8.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host9.tcp: finishing with 0 connections open.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-09 Ipv4:{inet_addr:10.0.0.4/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-09 Ipv4:{inet_addr:10.0.0.4/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.6/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-13 Ipv4:{inet_addr:10.0.0.6/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-20 Ipv4:{inet_addr:10.0.0.7/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-20 Ipv4:{inet_addr:10.0.0.7/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-2B Ipv4:{inet_addr:10.0.0.3/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-2B Ipv4:{inet_addr:10.0.0.3/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host5.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-37 Ipv4:{inet_addr:10.0.0.9/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host5.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-37 Ipv4:{inet_addr:10.0.0.9/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host6.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-44 Ipv4:{inet_addr:10.0.0.10/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host6.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-44 Ipv4:{inet_addr:10.0.0.10/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host7.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-4F Ipv4:{inet_addr:10.0.0.8/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host7.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-4F Ipv4:{inet_addr:10.0.0.8/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host8.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-5C Ipv4:{inet_addr:10.0.0.2/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host8.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-5C Ipv4:{inet_addr:10.0.0.2/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host9.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-66 Ipv4:{inet_addr:10.0.0.5/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.00170962419 to TSN_multipath.host9.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-66 Ipv4:{inet_addr:10.0.0.5/28 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.

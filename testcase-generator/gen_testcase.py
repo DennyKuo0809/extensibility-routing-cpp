@@ -19,8 +19,8 @@ def parse_args() -> Namespace:
         type=float,
     )
     parser.add_argument(
-        "--type1_num",
-        type=int,
+        "--stream_vertex_ratio",
+        type=float,
     )
     parser.add_argument(
         "--lambda_upper",
@@ -44,8 +44,8 @@ class testcase:
             topo_name="Abilene",  # for real world toptology
             num_vertex=10, # for random topoloty
             cap_utl_ratio=0.5,
-            type1_type2_ratio=2,
             type1_num=10,
+            type2_num=20,
             lambda_lim=[0.1, 0.95]
         ):
 
@@ -54,9 +54,8 @@ class testcase:
         self.cap_matrix = None
         self.num_vertex = None
         self.type1_num = type1_num
-        self.type2_num = 0
+        self.type2_num = type2_num
         self.cap_utl_ratio = cap_utl_ratio
-        self.type1_type2_ratio = type1_type2_ratio
         self.type1 = []
         self.type2 = []
         self.trans_ratio_list = []
@@ -105,16 +104,11 @@ class testcase:
 
         ### Type-2
         lambda_range = self.lambda_lim[1] - self.lambda_lim[0]
-        cnt = 0
-        while cnt < self.type1_type2_ratio * self.type1_num:
+        for _ in range(self.type2_num):
             src, dst = random.sample(all_pair, k=1)[0]
             util = random.randrange(12, 25) * self.cap_utl_ratio
             lambda_ = random.random() * lambda_range + self.lambda_lim[0]
             self.type2.append([src, dst, util, lambda_])
-            # sum_type2_lambda += lambda_
-            cnt += 1
-
-        self.type2_num = len(self.type2)
             
 
     def dump(self, path="./testcase.in"):
@@ -139,12 +133,15 @@ class testcase:
 
 if __name__ == "__main__":
     args = parse_args()
+    N1 = int((args.num_vertex * args.stream_vertex_ratio) / (1 + args.type1_type2_ratio))
+    N2 = int(N1 * args.type1_type2_ratio)
+
     T = testcase(
         real_world_topo=False,
         num_vertex=args.num_vertex, # for random topoloty
         cap_utl_ratio=args.cap_utl_ratio,
-        type1_type2_ratio=args.type1_type2_ratio,
-        type1_num=args.type1_num,
+        type1_num=N1,
+        type2_num=N2,
         lambda_lim=[args.lambda_lower, args.lambda_upper]
     )
     T.dump(path=args.output)
