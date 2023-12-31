@@ -7,14 +7,14 @@ import configparser
 import json
 
 class Stream_switch():
-    def __init__(self, Lambda=0.5, period=100):
+    def __init__(self, Lambda=0.5, period=1):
         self.Lambda = Lambda
-        self.period = period # unit: us
+        self.period = period # unit: ms
 
     def poisson_reverse(self, probability):
         return -math.log(1 - probability) / self.Lambda
 
-    def on_off_schedule(self, sim_time=10000):
+    def on_off_schedule(self, sim_time=100):
         t = 0
         on = False
         schedule = []
@@ -91,13 +91,14 @@ class Route():
             self.stream_info[f'1-{id}'] = {
                 'module': f'host{dst}-app{len(self.app[dst])-1}',
                 'bitrate': self.topology.type1[id][2],
-                'number': 100
+                'number': 99
             }
 
         for id, (src, dst, util, lambda_) in enumerate(self.topology.type2):
             # poisson = Stream_switch(Lambda=(random.randint(1, 9)/10))
             poisson = Stream_switch(Lambda=float(lambda_))
             poisson_schedule = poisson.on_off_schedule()
+            print(poisson_schedule)
             for interval in poisson_schedule:
                 new_src_app = {
                     "role": "send", 
@@ -106,8 +107,8 @@ class Route():
                     "util": util,
                     "type": int(2),
                     "flow-id" : int(id),
-                    "start": interval[0] * 100,
-                    "stop": interval[1] * 100
+                    "start": interval[0],
+                    "stop": interval[1]
                 }
                 self.app[src].append(new_src_app)
                 if f"2-{id}" not in self.app_statics:
@@ -123,11 +124,12 @@ class Route():
             self.port[dst] += 1
             self.app[dst].append(new_dst_app)
             self.module_2_stream[f'host{dst}-app{len(self.app[dst])-1}'] = f'2-{id}'
+            print(self.app_statics)
             self.stream_info[f'2-{id}'] = {
                 'module': f'host{dst}-app{len(self.app[dst])-1}',
                 'bitrate': self.topology.type2[id][2],
                 'lambda': self.topology.type2[id][3],
-                'number': self.app_statics[f"2-{id}"]
+                'number': self.app_statics[f"2-{id}"] - 1
             }
         
     def fromFile(self, file_name):
@@ -179,7 +181,7 @@ class Route():
 
         self.config.add_section('General')
         self.config.set("General", "network", "TSN_multipath")
-        self.config.set("General", "sim-time-limit", "10ms")
+        self.config.set("General", "sim-time-limit", "100ms")
 
         # disable automatic MAC forwarding table configuration
         self.config.set("General", "*.macForwardingTableConfigurator.typename", "\"\"")
@@ -280,8 +282,8 @@ class Route():
                         self.config.set("General", f"*.{name}.app[{j}].source.displayStringTextFormat", "\"sent %p pk (%l)\"")
                         self.config.set("General", f"*.{name}.app[{j}].messageLength", f"{int(10000*app['util'])}B")
                         self.config.set("General", f"*.{name}.app[{j}].sendInterval", "1ms")
-                        self.config.set("General", f"*.{name}.app[{j}].startTime", f"{app['start']}us")
-                        self.config.set("General", f"*.{name}.app[{j}].stopTime", f"{app['stop']}us")
+                        self.config.set("General", f"*.{name}.app[{j}].startTime", f"{app['start']}ms")
+                        self.config.set("General", f"*.{name}.app[{j}].stopTime", f"{app['stop']}ms")
                         self.config.set("General", f"*.{name}.app[{j}].display-name", f"\"type{app['type']}_{app['flow-id']}\"")
                         self.config.set("General", f"*.{name}.app[{j}].destPort", f"{app['destport']}")
                 else:

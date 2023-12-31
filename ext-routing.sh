@@ -50,7 +50,7 @@ while IFS='=' read -r key value; do
         fi
     fi
 done < extensibility-routing.conf
-truncate -s -1 extensibility-routing.conf
+# truncate -s -1 extensibility-routing.conf
 
 # Generate testcase
 if [[ "$GEN_TESTCASE" == "true" ]]; then

@@ -44,7 +44,9 @@
 
 ### Parse Arguments
 POSITIONAL_ARGS=()
-TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value" "ILP")
+# TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value" "ILP")
+TYPE1_METHOD=("shortest_path" "min_max_percentage" "least_used_capacity_percentage" "least_conflict_value")
+
 ARG_NOTICE=$'[Usage]\n-s, --scenario\t\tPath to scenario.\n-o, --output\t\tPath to output directory.\n-m, --method\t\tRouting method for type-1 streams.\n\t\t\t\t* shortest_path\n\t\t\t\t* min_max_percentage\n\t\t\t\t* least_used_capacity_percentage\n\t\t\t\t* least_conflict_value'
 DO_SIM=false
 TRIM=0.0
@@ -121,6 +123,8 @@ set -- "${POSITIONAL_ARGS[@]}" # restore positional parameters
 if [ "$SCENARIO" == "" ] || [ "$OUTPUTDIR" == "" ]
 then
     echo "Lack of required argument"
+    echo "scenario=$SCENARIO"
+    echo "outputdir=$OUTPUTDIR"
     echo "$ARG_NOTICE"
     exit 1
 fi

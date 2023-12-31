@@ -63,6 +63,64 @@ def parse_shortest_path_info(input_file, m2s, s2m):
             m2s[module_]['sp-cap'] = float(total_cap)
         return 
 
+# def worst_avg_table(args):
+#     ### Methods and Streams
+#     method_list = [
+#         'shortest_path', 
+#         'min_max_percentage', 
+#         'least_used_capacity_percentage', 
+#         'least_conflict_value', 
+#         'ILP'
+#     ]
+#     _, s_info = parse_module_info(args.dir + f'/info/module_stream_{method_list[0]}.pickle')
+#     stream_list = sorted(list(s_info.keys()), key=lambda x: (x[0],int(x[2:])))
+
+#     ### Parse the latency of shortest path routing without other streams
+#     shortest_latency = {}
+#     for s in stream_list:
+#         file_name = f'{args.dir}/result/shortest-{s}.csv'
+#         d = list(parse_csv(file_name).values())
+#         shortest_latency[s] = d[0][0]
+
+#     ### Construct Tables
+#     statistic = {
+#         'type1_min': [],
+#         'type1_max': [],
+#         'type1_mean': [],
+#         'type1_stddev': [],
+#         'type2_min': [],
+#         'type2_max': [],
+#         'type2_mean': [],
+#         'type2_stddev': [],
+#     }
+#     import prettytable as pt
+#     tb = pt.PrettyTable()
+#     tb.add_column("Streams", stream_list)
+
+#     for i, m in enumerate(method_list):
+#         try:
+#             column = []
+#             m2s, s_info = parse_module_info(args.dir + f'/info/module_stream_{m}.pickle')
+#             sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
+#             for s in stream_list:
+#                 if s_info[s]['module'] in sim_delays:
+#                     avg_delay = sum(sim_delays[s_info[s]['module']]) / len(sim_delays[s_info[s]['module']])
+#                     max_delay = max(sim_delays[s_info[s]['module']])
+#                     # avg_delay *= 1e4
+#                     # max_delay *= 1e4
+#                     avg_delay /= shortest_latency[s]
+#                     max_delay /= shortest_latency[s]
+#                 else:
+#                     avg_delay = -1
+#                     max_delay = -1
+#                 column.append(f'{avg_delay:0.3f} / {max_delay:0.3f}')
+#             tb.add_column(m, column)
+#         except FileNotFoundError as e:
+#             # print(str(e))
+#             pass
+#     print()
+#     print(tb)
+
 def worst_avg_table(args):
     ### Methods and Streams
     method_list = [
@@ -73,64 +131,7 @@ def worst_avg_table(args):
         'ILP'
     ]
     _, s_info = parse_module_info(args.dir + f'/info/module_stream_{method_list[0]}.pickle')
-    stream_list = sorted(list(s_info.keys()), key=lambda x: (x[0],int(x[2:])))
-
-    ### Parse the latency of shortest path routing without other streams
-    shortest_latency = {}
-    for s in stream_list:
-        file_name = f'{args.dir}/result/shortest-{s}.csv'
-        d = list(parse_csv(file_name).values())
-        shortest_latency[s] = d[0][0]
-
-    ### Construct Tables
-    statistic = {
-        'type1_min': [],
-        'type1_max': [],
-        'type1_mean': [],
-        'type1_stddev': [],
-        'type2_min': [],
-        'type2_max': [],
-        'type2_mean': [],
-        'type2_stddev': [],
-    }
-    import prettytable as pt
-    tb = pt.PrettyTable()
-    tb.add_column("Streams", stream_list)
-
-    for i, m in enumerate(method_list):
-        try:
-            column = []
-            m2s, s_info = parse_module_info(args.dir + f'/info/module_stream_{m}.pickle')
-            sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
-            for s in stream_list:
-                if s_info[s]['module'] in sim_delays:
-                    avg_delay = sum(sim_delays[s_info[s]['module']]) / len(sim_delays[s_info[s]['module']])
-                    max_delay = max(sim_delays[s_info[s]['module']])
-                    # avg_delay *= 1e4
-                    # max_delay *= 1e4
-                    avg_delay /= shortest_latency[s]
-                    max_delay /= shortest_latency[s]
-                else:
-                    avg_delay = -1
-                    max_delay = -1
-                column.append(f'{avg_delay:0.3f} / {max_delay:0.3f}')
-            tb.add_column(m, column)
-        except FileNotFoundError as e:
-            # print(str(e))
-            pass
-    print()
-    print(tb)
-
-def worst_avg_table(args):
-    ### Methods and Streams
-    method_list = [
-        'shortest_path', 
-        'min_max_percentage', 
-        'least_used_capacity_percentage', 
-        'least_conflict_value', 
-        'ILP'
-    ]
-    _, s_info = parse_module_info(args.dir + f'/info/module_stream_{method_list[0]}.pickle')
+    print('[s_info in analysis]\n', s_info)
     stream_list = sorted(list(s_info.keys()), key=lambda x: (x[0],int(x[2:])))
 
     ### Parse the latency of shortest path routing without other streams
@@ -151,6 +152,7 @@ def worst_avg_table(args):
         try:
             column = []
             m2s, s_info = parse_module_info(args.dir + f'/info/module_stream_{m}.pickle')
+            
             sim_delays = parse_csv(f'{args.dir}/result/{m}.csv')
             for s in stream_list:
                 if s_info[s]['module'] in sim_delays:
@@ -166,7 +168,7 @@ def worst_avg_table(args):
                     max_delay = -1
                     length = 0
 
-                column.append(f'{avg_delay:0.3f} / {max_delay:0.3f} / {length:2}')
+                column.append(f'{avg_delay:0.3f} / {max_delay:0.3f} / {length} / {s_info[s]["number"]}')
             df[m] = column
             tb.add_column(m, column)
         except FileNotFoundError as e:

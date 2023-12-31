@@ -74,6 +74,7 @@ do
 
         sed -i '23,23 d' extensibility-routing.conf
         sed -i "23i EXT_ROUTE_ANALYSIS_OUTPUT=${OUT_DIR}/${i}.csv" extensibility-routing.conf
+        echo "" >> extensibility-routing.conf
 
         # Run
         echo "${vertex}-${sv}-${s21}-${i}"
