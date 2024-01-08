@@ -1,0 +1,1179 @@
+Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1'.
+Environment for 'omnetpp-6.0.1' in directory '/home/ubuntu/omnetpp-6.0.1' is ready.
+Warning: overwriting previous environment for '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5'.
+Environment for INET 4.5.0 in directory '/home/ubuntu/omnetpp-6.0.1/samples/inet4.5' is ready.
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
+
+Preparing for running configuration General, run #0...
+Assigned runID=General-0-20240108-21:48:20-4127
+Setting up network "TSN_multipath"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 8e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 4225   present: 4225   in FES: 580
+** Event #65661   t=0.1   Elapsed: 0.795781s (0m 00s)  100% completed  (100% total)
+     Speed:     ev/sec=82512   simsec/sec=0.125664   ev/simsec=656610
+     Messages:  created: 78700   present: 4519   in FES: 18
+
+<!> Simulation time limit reached -- at t=0.1s, event #65661
+
+Calling finish() at end of Run #0...
+[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host5.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host6.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host7.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host8.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host9.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host10.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host11.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host12.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host13.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host14.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host15.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host16.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host17.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host18.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host19.tcp: finishing with 0 connections open.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-14 Ipv4:{inet_addr:10.0.0.2/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-14 Ipv4:{inet_addr:10.0.0.2/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-28 Ipv4:{inet_addr:10.0.0.3/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-28 Ipv4:{inet_addr:10.0.0.3/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-49 Ipv4:{inet_addr:10.0.0.4/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-49 Ipv4:{inet_addr:10.0.0.4/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-61 Ipv4:{inet_addr:10.0.0.5/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-61 Ipv4:{inet_addr:10.0.0.5/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host5.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-74 Ipv4:{inet_addr:10.0.0.7/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host5.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-74 Ipv4:{inet_addr:10.0.0.7/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host6.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-90 Ipv4:{inet_addr:10.0.0.8/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host6.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-90 Ipv4:{inet_addr:10.0.0.8/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host7.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-9B Ipv4:{inet_addr:10.0.0.11/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host7.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-9B Ipv4:{inet_addr:10.0.0.11/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host8.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-A8 Ipv4:{inet_addr:10.0.0.6/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host8.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-A8 Ipv4:{inet_addr:10.0.0.6/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host9.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-BE Ipv4:{inet_addr:10.0.0.10/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host9.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-BE Ipv4:{inet_addr:10.0.0.10/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host10.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-DD Ipv4:{inet_addr:10.0.0.9/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host10.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-DD Ipv4:{inet_addr:10.0.0.9/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host11.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-EE Ipv4:{inet_addr:10.0.0.13/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host11.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-EE Ipv4:{inet_addr:10.0.0.13/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host12.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-08 Ipv4:{inet_addr:10.0.0.14/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host12.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-08 Ipv4:{inet_addr:10.0.0.14/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host13.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-18 Ipv4:{inet_addr:10.0.0.12/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host13.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-18 Ipv4:{inet_addr:10.0.0.12/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host14.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-2D Ipv4:{inet_addr:10.0.0.16/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host14.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-2D Ipv4:{inet_addr:10.0.0.16/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host15.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-46 Ipv4:{inet_addr:10.0.0.15/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host15.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-46 Ipv4:{inet_addr:10.0.0.15/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host16.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-59 Ipv4:{inet_addr:10.0.0.17/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host16.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-59 Ipv4:{inet_addr:10.0.0.17/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host17.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-6D Ipv4:{inet_addr:10.0.0.18/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host17.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-6D Ipv4:{inet_addr:10.0.0.18/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host18.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-8B Ipv4:{inet_addr:10.0.0.20/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host18.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-8B Ipv4:{inet_addr:10.0.0.20/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.1 to TSN_multipath.host19.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-A1 Ipv4:{inet_addr:10.0.0.19/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.1 to TSN_multipath.host19.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-A1 Ipv4:{inet_addr:10.0.0.19/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.
+Exported 24 vectors
+OMNeT++ Discrete Event Simulation  (C) 1992-2022 Andras Varga, OpenSim Ltd.
+Version: 6.0.1, build: 220831-e4f07d04b8, edition: Academic Public License -- NOT FOR COMMERCIAL USE
+See the license for distribution terms and warranty disclaimer
+
+Setting up Cmdenv...
+
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/examples:  175
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/showcases:  70
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/src:  1139
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/validation:  5
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tests/networks:  6
+Loading NED files from /home/ubuntu/omnetpp-6.0.1/samples/inet4.5/tutorials:  21
+
+Preparing for running configuration General, run #0...
+Assigned runID=General-0-20240108-21:48:23-4145
+Setting up network "TSN_multipath"...
+Initializing...
+
+Running simulation...
+** Event #0   t=0   Elapsed: 8e-06s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=0   simsec/sec=0   ev/simsec=0
+     Messages:  created: 4279   present: 4279   in FES: 598
+** Event #51089   t=0.000014339546   Elapsed: 0.949565s (0m 00s)  0% completed  (0% total)
+     Speed:     ev/sec=53802.9   simsec/sec=1.51011e-05   ev/simsec=3.56283e+09
+     Messages:  created: 71258   present: 30071   in FES: 609
+
+<!> SIGINT or SIGTERM received, exiting -- at t=0.000014339546s, event #51089
+
+Calling finish() at end of Run #0...
+[INFO]	TSN_multipath.host0.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host1.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host2.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host3.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host4.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host5.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host6.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host7.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host8.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host9.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host10.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host11.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host12.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host13.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host14.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host15.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host16.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host17.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host18.tcp: finishing with 0 connections open.
+[INFO]	TSN_multipath.host19.tcp: finishing with 0 connections open.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host0.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host0.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-01 Ipv4:{inet_addr:10.0.0.1/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host1.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-14 Ipv4:{inet_addr:10.0.0.2/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host1.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-14 Ipv4:{inet_addr:10.0.0.2/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host2.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-28 Ipv4:{inet_addr:10.0.0.3/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host2.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-28 Ipv4:{inet_addr:10.0.0.3/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host3.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-49 Ipv4:{inet_addr:10.0.0.4/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host3.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-49 Ipv4:{inet_addr:10.0.0.4/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host4.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-61 Ipv4:{inet_addr:10.0.0.5/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host4.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-61 Ipv4:{inet_addr:10.0.0.5/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host5.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-74 Ipv4:{inet_addr:10.0.0.7/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host5.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-74 Ipv4:{inet_addr:10.0.0.7/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host6.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-90 Ipv4:{inet_addr:10.0.0.8/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host6.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-90 Ipv4:{inet_addr:10.0.0.8/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host7.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-9B Ipv4:{inet_addr:10.0.0.11/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host7.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-9B Ipv4:{inet_addr:10.0.0.11/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host8.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-A8 Ipv4:{inet_addr:10.0.0.6/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host8.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-A8 Ipv4:{inet_addr:10.0.0.6/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host9.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-BE Ipv4:{inet_addr:10.0.0.10/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host9.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-BE Ipv4:{inet_addr:10.0.0.10/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host10.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-DD Ipv4:{inet_addr:10.0.0.9/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host10.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-DD Ipv4:{inet_addr:10.0.0.9/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host11.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-EE Ipv4:{inet_addr:10.0.0.13/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host11.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-00-EE Ipv4:{inet_addr:10.0.0.13/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host12.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-08 Ipv4:{inet_addr:10.0.0.14/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host12.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-08 Ipv4:{inet_addr:10.0.0.14/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host13.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-18 Ipv4:{inet_addr:10.0.0.12/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host13.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-18 Ipv4:{inet_addr:10.0.0.12/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host14.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-2D Ipv4:{inet_addr:10.0.0.16/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host14.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-2D Ipv4:{inet_addr:10.0.0.16/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host15.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-46 Ipv4:{inet_addr:10.0.0.15/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host15.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-46 Ipv4:{inet_addr:10.0.0.15/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host16.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-59 Ipv4:{inet_addr:10.0.0.17/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host16.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-59 Ipv4:{inet_addr:10.0.0.17/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host17.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-6D Ipv4:{inet_addr:10.0.0.18/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host17.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-6D Ipv4:{inet_addr:10.0.0.18/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host18.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-8B Ipv4:{inet_addr:10.0.0.20/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host18.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-8B Ipv4:{inet_addr:10.0.0.20/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	Removing all packets.
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host19.ipv4.routingTable: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-A1 Ipv4:{inet_addr:10.0.0.19/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	** Signal at T=0.000014339546 to TSN_multipath.host19.ipv4.configurator: interfaceStateChanged eth0 ID:101 MTU:1500 UP BROADCAST NOCARRIER MULTICAST macAddr:0A-AA-00-00-01-A1 Ipv4:{inet_addr:10.0.0.19/27 mcastgrps:224.0.0.1} changed field: 0
+[INFO]	 
+[INFO]	Clear all sockets
+
+End.
