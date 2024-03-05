@@ -54,57 +54,32 @@ void Circuit_finding::unblock(int node){
 }
 
 bool Circuit_finding::circuit(int node){
+    // std::cerr << node << " ";
     bool f = false;
     stack_.push_back(node);
     blocked[node] = true;
 
-    for(int i = 0 ; i < graph.adj_list[node].size() ; i++){
-        int w = graph.adj_list[node][i];
-        if(graph.capacity[node][w] >= trim_factor){
-            if(w == Source){
-                /* Found a circuit */
-                cycle_pool.push_back(stack_);
-
-                /* Check capacity */
-                if(trim_factor){
-                    stack_.push_back(w);
-                    backtrack = -1;
-                    for(int i = 0 ; i < stack_.size() - 1 ; i ++){
-                        graph.capacity[stack_[i]][stack_[i+1]] -= trim_factor;
-                        if(backtrack < 0 && graph.capacity[stack_[i]][stack_[i+1]] < trim_factor){
-                            backtrack = stack_[i];
-                            startup_backtrack = true;
-                        }
-                    }
-                    stack_.pop_back();
-                }
-                
-                f = true;
+    for(int w: graph.adj_list[node]){
+    // for(int i = 0 ; i < graph.adj_list[node].size() ; i++){
+    //     int w = graph.adj_list[node][i];
+        if(w == Source){
+            /* Found a circuit */
+            // std::cerr << "Found";
+            if(stack_.size() > cycle_pool.size()){
+                cycle_pool = stack_;
             }
-            else if(!blocked[w]){
-                if(circuit(w)){
-                    if(startup_backtrack){
-                        if(node != backtrack){
-                            stack_.pop_back();
-                            B[node] = std::vector<int>();
-                            blocked[node] = false;
-                            return true;
-                        }
-                        else {
-                            startup_backtrack = false;
-                            backtrack = -1;
-                        }
-                    }
-                    f = true;
-                }
+            f = true;
+        }
+        else if(!blocked[w]){
+            if(circuit(w)){
+                f = true;
             }
         }
     }
 
     if(f) unblock(node);
     else{
-        for(int i = 0 ; i < graph.adj_list[node].size() ; i ++){
-            int w = graph.adj_list[node][i];
+        for(int w: graph.adj_list[node]){
             std::vector<int>::iterator it = std::find(B[w].begin(), B[w].end(), node);
             if(it == B[w].end()){
                 B[w].push_back(node);
@@ -122,6 +97,7 @@ void Circuit_finding::johnson(){
 
     while(Source < origin_graph.vertex_num){
         graph = Graph(origin_graph, nodes);
+
         SCC scc(graph);
         scc.tarjan();
         std::vector<std::vector<int> > sccs = scc.get_scc();

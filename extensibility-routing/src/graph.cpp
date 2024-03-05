@@ -7,14 +7,18 @@
 /* Constructor: sub-graph */
 Graph::Graph(Graph& g, std::vector<int> nodes){
     vertex_num = g.vertex_num;
-    capacity = g.capacity;
+    capacity = std::vector<std::vector<double> >(
+        g.vertex_num, 
+        std::vector<double>(g.vertex_num, 0)
+    );
     adj_list = std::vector<std::vector<int> >(g.vertex_num, std::vector<int>());   
     node_list = nodes;
     
     for(int i = 0 ; i < nodes.size() ; i++ ){
         for(int j = 0 ; j < nodes.size() ; j ++){
-            if(i != j && capacity[nodes[i]][nodes[j]] > 0){
+            if(i != j && g.capacity[nodes[i]][nodes[j]] > 0){
                 adj_list[nodes[i]].push_back(nodes[j]);
+                capacity[nodes[i]][nodes[j]] = g.capacity[nodes[i]][nodes[j]];
             }
         }
     }

@@ -3,224 +3,288 @@
 #include <queue>
 #include <algorithm>
 #include <set>
+#include <map>
 #include <numeric>
+#include <queue>
 #include "../../include/solution.hpp"
+
+#define SIZE_CONSTRAINT 10
+
+std::vector<int> parent;
+std::vector<int> size;
+
+int find(int a){
+    if(parent[a] == a) return a;
+    return parent[a] = find(parent[a]);
+}
+
+void merge(int a, int b){
+    int pa = find(a), pb = find(b);
+    if(size[pa] >= size[pb]){
+        size[pa] += size[pb];
+        parent[pb] = pa;
+    }
+    else{
+        size[pb] += size[pa];
+        parent[pa] = pb;
+    }
+}
+
+std::vector<int> largestCycle(Graph& originalGraph, std::vector<int>& nodes){
+    Graph graph = Graph(originalGraph, nodes);
+    Circuit_finding Cf(graph, 0);
+    Cf.johnson();
+    return Cf.get_cycle_pool();
+}
+
+
+void Solution::Grouping(){
+    /****************************************
+     * Grouping the vertices by the streams 
+     * Union-find
+     ****************************************/
+    int numVertex = scenario.graph.get_vertex_num();
+    
+    for(int i = 0 ; i < numVertex ; i ++){
+        parent.push_back(i);
+        size.push_back(1);
+    }
+
+    /* Merge by source and destination of streams */
+    for(int i = 0 ; i < scenario.Type_2.size() ; i ++){
+        int src = scenario.Type_2[i].src, dst = scenario.Type_2[i].dst;
+        int p_src = find(src), p_dst = find(dst);
+        if(p_src != p_dst && size[p_src] + size[p_dst] <= SIZE_CONSTRAINT){
+            merge(src, dst);
+            int p_src= find(src);
+            if(serveStreams.find(p_src) == serveStreams.end()){
+                serveStreams[p_src] = std::vector<int>();
+            }
+            serveStreams[p_src].push_back(i);
+        }
+    }
+
+    std::vector<int> ungroupVertice;
+    for(int v = 0 ; v < numVertex ; v ++){
+        if(parent[v] == v && size[v] == 1){
+            ungroupVertice.push_back(v);
+        }
+    }
+
+    /****************************************
+     * Find disjoint cycle for each group
+     ****************************************/
+
+    for(int i = 0 ; i < numVertex ; i ++){
+        if(parent[i] == i && size[i] > 2){
+            group.push_back(i);
+            members[i] = std::vector<int>();
+        }
+    }
+    for(int i = 0 ; i < numVertex ; i ++){
+        members[find(i)].push_back(i);
+    }
+
+    for(int g: group){
+        std::cerr << "Group (" << g << ") ";
+        for(int m: members[g]){
+            std::cerr << m << " ";
+        }
+        std::cerr << "\n";
+    }
+    
+    /* Find cycle inside single group */
+    for(int g: group){
+        cycles[g] = largestCycle(scenario.graph, members[g]);
+        std::cerr << "\nCycle for Group (" << g << ") ";
+        for(int m: cycles[g]){
+            std::cerr << m << " ";
+        }
+        std::cerr << "\n";
+    }
+
+    /****************************************
+     * Check how many streams can be served.
+     ****************************************/
+    for(auto stream: scenario.Type_2){
+        int src = stream.src, dst = stream.dst;
+        int g_src = find(src), g_dst = find(dst);
+        if(g_src != g_dst) continue;
+        auto cycle = cycles[g_src];
+        if(std::find(cycle.begin(), cycle.end(), src) == cycle.end() || std::find(cycle.begin(), cycle.end(), dst) == cycle.end()){
+            if(numFail.find(g_src) == numFail.end()) numFail[g_src] = 1;
+            else numFail[g_src] ++;
+        } 
+    }
+
+
+    /* Sort the candidates after merging */
+    std::sort(
+        group.begin(),
+        group.end(), 
+        [&](const int &a, const int &b){ 
+            return numFail[a] > numFail[b]; 
+        }
+    );
+
+    std::vector<std::vector<double> > cap = scenario.graph.get_cap_matrix();
+    for(int g: group){
+        if(numFail[g] == 0) break;
+        std::vector<int> nodes = members[g];
+        if(size[g] >= SIZE_CONSTRAINT) continue;
+        else if(size[g] + ungroupVertice.size() <= SIZE_CONSTRAINT){
+            nodes.insert(nodes.end(), ungroupVertice.begin(), ungroupVertice.end());
+        }
+        else{
+            std::map<int, int> rel;
+            auto comp = [&]( const int& a, const int& b ) { return rel[a] > rel[b]; };
+            std::priority_queue<int, std::vector<int>, decltype(comp)> pq(comp);
+            for(int uv: ungroupVertice){
+                rel[uv] = 0;
+                for(int m: members[g]){
+                    if(cap[uv][m]) rel[uv] ++;
+                    if(cap[m][uv]) rel[uv] ++;
+                }
+                pq.push(uv);
+            }
+            for(int i = 0 ; i < SIZE_CONSTRAINT-size[g] ; i ++){
+                nodes.push_back(pq.top());
+                pq.pop();
+            }
+        }
+        
+        std::vector<int> lc = largestCycle(scenario.graph, nodes);
+        
+        int serveFail = 0;
+        for(int sid: serveStreams[g]){
+            int src = scenario.Type_2[sid].src, dst = scenario.Type_2[sid].dst;
+            if(std::find(lc.begin(), lc.end(), src) == lc.end() || std::find(lc.begin(), lc.end(), dst) == lc.end()){
+                serveFail ++;
+            }
+        }
+        if(serveFail < numFail[g]) {
+            numFail[g] = serveFail;
+            cycles[g] = lc;
+            for(auto v: lc){
+                if(parent[v] == v && size[v] == 1){
+                    ungroupVertice.erase(
+                        std::lower_bound(ungroupVertice.begin(), ungroupVertice.end(), v)
+                    );
+                }
+            }
+        }
+        if(ungroupVertice.size() == 0) break;
+    }
+}
+
+void Solution::Merging(){
+    /* Find cycle inside two disjoint group */
+    for(int g1: group){
+        for(int g2: group){
+            if(g1 != g2 && size[g1] + size[g2] <= SIZE_CONSTRAINT){
+                std::vector<int> nodes = members[g1];
+                nodes.insert(nodes.end(), members[g2].begin(), members[g2].end());
+                std::vector<int> lc = largestCycle(scenario.graph, nodes);
+                /* TODO:
+                * If the cycle lc can provide additional benefits, 
+                * set it as the answer of the two groups.
+                * For example:
+                *   1. serve more streams
+                *   2. shorter total routing path */
+                int serveFail = 0;
+                for(int sid: serveStreams[g1]){
+                    int src = scenario.Type_2[sid].src, dst = scenario.Type_2[sid].dst;
+                    if(std::find(lc.begin(), lc.end(), src) == lc.end() || std::find(lc.begin(), lc.end(), dst) == lc.end()){
+                        serveFail ++;
+                    }
+                }
+                for(int sid: serveStreams[g2]){
+                    int src = scenario.Type_2[sid].src, dst = scenario.Type_2[sid].dst;
+                    if(std::find(lc.begin(), lc.end(), src) == lc.end() || std::find(lc.begin(), lc.end(), dst) == lc.end()){
+                        serveFail ++;
+                    }
+                }
+                if(serveFail < numFail[g1] + numFail[g2]){
+                    mergeResult.push_back(
+                        mergeCandidate{g1, g2, lc, numFail[g1] + numFail[g2] - serveFail}
+                    );
+                }
+            }
+        }
+    }
+}
 
 /* API: caller */
 void Solution::solve_type2(int trim){
-    /* Remove the capacity which occupy by type-1 streams */
-    for(int i = 0 ; i < type1_path.size() ; i ++){
-        for(int j = 0 ; j < type1_path[i].size() - 1 ; j ++){
-            double new_cap = scenario.graph.get_capacity(type1_path[i][j], type1_path[i][j+1]) - scenario.Type_1[i].data_rate;
-            scenario.graph.set_capacity(type1_path[i][j], type1_path[i][j+1], new_cap);
-        }
-    }
+    Grouping();
+    Merging();
+
     
-    /* Construct cycle pool */
-    Circuit_finding Cf(scenario.graph, trim);
-    Cf.johnson();
-    cycle_pool = Cf.get_cycle_pool();
-    std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
-    std::cerr << "[I] The number of cycles: " << cycle_pool.size() << "\n" << std::endl;
-    // print2dvec("Cycle Pool", cycle_pool);
-
-    /* Cycle Merge */
-    for(int i = 0 ; i < cycle_pool.size() ; i ++){
-        cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
-    }
-
-    for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
-        full_set.insert(i);
-    }
-
-    for(int start = 0 ; start < cycle_pool.size() ; start ++){
-        greedy_merge(start);
-    }
-    
-    /* Cycle Seclection */
-    cycle_selection();
-    if(type2_path.size() == 0) {
-        exit(1);
-    }
-}
-
-/* Member Function: type-2 utilization */
-void Solution::greedy_merge(int start){
-    std::vector<int> curr; /* Current cycle being merged */
-    std::set<int> curr_set = cycle_set[start]; /* nodes have been covered */
-    std::set<int> uncover; /* nodes have not been covered */
-
-    curr.push_back(start);
-    std::set_difference(full_set.begin(), full_set.end(),
-                        cycle_set[start].begin(), cycle_set[start].end(),
-                        std::inserter(uncover, uncover.begin()));
-
-    while(uncover.size()){
-        /* select the cycle that contains the most uncover nodes */
-        int max_uncover_num = 0;
-        int repeat_node_num = -1;
-        int repeat_node_id = -1;
-        int max_uncover_id = start;
-        
-        for(int i = start + 1 ; i < cycle_pool.size() ; i ++){
-            /* Check whether the cycle contains uncovered nodes */
-            std::set<int> has_uncover;
-            std::set_intersection(uncover.begin(), uncover.end(), cycle_set[i].begin(), cycle_set[i].end(), std::inserter(has_uncover, has_uncover.begin()));
-            if(!has_uncover.size()) continue;
-
-            /* Check whether the cycle contains coverd nodes (for orbit transition) */
-            std::set<int> has_intersect;
-            std::set_intersection(curr_set.begin(), curr_set.end(), cycle_set[i].begin(), cycle_set[i].end(), std::inserter(has_intersect, has_intersect.begin()));
-            if(!has_intersect.size()) continue;
-
-            /* Select the cycle which contains more uncovered nodes and less covered nodes */
-            if(int(has_uncover.size()) > max_uncover_num || (int(has_uncover.size()) == max_uncover_num && has_intersect.size() < repeat_node_num)){
-                max_uncover_num = has_uncover.size();
-                repeat_node_num = has_intersect.size();
-                repeat_node_id = *(has_intersect.begin());
-                max_uncover_id = i;
-            }
+    for(auto it = cycles.begin() ; it != cycles.end() ; it ++){
+        std::cerr << "group " << it -> first << ") " ;
+        for(int n: it -> second){
+            std::cerr << n << " "; 
         }
-        
-        if(max_uncover_num > 0){
-            std::set_union(curr_set.begin(), curr_set.end(), cycle_set[max_uncover_id].begin(), cycle_set[max_uncover_id].end(), std::inserter(curr_set, curr_set.begin()));
-            std::set<int> uncover_tmp;
-            std::set_difference(uncover.begin(), uncover.end(), cycle_set[max_uncover_id].begin(), cycle_set[max_uncover_id].end(), std::inserter(uncover_tmp, uncover_tmp.begin())); 
-            uncover = uncover_tmp;
+        std::cerr << "\n";
+    }
 
-            
-            curr.push_back(max_uncover_id);
+    /* Sort the candidates after merging */
+    std::sort(
+        mergeResult.begin(),
+        mergeResult.end(), 
+        [](const mergeCandidate &a, const mergeCandidate &b){ 
+            return a.newServe > b.newServe; 
         }
+    );
+
+    /* Apply the merge */
+    std::map<int, bool> merged;
+    for(int i = 0 ; i < mergeResult.size() ; i ++){
+        int g1 = mergeResult[i].group1, g2 = mergeResult[i].group2;
+        if(merged.find(g1) != merged.end() || merged.find(g2) != merged.end()) continue;
         else{
-            break;
+            cycles[g1] = mergeResult[i].cycle;
+            cycles[g2] = mergeResult[i].cycle;
+            merged[g1] = merged[g2] = true;
         }
     }
-
-    if(!uncover.size()) { /* Cover all nodes */
-        result.push_back(curr);
-    }
-}
-
-
-void Solution::cycle_selection(){
-    /******************************************************************
-     * To minimize:
-     *  1. Total/Average number of orbit transition of type-2 streams
-     *  2. Total/Average length of routing path of type-2 streams
-     ******************************************************************/
-    int vertex_num = scenario.graph.get_vertex_num();
-    std::vector<int> reverse_map_(vertex_num, 0);
-    for(int i = 0 ; i < vertex_num ; i ++) reverse_map_[i] = i;
     
-    // print2dvec("cycle_pool", cycle_pool);
-    // print2dvec("result", result);
-    std::cerr << "[I] The number of merging results: " << result.size() << "\n";
-    int min_cost = 2147483647;
-    int min_cost_result = 0;
-    for(int i = 0 ; i < result.size() ; i ++){
-        /***********************************************************************
-        * Construct a new graph.
-        *   1. Duplicate the nodes that occur in multiple cycle.
-        *   2. Capacity of edges between the duplicated node set to ?(maybe 10)
-        *   3. Capacity of edges between the 
-        ************************************************************************/
-
-        /* Copy the cycles */
-        std::vector<std::vector<int> > CP;
-        for(int j = 0 ; j < result[i].size() ; j ++) CP.push_back(cycle_pool[result[i][j]]);
-        // std::cout << "CP.size() "  << CP.size() << "\n";
-        // print2dvec("CP", CP);
-        
-        /* New graph */
-        Graph g = Graph();
-
-        /* Calculate the number of duplicate nodes */
-        std::vector<int> freq(vertex_num, 0);
-        std::vector<int> reverse_map = reverse_map_;
-        std::vector< std::vector<int> > dup(vertex_num, std::vector<int>());
-        int total_vertex_num = vertex_num;
-
-        for(int j = 0 ; j < CP.size() ; j ++){
-            for(int nid = 0 ; nid < CP[j].size() ; nid ++){
-                int node = CP[j][nid];
-                freq[node] ++;
-                if(freq[node] > 1){
-                    dup[node].push_back(total_vertex_num); 
-                    reverse_map.push_back(node);
-                    CP[j][nid] = total_vertex_num;
-                    total_vertex_num ++;
-                }
-                else{
-                    dup[node].push_back(node);
-                }
-            }
-        }
-        // print2dvec("dup", dup);
-        /* Set new graph */
-        g.set_vertex_num(total_vertex_num+1);
-
-        /* Duplicated nodes forme a complete graph */
-        for(int node = 0 ; node < vertex_num ; node ++){
-            for(int i = 0 ; i < dup[node].size() ; i ++){
-                for(int j = i+1 ; j < dup[node].size() ; j ++){
-                    g.set_neighbor(dup[node][i], dup[node][j], 100);
-                    g.set_neighbor(dup[node][j], dup[node][i], 100);
-                }
-            }
-        }
-
-        /* The edge in cycles */
-        for(int j = 0 ; j < CP.size() ; j ++){
-            for(int nid = 0 ; nid < CP[j].size() - 1 ; nid ++){
-                g.set_neighbor(CP[j][nid], CP[j][nid+1], 1);
-            }
-            g.set_neighbor(CP[j][CP[j].size() - 1], CP[j][0], 1);
-        }
-
-        /***********************************************************************
-         *  Shortest Path Routing
-         *      Using Dijkstra
-         ***********************************************************************/
-        int cost = 0;
-        bool fail = false;
-        int path_len = 0;
-        std::vector<std::vector<int> > sol_path;
-        for(auto stream: scenario.Type_2){
-            g.clear_neighbor(total_vertex_num);
-            for(auto d: dup[stream.src]) g.set_neighbor(total_vertex_num, d, 0.01);
-            std::vector<int> tmp = g.multi_dst_dijk(total_vertex_num, dup[stream.dst], &cost);
-            path_len = tmp.size();
-            if(path_len == 0){
-                fail = true;
+    /* Find the route */
+    type2_path = std::vector<std::vector<int> >();
+    int serveCnt = 0;
+    for(int i = 0 ; i < scenario.Type_2.size() ; i ++){
+        auto stream = scenario.Type_2[i];
+        type2_path.push_back(std::vector<int>());
+        int src = stream.src, dst = stream.dst;
+        // std::cerr << src << ", " << dst << "\n";
+        int g_src = find(src), g_dst = find(dst);
+        int index_ = -1;
+        for(int i = 0 ; i < cycles[g_src].size() ; i++){
+            if(cycles[g_src][i] == src){
+                index_ = i;
                 break;
             }
-            for(int e = 0 ; e < path_len ; e ++){
-                if(tmp[e] >= total_vertex_num) tmp[e] = reverse_map[tmp[e]];
-            }
-            sol_path.push_back(tmp);
-            // printvec(tmp);
         }
-        // print2dvec("sol_path", sol_path);
-        if(!fail && cost < min_cost){
-            min_cost = cost;
-            min_cost_result = i;
-            type2_path = std::vector<std::vector<int> >();
-            for(int ns = 0 ; ns < sol_path.size() ; ns ++){
-                type2_path.push_back(std::vector<int> ());
-                int len = 0;
-                for(int nn = 0 ; nn < sol_path[ns].size() ; nn ++){
-                    int no = sol_path[ns][nn];
-                    if(no >= vertex_num) no = reverse_map[no];
-                    if(nn == 0 || no != type2_path[ns][len-1]){
-                        type2_path[ns].push_back(no);
-                        len ++;
-                    }
-                }
+        bool serve = (index_ >= 0);
+        // std::cerr << "(finding) ";
+        while(index_ >= 0 && cycles[g_src][index_] != dst){
+            // std::cerr << cycles[g_src][index_] << " ";
+            type2_path[i].push_back(cycles[g_src][index_]);
+            index_ = (index_ + 1) % cycles[g_src].size();
+            if(cycles[g_src][index_] == src){
+                serve = false;
+                break;
             }
         }
-        // print2dvec("type2_path", type2_path);
+        // std::cerr << "\n";
+        if(!serve){
+            type2_path[i] = e_graph.shortest_path(src, dst, stream.data_rate);
+        }
+        else{
+            type2_path[i].push_back(dst);
+            serveCnt ++;
+        }
     }
-
-    std::cerr << "[I] Cycle Selection completed. Type-2 solution is ready.\n";
-    print2dvec("Type-2 solution", type2_path);
+    std::cerr << "Serve: " << serveCnt << " / " << scenario.Type_2.size() << "\n";
+    std::cout << serveCnt << "," << scenario.Type_2.size() << "\n";
 }

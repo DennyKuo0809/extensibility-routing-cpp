@@ -19,7 +19,8 @@ private:
     int backtrack = -1;
     bool startup_backtrack = false;
 
-    std::vector<std::vector<int> > cycle_pool;
+    // std::vector<std::vector<int> > cycle_pool;
+    std::vector<int> cycle_pool;
 
 public:
     Circuit_finding() = delete;
@@ -33,7 +34,10 @@ public:
     void unblock(int node);
     bool circuit(int node);
     void johnson();
-    std::vector<std::vector<int> > get_cycle_pool(){
+    // std::vector<std::vector<int> > get_cycle_pool(){
+    //     return cycle_pool;
+    // }
+    std::vector<int> get_cycle_pool(){
         return cycle_pool;
     }
 };

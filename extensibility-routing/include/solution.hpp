@@ -4,6 +4,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <map>
 #include <set>
 #include "scenario.hpp"
 #include "johnson.hpp"
@@ -45,6 +46,14 @@ public:
     friend class Solution;
 };
 
+
+struct mergeCandidate{
+    int group1;
+    int group2;
+    std::vector<int> cycle;
+    int newServe = 0;
+};
+
 class Solution{
 private:
     Scenario scenario;
@@ -58,6 +67,13 @@ private:
     /* Type-2 */
     std::vector<std::vector<int> > type2_path;
     bool type2_solved;
+
+    std::vector<int> group;
+    std::map<int, std::vector<int> > members;
+    std::map<int, std::vector<int> > serveStreams;
+    std::map<int, std::vector<int> > cycles;
+    std::map<int, int> numFail;
+    std::vector<mergeCandidate> mergeResult;
 
     /* Shortest path -- for analysis */
     std::vector<std::vector<int> > shortest_path_routing;
@@ -100,6 +116,8 @@ public:
     void least_conflict_value();
 
     /* Member Function: type-2 utilization */
+    void Grouping();
+    void Merging();
     void greedy_merge(int start);
     void cycle_selection();
 
