@@ -21,6 +21,11 @@ def parse_args() -> Namespace:
         type=int,
         help="Path to simulation result dirctory."
     )
+    parser.add_argument(
+        "--prefix",
+        type=str,
+        help="Path to simulation result dirctory."
+    )
     args = parser.parse_args()
     return args
 
@@ -44,8 +49,8 @@ def statistic_dir(dir):
             'package-cnt': 0,
             'total-delay': 0.0,
             'max-delay': 0.0,
-            'stream-cnt': 0,
-            'solve-cnt': 0
+            'testcase-cnt': 0,
+            'solve-cnt': 0,
         }
 
     for i in range(50):
@@ -55,19 +60,27 @@ def statistic_dir(dir):
             for m in methods:
                 if m in df.columns:
                     data_list = list(df[m])
-                    unsolve_cnt = 0
+                    solve = True
+                    total_cnt = 0
+                    total_delay = 0.0
+                    max_delay = -1
                     for d in data_list:
-                        avg, maxi, cnt = [float(v) for v in d.split(' / ')]
+                        avg, maxi, cnt, total = [float(v) for v in d.split(' / ')]
                         # print(avg, maxi, cnt)
-                        if avg > 5 or maxi > 5 or avg < 0 or maxi < 0:
-                            unsolve_cnt += 1
+                        if cnt == total:
+                            total_cnt += cnt
+                            total_delay += cnt * avg
+                            max_delay = max(max_delay, maxi)
                         else:
-                            tmp[m]['package-cnt'] += cnt
-                            tmp[m]['total-delay'] += cnt * avg
-                            tmp[m]['max-delay'] = max(tmp[m]['max-delay'], maxi)
-                        
-                    tmp[m]['stream-cnt'] += len(data_list)
-                    tmp[m]['solve-cnt'] += len(data_list) - unsolve_cnt
+                            solve = False
+                            break
+                    if solve:
+                        tmp[m]['solve-cnt'] += 1
+                        tmp[m]['package-cnt'] += total_cnt
+                        tmp[m]['total-delay'] += total_delay
+                        tmp[m]['max-delay'] = max(tmp[m]['max-delay'], max_delay)
+
+                tmp[m]['testcase-cnt'] += 1
                         
         except FileNotFoundError:
             pass
@@ -75,8 +88,8 @@ def statistic_dir(dir):
     for m in methods:
         res[m]['avg'] = tmp[m]['total-delay'] / tmp[m]['package-cnt'] if tmp[m]['package-cnt'] != 0 else -1
         res[m]['max'] = tmp[m]['max-delay']
-        res[m]['feasible'] =  tmp[m]['solve-cnt'] / tmp[m]['stream-cnt'] if tmp[m]['stream-cnt'] != 0 else -1
-
+        res[m]['feasible'] =  tmp[m]['solve-cnt'] / tmp[m]['testcase-cnt'] if tmp[m]['testcase-cnt'] != 0 else -1
+        print(m, tmp[m]['solve-cnt'],  tmp[m]['testcase-cnt'])
     print(res)
     return res
 
@@ -168,13 +181,46 @@ def convert(args):
         max_df.to_csv(max_file)
         feasible_df.to_csv(feasible_file)
 
+def convert_multidir(args):
+    methods = [
+        'shortest_path', 
+        'min_max_percentage',
+        'least_used_capacity_percentage', 
+        'least_conflict_value', 
+        'ILP'
+    ]
+    suffix = [1, 2, 3, 4]
+    # data = {"row_1": [3, 2, 1, 0], "row_2": ["a", "b", "c", "d"]}
+    # pd.DataFrame.from_dict(data, orient="index", columns=["A", "B", "C", "D"])
 
+    avg_df = {}
+    max_df = {}
+    feasible_df = {}
 
-
+    
+    for suf in suffix:
+        s = f'{suf}'
+        dir_ = args.prefix + s
+        res = statistic_dir(dir_)
+        avg_df[s] = []
+        max_df[s] = []
+        feasible_df[s] = []
+        for m in methods:
+            avg_df[s].append(res[m]['avg'])
+            max_df[s].append(res[m]['max'])
+            feasible_df[s].append(res[m]['feasible'])
+    
+    avg_df = pd.DataFrame.from_dict(avg_df, orient="index", columns=methods)
+    max_df = pd.DataFrame.from_dict(max_df, orient="index", columns=methods)
+    feasible_df = pd.DataFrame.from_dict(feasible_df, orient="index", columns=methods)
+    print(avg_df)
+    print(max_df)
+    print(feasible_df)
 
 
 
 if __name__ == "__main__":
     args = parse_args()
-    convert(args)
-    # statistic_dir(args.dir)
+    # print(args.list)
+    convert_multidir(args)
+    # statistic_dir(args.inDir)
