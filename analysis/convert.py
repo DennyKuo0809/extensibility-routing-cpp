@@ -89,8 +89,8 @@ def statistic_dir(dir):
         res[m]['avg'] = tmp[m]['total-delay'] / tmp[m]['package-cnt'] if tmp[m]['package-cnt'] != 0 else -1
         res[m]['max'] = tmp[m]['max-delay']
         res[m]['feasible'] =  tmp[m]['solve-cnt'] / tmp[m]['testcase-cnt'] if tmp[m]['testcase-cnt'] != 0 else -1
-        print(m, tmp[m]['solve-cnt'],  tmp[m]['testcase-cnt'])
-    print(res)
+        # print(m, tmp[m]['solve-cnt'],  tmp[m]['testcase-cnt'])
+    # print(res)
     return res
 
 
@@ -216,6 +216,10 @@ def convert_multidir(args):
     print(avg_df)
     print(max_df)
     print(feasible_df)
+
+    avg_df.to_csv(f'{args.outDir}/avg.csv')
+    max_df.to_csv(f'{args.outDir}/max.csv')
+    feasible_df.to_csv(f'{args.outDir}/feasible.csv')
 
 
 
