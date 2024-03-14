@@ -16,29 +16,36 @@ void Solution::solve_type2(int trim){
         }
     }
     
-    /* Construct cycle pool */
-    Circuit_finding Cf(scenario.graph, trim);
-    Cf.johnson();
-    cycle_pool = Cf.get_cycle_pool();
-    std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
-    std::cerr << "[I] The number of cycles: " << cycle_pool.size() << "\n" << std::endl;
-    // print2dvec("Cycle Pool", cycle_pool);
-
-    /* Cycle Merge */
-    for(int i = 0 ; i < cycle_pool.size() ; i ++){
-        cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
+    for(auto stream: scenario.Type_2){
+        auto p = e_graph.shortest_path(stream.src, stream.dst, stream.data_rate);
+        if(p.size() == 0){
+            exit(1);
+        }
+        type2_path.push_back(p);
     }
+    // /* Construct cycle pool */
+    // Circuit_finding Cf(scenario.graph, trim);
+    // Cf.johnson();
+    // cycle_pool = Cf.get_cycle_pool();
+    // std::cerr << "[I] Construction of cycle pool completed.\n" << std::flush;
+    // std::cerr << "[I] The number of cycles: " << cycle_pool.size() << "\n" << std::endl;
+    // // print2dvec("Cycle Pool", cycle_pool);
 
-    for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
-        full_set.insert(i);
-    }
+    // /* Cycle Merge */
+    // for(int i = 0 ; i < cycle_pool.size() ; i ++){
+    //     cycle_set.push_back(std::set<int>(cycle_pool[i].begin(), cycle_pool[i].end()));
+    // }
 
-    for(int start = 0 ; start < cycle_pool.size() ; start ++){
-        greedy_merge(start);
-    }
+    // for(int i = 0 ; i < scenario.graph.get_vertex_num() ; i ++){
+    //     full_set.insert(i);
+    // }
+
+    // for(int start = 0 ; start < cycle_pool.size() ; start ++){
+    //     greedy_merge(start);
+    // }
     
-    /* Cycle Seclection */
-    cycle_selection();
+    // /* Cycle Seclection */
+    // cycle_selection();
     if(type2_path.size() == 0) {
         exit(1);
     }
